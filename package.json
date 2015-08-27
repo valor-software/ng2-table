@@ -1,0 +1,26 @@
+{
+  "name": "ng2-table",
+  "version": "0.0.0",
+  "description": "Simple table extension with sorting, filtering, paging... for Angular2 apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valor-software/ng2-table.git"
+  },
+  "keywords": [
+    "angular2",
+    "ng2",
+    "table",
+    "angular2-table",
+    "ng2-table"
+  ],
+  "author": "Dmitriy Shekhovtsov <valorkin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valor-software/ng2-table/issues"
+  },
+  "homepage": "https://github.com/valor-software/ng2-table#readme"
+}
