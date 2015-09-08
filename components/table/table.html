@@ -1,0 +1,18 @@
+<table>
+  <thead>
+  <tr>
+    <th *ng-for="#column of columns">
+    <!--[ng2-column]-->
+        <!--[ng-sorting]="column.sort" -->
+      {{column.title}}
+      <!--<i class="pull-right glyphicon"-->
+      <!--[ng-class]="{'glyphicon-chevron-down': column.sort}"></i>-->
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ng-for="#row of rows">
+    <td *ng-for="#cell of row">{{cell}}</td>
+  </tr>
+  </tbody>
+</table>
