@@ -20,9 +20,10 @@
     ],
     "files": [
         "./components/table/table.ts",
+        "./components/table/pagination.ts",
+        "./components/table/ng2-table-config.ts",
         "./components/index.ts",
         "./components/module.ts",
-        "./components/table/ng2-table-config.ts",
         "./demo/components/table-section.ts",
         "./demo/components/table/table-demo.ts",
         "./demo/index.ts",

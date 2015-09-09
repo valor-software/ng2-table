@@ -4,10 +4,11 @@ import {
   Component, View,
   Directive, LifecycleEvent,
   EventEmitter, ElementRef,
-  CORE_DIRECTIVES, NgClass, NgFor
+  CORE_DIRECTIVES, NgClass, NgFor,
+  FORM_DIRECTIVES
 } from 'angular2/angular2';
 
-// import {pagination} from './pagination';
+import {pagination} from  './pagination';
 
 @Component({
   selector: 'ng2-table, [ng2-table]',
@@ -38,16 +39,17 @@ import {
   </tr>
   </tbody>
 </table>
-<!--<pagination [total-items]="bigTotalItems" [(ng-model)]="bigCurrentPage" [max-size]="maxSize" class="pagination-sm"-->
-  <!--[boundary-links]="true" [rotate]="false" (num-pages)="numPages = $event"></pagination>-->
-<!--<pre class="card card-block card-header">Page: {{bigCurrentPage}} / {{numPages}}</pre>-->
+<pagination [total-items]="bigTotalItems" [(ng-model)]="bigCurrentPage"
+  [max-size]="maxSize" class="pagination-sm" [boundary-links]="true"
+  [rotate]="false" (num-pages)="numPages = $event"></pagination>
+<pre class="card card-block card-header">Page: {{bigCurrentPage}} / {{numPages}}</pre>
 `,
-  directives: [NgClass, CORE_DIRECTIVES]
+  directives: [pagination, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class Table {
   public rows:Array<any> = [];
   public columns:Array<any> = [];
-  public length:Number = 0;
+  public length:number = 0;
   public config:Object = {};
 
   public init:EventEmitter = new EventEmitter();
@@ -63,15 +65,16 @@ export class Table {
   private bigTotalItems:number = 175;
   private bigCurrentPage:number = 1;
 
-  private setPage(pageNo:number):void {
-    this.currentPage = pageNo;
-  };
-
   private pageChanged():void {
     console.log('Page changed to: ' + this.currentPage);
   };
 
   constructor() {
+    console.log(arguments);
+    // pagination.changePage.toRx().subscribe(function() {
+    //  console.log('Page changed to: ' + this.currentPage);
+    //  console.log(arguments);
+    // });
   }
 
   onChange(changes) {
