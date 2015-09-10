@@ -4,24 +4,27 @@ import {
   Component, View,
   Directive, LifecycleEvent,
   EventEmitter, ElementRef,
-  CORE_DIRECTIVES, NgClass, NgFor,
+  CORE_DIRECTIVES, NgClass, NgFor, NgIf,
   FORM_DIRECTIVES
 } from 'angular2/angular2';
 
 import {pagination} from  './pagination';
 
+// todo: use lodash#default for configuration
+// todo: expose an option to change default configuration (paging, sorting, filtering, table config)
+
 @Component({
   selector: 'ng2-table, [ng2-table]',
   properties: ['rows', 'columns', 'length', 'config'],
-  events: [],
+  events: ['changePage: changepage'],
   hostListeners: {
     'click': 'onSorting'
   },
-  lifecycle: [LifecycleEvent.onChange]
+  lifecycle: [LifecycleEvent.onInit]
 })
 @View({
   template: `
-<table>
+<table class="table table-striped table-bordered dataTable" role="grid" style="width: 100%;">
   <thead>
   <tr>
     <th *ng-for="#column of columns">
@@ -39,10 +42,10 @@ import {pagination} from  './pagination';
   </tr>
   </tbody>
 </table>
-<pagination [total-items]="bigTotalItems" [(ng-model)]="bigCurrentPage"
+<pagination *ng-if="config.paging" [total-items]="bigTotalItems" [(ng-model)]="bigCurrentPage"
   [max-size]="maxSize" class="pagination-sm" [boundary-links]="true"
-  [rotate]="false" (num-pages)="numPages = $event"></pagination>
-<pre class="card card-block card-header">Page: {{bigCurrentPage}} / {{numPages}}</pre>
+  [rotate]="false" (num-pages)="numPages = $event" (changepage)="onChangePage($event)"></pagination>
+<pre *ng-if="config.paging" class="card card-block card-header">Page: {{bigCurrentPage}} / {{numPages}}</pre>
 `,
   directives: [pagination, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
@@ -50,44 +53,40 @@ export class Table {
   public rows:Array<any> = [];
   public columns:Array<any> = [];
   public length:number = 0;
-  public config:Object = {};
+  public config:any = {};
 
-  public init:EventEmitter = new EventEmitter();
+  public changePage:EventEmitter = new EventEmitter();
 
   private defaultPaging:Boolean = true;
   private defaultFiltering:Boolean = true;
   private defaultSorting:Boolean = true;
 
-  private totalItems:number = 64;
-  private currentPage:number = 4;
-
   private maxSize:number = 5;
-  private bigTotalItems:number = 175;
+  private bigTotalItems:number = 0;
   private bigCurrentPage:number = 1;
 
-  private pageChanged():void {
-    console.log('Page changed to: ' + this.currentPage);
-  };
-
-  constructor() {
-    console.log(arguments);
-    // pagination.changePage.toRx().subscribe(function() {
-    //  console.log('Page changed to: ' + this.currentPage);
-    //  console.log(arguments);
-    // });
+  onChangePage(event) {
+    this.changePage.next(event);
   }
 
-  onChange(changes) {
+  onInit() {
     this.config = Object.assign({
       paging: this.defaultPaging,
       filtering: this.defaultFiltering,
       sorting: this.defaultSorting
     }, this.config);
+
+    this.bigTotalItems = this.length;
+
+    if (!this.config.paging) {
+      this.changePage.next({
+        page: 1,
+        itemsPerPage: -1
+      });
+    }
   }
 
-  onSorting(event) {
-    console.log(arguments);
-    // this.update.next(event, {sorting: 'asc'});
+  onSorting() {
   }
 }
 

@@ -36,7 +36,7 @@ const paginationConfig = {
     'boundaryLinks', 'directionLinks',
     'firstText', 'previousText', 'nextText', 'lastText'
   ],
-  events: ['numPages', 'changePage'],
+  events: ['numPages', 'changePage: changepage'],
   lifecycle: [LifecycleEvent.onInit]
 })
 @View({
@@ -148,6 +148,11 @@ export class Pagination extends DefaultValueAccessor {
     this.totalPages = this.calculateTotalPages();
     // this class
     this.pages = this.getPages(this.page, this.totalPages);
+
+    this.changePage.next({
+      page: this.page,
+      itemsPerPage: this.itemsPerPage
+    });
   }
 
   writeValue(value:number) {
@@ -165,12 +170,12 @@ export class Pagination extends DefaultValueAccessor {
       target.blur();
       this.writeValue(page);
       this.cd.viewToModelUpdate(page);
-    }
 
-    this.changePage.next({
-      page: page,
-      itemsPerPage: this.itemsPerPage
-    });
+      this.changePage.next({
+        page: page,
+        itemsPerPage: this.itemsPerPage
+      });
+    }
   }
 
   private getText(key:string) {
