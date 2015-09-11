@@ -15,8 +15,8 @@ import {pagination} from  './pagination';
 
 @Component({
   selector: 'ng2-table, [ng2-table]',
-  properties: ['rows', 'columns', 'length', 'config'],
-  events: ['changePage: changepage'],
+  properties: ['rows', 'columns', 'length', 'config', 'sorting'],
+  events: ['changePage: changepage', 'changeSort: changesort'],
   hostListeners: {
     'click': 'onSorting'
   },
@@ -26,19 +26,17 @@ import {pagination} from  './pagination';
   template: `
 <table class="table table-striped table-bordered dataTable" role="grid" style="width: 100%;">
   <thead>
-  <tr>
-    <th *ng-for="#column of columns">
-    <!--[ng2-column]-->
-        <!--[ng-sorting]="column.sort" -->
+  <tr role="row">
+    <th *ng-for="#column of columns" (^click)="toggleSort($event, column)">
       {{column.title}}
-      <!--<i class="pull-right glyphicon"-->
-      <!--[ng-class]="{'glyphicon-chevron-down': column.sort}"></i>-->
+      <i *ng-if="config.sorting || !column.sort" class="pull-right glyphicon"
+        [ng-class]="{'glyphicon-chevron-down': column.sort === 'desc', 'glyphicon-chevron-up': column.sort === 'asc'}"></i>
     </th>
   </tr>
   </thead>
   <tbody>
   <tr *ng-for="#row of rows">
-    <td *ng-for="#cell of row">{{cell}}</td>
+    <td *ng-for="#column of columns">{{row[column.attr]}}</td>
   </tr>
   </tbody>
 </table>
@@ -50,22 +48,29 @@ import {pagination} from  './pagination';
   directives: [pagination, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class Table {
+  // Table values
   public rows:Array<any> = [];
   public columns:Array<any> = [];
   public length:number = 0;
   public config:any = {};
 
+  // Events
   public changePage:EventEmitter = new EventEmitter();
+  public changeSort:EventEmitter = new EventEmitter();
 
+  // Pagination
+  public maxSize:number = 5;
+  public bigTotalItems:number = 0;
+  public bigCurrentPage:number = 1;
+  public itemsPerPage:number = -1; // for displaying  all rows
+
+  // Default values
   private defaultPaging:Boolean = true;
   private defaultFiltering:Boolean = true;
   private defaultSorting:Boolean = true;
 
-  private maxSize:number = 5;
-  private bigTotalItems:number = 0;
-  private bigCurrentPage:number = 1;
-
   onChangePage(event) {
+    this.itemsPerPage = event.itemsPerPage;
     this.changePage.next(event);
   }
 
@@ -78,16 +83,84 @@ export class Table {
 
     this.bigTotalItems = this.length;
 
-    if (!this.config.paging) {
+    if (this.config.paging) {
       this.changePage.next({
-        page: 1,
-        itemsPerPage: -1
+        page: this.bigCurrentPage,
+        itemsPerPage: this.itemsPerPage
       });
+    }
+
+    if (this.config.sorting) {
+      this.onChangeSort();
     }
   }
 
-  onSorting() {
+  toggleSort() {}
+
+  onChangeSort() {}
+}
+
+@Directive({
+  selector: '[sorting]',
+  properties: ['sorting']
+})
+export class Sorting {
+  private _sorting:boolean;
+  private _table:any;
+
+  constructor(public table:Table) {
+    table.onChangeSort = this.onChangeSort;
+    table.toggleSort = this.toggleSort;
+    this._table = table;
+  }
+
+  private set sorting(value:boolean) {
+    this._sorting = value === undefined ? true : value;
+    this._table.config.sorting = this._sorting;
+  }
+  private get sorting() {
+    return this._sorting;
+  }
+
+  onChangeSort() {
+    let sortColumns = [];
+
+    for (let i = 0; i < this.columns.length; i++) {
+      if (this.columns[i].sort) {
+        sortColumns.push(this.columns[i]);
+      }
+    }
+
+    let _event = {
+      columns: sortColumns,
+      itemsPerPage: this.itemsPerPage,
+      page: this.bigCurrentPage
+    };
+
+    this.changeSort.next(_event);
+  }
+
+  toggleSort(event, column) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    if (this.config.sorting && column && column.sort !== false) {
+      switch (column.sort) {
+        case 'asc':
+          column.sort = 'desc';
+          break;
+        case 'desc':
+          column.sort = '';
+          break;
+        default:
+          column.sort = 'asc';
+          break;
+      }
+
+      this.onChangeSort();
+    }
   }
 }
 
-export const ng2table:Array<any> = [Table];
+export const ng2table:Array<any> = [Table, Sorting];

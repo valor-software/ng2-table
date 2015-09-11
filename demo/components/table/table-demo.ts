@@ -21,17 +21,17 @@ let template = require('./table-demo.html');
 export class TableDemo {
   public rows:Array<any> = [];
   public columns:Array<any> = [
-    {title: 'Name', attr: 'name', sort: true},
-    {title: 'Position', attr: 'position'},
-    {title: 'Office', attr: 'office'},
-    {title: 'Extn.', attr: 'ext'},
+    {title: 'Name', attr: 'name'},
+    {title: 'Position', attr: 'position', sort: false},
+    {title: 'Office', attr: 'office', sort: 'asc'},
+    {title: 'Extn.', attr: 'ext', sort: 'desc'},
     {title: 'Start date', attr: 'startDate'},
     {title: 'Salary', attr: 'salary'}
   ];
   public length:Number = 0;
   public config:any = {
     paging: true,
-    sorting: false
+    sorting: true
   };
 
   private data:Array<any> = [
@@ -192,7 +192,7 @@ export class TableDemo {
   }, {
     'name': 'Petra Chandler',
     'position': 'Pede Nonummy Inc.',
-    'office': 'Г…land Islands',
+    'office': 'Namibia',
     'ext': '3367',
     'startDate': '2015/03/26',
     'salary': '$598,915'
@@ -746,5 +746,26 @@ export class TableDemo {
     let end = event.itemsPerPage > -1 ? (start + event.itemsPerPage) : this.data.length;
     this.rows = this.data.slice(start, end);
     this.length = this.data.length;
+  }
+
+  onChangeSort(event) {
+    this.data.sort(sorting);
+    this.onChangePage(event);
+
+    // simple sorting
+    function sorting(previous, current) {
+      let columns = event.columns;
+      for (let i = 0; i < columns.length; i++) {
+        let columnName = columns[i].attr;
+
+        if (previous[columnName] > current[columnName]) {
+          return columns[i].sort === 'desc' ? -1 : 1;
+        }
+        if (previous[columnName] < current[columnName]) {
+          return columns[i].sort === 'asc' ? -1 : 1;
+        }
+      }
+      return 0;
+    }
   }
 }
