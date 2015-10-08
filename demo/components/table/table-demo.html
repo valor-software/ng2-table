@@ -1,0 +1,23 @@
+<input *ng-if="config.filtering" placeholder="Filter"
+       [ng2-table-filter]="config.filtering"
+       (table-changed)="onChangeTable($event)"/>
+
+<ng2-table [config]="config.sorting"
+           [rows]="rows" [columns]="columns"
+           (table-changed)="onChangeTable($event)">
+</ng2-table>
+<pagination *ng-if="config.paging"
+
+            [ng2-table-paging]="config.paging"
+            (table-changed)="onChangeTable($event)"
+
+            [total-items]="length"
+            [(ng-model)]="config.paging.page"
+            [max-size]="config.paging.maxSize"
+            class="pagination-sm"
+            [boundary-links]="true"
+            [rotate]="false"
+            (num-pages)="config.paging.numPages = $event">
+</pagination>
+<pre *ng-if="config.paging" class="card card-block card-header">Page: {{config.paging.page}} / {{config.paging.numPages}}</pre>
+

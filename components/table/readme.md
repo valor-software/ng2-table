@@ -1,26 +1,16 @@
-# ng2-table
-Simple table extension with sorting, filtering, paging... for Angular2 apps
-Directive for [ng2-table](https://github.com/valor-software/ng2-table) component.
+### Usage
+```typescript
+import {Ng2Table} from 'ng2-table';
+```
+or if you want to import specified plugins (Table component is required, the others are optional):
+```typescript
+import {Table, Ng2TableFilter, Ng2TablePaging, pagination} from 'ng2-table';
+```
+in this case, don't forget to include all of the imported entities to the option `directives` in your component
 
+### Utilisation
 
-# Usage & Demo
-[http://valor-software.github.io/ng2-table/](http://valor-software.github.io/ng2-table/)
-
-
-- - -
-
-## Quick start
-
-1. A recommended way to install ***ng2-table*** is through [npm](https://www.npmjs.com/search?q=ng2-table) package manager using the following command:
-
-  `npm i ng2-table --save`
-
-  Alternatively, you can [download it in a ZIP file](https://github.com/valor-software/ng2-table/archive/master.zip).
-
-2. More information regarding using of ***ng2-table*** is located in
-  [demo](http://valor-software.github.io/ng2-table/) and [demo sources](https://github.com/valor-software/ng2-table/tree/master/demo).
-
-## API
+There are only simple table with 3 plugins/directives: `filtering`, `paging`, `sorting`. You don't need special `config` variable for storing settings for all plugins as is used in demo example. It's just showing usage sample.
 
 ### Properties
 
@@ -42,7 +32,7 @@ Directive for [ng2-table](https://github.com/valor-software/ng2-table) component
 
 ### Events
 
-- `table-changed` - onclick event handler
+- `table-changed`: onclick event handler
 
 ### Filter
 
@@ -55,18 +45,4 @@ Data sorting could be in 3 modes: asc, desc and without sorting data (as it come
 
 ### Paging
 
-Pagination could be used from [ng2-bootstrap](https://github.com/valor-software/ng2-bootstrap) - [pagination component](http://valor-software.github.io/ng2-bootstrap/#pagination). When the page is changed, the pagination component will emit event `change-table` with an object {page, itemsPerPage}. Then you can easily subscribe on it and request corresponding raw data.
-
-
-## Troubleshooting
-
-Please follow this guidelines when reporting bugs and feature requests:
-
-1. Use [GitHub Issues](https://github.com/valor-software/ng2-table/issues) board to report bugs and feature requests (not our email address)
-2. Please **always** write steps to reproduce the error. That way we can focus on fixing the bug, not scratching our heads trying to reproduce it.
-
-Thanks for understanding!
-
-### License
-
-The MIT License (see the [LICENSE](https://github.com/valor-software/ng2-table/blob/master/LICENSE) file for the full text)
+Pagination could be used from [ng2-bootstrap](https://github.com/valor-software/ng2-bootstrap) - [pagination component](http://valor-software.github.io/ng2-bootstrap/#pagination). When the page is changed, the pagination component will emit event `table-changed` with an object {page, itemsPerPage}. Then you can easily subscribe on it and request corresponding raw data.
