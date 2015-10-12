@@ -4,7 +4,7 @@ import {
   Component, View, Directive,
   OnInit, EventEmitter,
   ElementRef,
-  DefaultValueAccessor,
+  ControlValueAccessor,
   CORE_DIRECTIVES, NgClass,
   Self, NgModel, Renderer,
   ViewEncapsulation, ViewRef,
@@ -27,13 +27,13 @@ const paginationConfig = {
 
 @Component({
   selector: 'pagination[ng-model], [pagination][ng-model]',
-  properties: [
+  inputs: [
     'rotate', 'disabled',
     'totalItems', 'itemsPerPage', 'maxSize',
     'boundaryLinks', 'directionLinks',
     'firstText', 'previousText', 'nextText', 'lastText'
   ],
-  events: ['numPages', 'pagechanged']
+  outputs: ['numPages', 'pagechanged']
 })
 @View({
   template: `
@@ -70,7 +70,7 @@ const paginationConfig = {
   directives: [CORE_DIRECTIVES, NgClass],
   encapsulation: ViewEncapsulation.None
 })
-export class Pagination extends DefaultValueAccessor implements OnInit {
+export class Pagination implements ControlValueAccessor, OnInit {
   public config:any;
 
   private classMap:string;
@@ -142,8 +142,8 @@ export class Pagination extends DefaultValueAccessor implements OnInit {
   private _page:number;
   private pages:Array<any>;
 
-  constructor(@Self() cd:NgModel, renderer:Renderer, elementRef:ElementRef) {
-    super(cd, renderer, elementRef);
+  constructor(@Self() public cd:NgModel, public renderer:Renderer, public elementRef:ElementRef) {
+    cd.valueAccessor = this;
     this.config = this.config || paginationConfig;
   }
 
@@ -176,7 +176,8 @@ export class Pagination extends DefaultValueAccessor implements OnInit {
 
     if (!this.disabled) {
       if (event && event.target) {
-        event.target.blur();
+        let target: any = event.target;
+        target.blur();
       }
       this.writeValue(page);
       this.cd.viewToModelUpdate(this.page);
@@ -260,6 +261,17 @@ export class Pagination extends DefaultValueAccessor implements OnInit {
     let totalPages = this.itemsPerPage < 1 ? 1 : Math.ceil(this.totalItems / this.itemsPerPage);
     return Math.max(totalPages || 0, 1);
   }
+
+  onChange = (_) => {};
+  onTouched = () => {};
+
+  registerOnChange(fn:(_:any) => {}):void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn:() => {}):void {
+    this.onTouched = fn;
+  }
 }
 
 
@@ -272,7 +284,7 @@ const pagerConfig = {
 
 @Component({
   selector: 'pager[ng-model], [pager][ng-model]',
-  properties: [
+  inputs: [
     'align',
     'totalItems', 'itemsPerPage',
     'previousText', 'nextText',

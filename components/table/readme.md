@@ -12,12 +12,16 @@ in this case, don't forget to include all of the imported entities to the option
 
 There are only simple table with 3 plugins/directives: `filtering`, `paging`, `sorting`. You don't need special `config` variable for storing settings for all plugins as is used in demo example. It's just showing usage sample.
 
-### Properties
+### Inputs (Properties)
+
+- `page` (`number`) - the default page after the table component loading
+- `itemsPerPage` (`number`) - number of the displaying items (rows) on a page
+- `maxSize` (`number`) - number of the displaying pages before `...`
+- `numPages` (`number`) - total number of the pages
+- `length` (`number`) - total number of the items after filtering (of it's chosen)
 
 - `config` (`?any`) - config for setup all plugins (filtering, sorting, paging):
-  - `paging` (`?any`) - - switch on the paging plugin
-    - `page` (`number`) - the default page after the component loading
-    - `itemsPerPage` (`number`) - number of the displaying items on a page
+  - `paging` (`?boolean`) - - switch on the paging plugin
   - `sorting` (`?any`) - switch on the sorting plugin
     - `columns` (`Array<any>`) - only list of the columns for sorting
   - `filtering` (`?any`) - switch on the filtering plugin
@@ -30,7 +34,7 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
     - `name` (`string`) - the property name in data
     - `sort` (`?string|boolean`) - config for columns (+ sorting settings if it's needed), sorting is switched on by default for each column
 
-### Events
+### Outputs (Events)
 
 - `table-changed`: onclick event handler
 

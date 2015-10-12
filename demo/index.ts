@@ -38,7 +38,7 @@ let gettingStarted = require('./getting-started.md');
     <div class="col-md-12 card card-block panel panel-default">
       <selection>
           <h1>ng2-table available with:
-          <a class="btn btn-default btn-secondary btn-lg" [ng-class]="{active: isBs3}" href="./">Bootstrap 3</a>
+          <a class="btn btn-default btn-secondary btn-lg" [ng-class]="{active: isBs3}" href="./index.html">Bootstrap 3</a>
           <a class="btn btn-default btn-secondary btn-lg" [ng-class]="{active: !isBs3}" href="./index-bs4.html">Bootstrap 4</a>
           </h1>
       </selection>
