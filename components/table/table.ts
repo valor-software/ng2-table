@@ -15,8 +15,8 @@ import {Ng2ThSortable} from './sorting';
 
 @Component({
   selector: 'ng2-table, [ng2-table]',
-  properties: ['rows', 'columns', 'config'],
-  events: ['tableChanged']
+  inputs: ['rows', 'columns', 'config'],
+  outputs: ['tableChanged']
 })
 @View({
   template: `
@@ -46,7 +46,7 @@ export class Table {
   private _columns:Array<any> = [];
   public config:any = {};
 
-  // Events
+  // Outputs (Events)
   public tableChanged:EventEmitter = new EventEmitter();
 
   public set columns(values:Array<any>) {

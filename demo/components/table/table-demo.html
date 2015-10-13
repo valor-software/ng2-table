@@ -12,12 +12,11 @@
             (table-changed)="onChangeTable($event)"
 
             [total-items]="length"
-            [(ng-model)]="config.paging.page"
-            [max-size]="config.paging.maxSize"
+            [(ng-model)]="page"
+            [max-size]="maxSize"
             class="pagination-sm"
             [boundary-links]="true"
             [rotate]="false"
-            (num-pages)="config.paging.numPages = $event">
+            (num-pages)="numPages = $event">
 </pagination>
-<pre *ng-if="config.paging" class="card card-block card-header">Page: {{config.paging.page}} / {{config.paging.numPages}}</pre>
-
+<pre *ng-if="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>

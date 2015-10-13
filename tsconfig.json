@@ -1,5 +1,5 @@
 {
-    "version": "1.5.3",
+    "version": "1.6.2",
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
@@ -15,18 +15,16 @@
         "noImplicitAny": false
     },
     "filesGlob": [
-        "./**/*.ts",
         "!./node_modules/**/*.ts"
     ],
     "files": [
+      "./tsd.d.ts",
       "./components/pagination/pagination.ts",
       "./components/table/table.ts",
       "./components/table/filtering.ts",
+      "./components/table/sorting.ts",
+      "./components/table/paging.ts",
       "./components/table/table-config.ts",
-      "./components/index.ts",
-      "./components/module.ts",
-      "./tsd.d.ts",
-      "./typings/es6-object.d.ts",
-      "./typings/tsd.d.ts"
+      "./components/index.ts"
     ]
 }

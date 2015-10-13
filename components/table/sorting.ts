@@ -1,17 +1,15 @@
 /// <reference path="../../tsd.d.ts" />
 
 import {
-  Directive, Injectable, LifecycleEvent,
+  Directive, Injectable,
   EventEmitter, ElementRef, ViewEncapsulation,
   CORE_DIRECTIVES, NgClass, FORM_DIRECTIVES
 } from 'angular2/angular2';
 
-import {Table} from './table';
-
 @Directive({
   selector: '[ng2-th-sortable]',
-  properties: ['config: ng2ThSortable', 'column'],
-  events: ['sortChanged'],
+  inputs: ['config: ng2ThSortable', 'column'],
+  outputs: ['sortChanged'],
   host: {
     '(click)': 'onToggleSort($event, $target)'
   }

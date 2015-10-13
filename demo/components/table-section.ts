@@ -1,8 +1,8 @@
 /// <reference path="../../tsd.d.ts" />
 
-import {Component, View, CORE_DIRECTIVES, NgNonBindable} from 'angular2/angular2';
+import {Component, View, CORE_DIRECTIVES} from 'angular2/angular2';
 
-import {tabs} from 'ng2-bootstrap';
+// import {tabs} from 'ng2-bootstrap';
 import {TableDemo} from './table/table-demo';
 
 let name = 'Table';
@@ -39,12 +39,12 @@ let html = require('!!prismjs?lang=markup!./table/table-demo.html');
       <tabset>
         <tab heading="Markup">
           <div class="card card-block panel panel-default panel-body">
-            <pre class="language-html"><code class="language-html" ng-non-bindable>${html}</code></pre>
+            <pre class="language-html"><code class="language-html">${html}</code></pre>
           </div>
         </tab>
         <tab heading="TypeScript">
           <div class="card card-block panel panel-default panel-body">
-            <pre class="language-typescript"><code class="language-typescript" ng-non-bindable>${ts}</code></pre>
+            <pre class="language-typescript"><code class="language-typescript">${ts}</code></pre>
           </div>
         </tab>
       </tabset>
@@ -58,7 +58,7 @@ let html = require('!!prismjs?lang=markup!./table/table-demo.html');
     </div>
   </section>
   `,
-  directives: [TableDemo, tabs, CORE_DIRECTIVES, NgNonBindable]
+  directives: [TableDemo, CORE_DIRECTIVES]
 })
 export class TableSection {
 }

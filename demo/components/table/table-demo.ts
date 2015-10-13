@@ -2,7 +2,7 @@
 
 import {
   Component, Directive, View, EventEmitter, Host,
-  OnInit,
+  OnInit, Self, NgIf,
   CORE_DIRECTIVES, NgClass, FORM_DIRECTIVES
 } from 'angular2/angular2';
 
@@ -17,7 +17,7 @@ let template = require('./table-demo.html');
 })
 @View({
   template: template,
-  directives: [Ng2Table, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  directives: [Ng2Table, NgClass, NgIf, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class TableDemo implements OnInit {
   public rows:Array<any> = [];
@@ -29,9 +29,14 @@ export class TableDemo implements OnInit {
     {title: 'Start date', name: 'startDate'},
     {title: 'Salary', name: 'salary'}
   ];
+  public page:number = 1;
+  public itemsPerPage:number = 10;
+  public maxSize:number = 5;
+  public numPages:number = 1;
   public length:number = 0;
+
   public config:any = {
-    paging: {page: 1, itemsPerPage: 10, maxSize: 5},
+    paging: true,
     sorting: {columns: []},
     filtering: {filterString: '', columnName: 'position'}
   };
@@ -51,8 +56,8 @@ export class TableDemo implements OnInit {
       return data;
     }
 
-    let start = (this.config.paging.page - 1) * this.config.paging.itemsPerPage;
-    let end = this.config.paging.itemsPerPage > -1 ? (start + this.config.paging.itemsPerPage) : data.length;
+    let start = (this.page - 1) * this.itemsPerPage;
+    let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
   }
 
@@ -97,7 +102,8 @@ export class TableDemo implements OnInit {
       Object.assign(this.config.sorting, config.sorting);
     }
     if (config.paging) {
-      Object.assign(this.config.paging, config.paging);
+      this.page = config.paging.page;
+      this.itemsPerPage = config.paging.itemsPerPage;
     }
 
     let filteredData = this.changeFilter(this.data, this.config);
