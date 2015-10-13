@@ -3,28 +3,12 @@ webpackJsonp([2],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(47);
+	module.exports = __webpack_require__(55);
 
 
 /***/ },
 
-/***/ 47:
-/***/ function(module, exports, __webpack_require__) {
-
-	///<reference path="../tsd.d.ts"/>
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	__export(__webpack_require__(88));
-	__export(__webpack_require__(87));
-	__export(__webpack_require__(84));
-	__export(__webpack_require__(85));
-	__export(__webpack_require__(83));
-	//# sourceMappingURL=index.js.map
-
-/***/ },
-
-/***/ 83:
+/***/ 34:
 /***/ function(module, exports, __webpack_require__) {
 
 	/// <reference path="../../tsd.d.ts" />
@@ -47,7 +31,7 @@ webpackJsonp([2],{
 	var __param = (this && this.__param) || function (paramIndex, decorator) {
 	    return function (target, key) { decorator(target, key, paramIndex); }
 	};
-	var angular2_1 = __webpack_require__(5);
+	var angular2_1 = __webpack_require__(8);
 	var paginationConfig = {
 	    maxSize: undefined,
 	    itemsPerPage: 10,
@@ -59,13 +43,17 @@ webpackJsonp([2],{
 	    lastText: 'Last',
 	    rotate: true
 	};
-	var Pagination = (function (_super) {
-	    __extends(Pagination, _super);
+	var Pagination = (function () {
 	    function Pagination(cd, renderer, elementRef) {
-	        _super.call(this, cd, renderer, elementRef);
+	        this.cd = cd;
+	        this.renderer = renderer;
+	        this.elementRef = elementRef;
 	        this.numPages = new angular2_1.EventEmitter();
 	        this.pagechanged = new angular2_1.EventEmitter();
 	        this.inited = false;
+	        this.onChange = function (_) { };
+	        this.onTouched = function () { };
+	        cd.valueAccessor = this;
 	        this.config = this.config || paginationConfig;
 	    }
 	    Object.defineProperty(Pagination.prototype, "itemsPerPage", {
@@ -140,7 +128,8 @@ webpackJsonp([2],{
 	        }
 	        if (!this.disabled) {
 	            if (event && event.target) {
-	                event.target.blur();
+	                var target = event.target;
+	                target.blur();
 	            }
 	            this.writeValue(page);
 	            this.cd.viewToModelUpdate(this.page);
@@ -201,16 +190,22 @@ webpackJsonp([2],{
 	        var totalPages = this.itemsPerPage < 1 ? 1 : Math.ceil(this.totalItems / this.itemsPerPage);
 	        return Math.max(totalPages || 0, 1);
 	    };
+	    Pagination.prototype.registerOnChange = function (fn) {
+	        this.onChange = fn;
+	    };
+	    Pagination.prototype.registerOnTouched = function (fn) {
+	        this.onTouched = fn;
+	    };
 	    Pagination = __decorate([
 	        angular2_1.Component({
 	            selector: 'pagination[ng-model], [pagination][ng-model]',
-	            properties: [
+	            inputs: [
 	                'rotate', 'disabled',
 	                'totalItems', 'itemsPerPage', 'maxSize',
 	                'boundaryLinks', 'directionLinks',
 	                'firstText', 'previousText', 'nextText', 'lastText'
 	            ],
-	            events: ['numPages', 'pagechanged']
+	            outputs: ['numPages', 'pagechanged']
 	        }),
 	        angular2_1.View({
 	            template: "\n  <ul class=\"pagination\" [ng-class]=\"classMap\">\n    <li class=\"pagination-first\"\n        [ng-class]=\"{disabled: noPrevious()||disabled, hidden: !boundaryLinks}\"\n        [hidden]=\"!boundaryLinks\">\n      <a href (click)=\"selectPage(1, $event)\">{{getText('first')}}</a>\n    </li>\n\n    <li class=\"pagination-prev\"\n        [ng-class]=\"{disabled: noPrevious()||disabled, hidden: !directionLinks}\"\n        [hidden]=\"!directionLinks\">\n      <a href (click)=\"selectPage(page - 1, $event)\">{{getText('previous')}}</a>\n      </li>\n\n    <li *ng-for=\"#pg of pages\"\n    [ng-class]=\"{active: pg.active, disabled: disabled&&!pg.active}\"\n    class=\"pagination-page\">\n      <a href (click)=\"selectPage(pg.number, $event)\">{{pg.text}}</a>\n    </li>\n\n    <li class=\"pagination-next\"\n        [ng-class]=\"{disabled: noNext()||disabled, hidden: !directionLinks}\"\n        [hidden]=\"!directionLinks\">\n      <a href (click)=\"selectPage(page + 1, $event)\">{{getText('next')}}</a></li>\n\n    <li class=\"pagination-last\"\n        [ng-class]=\"{disabled: noNext()||disabled, hidden: !boundaryLinks}\"\n        [hidden]=\"!boundaryLinks\">\n      <a href (click)=\"selectPage(totalPages, $event)\">{{getText('last')}}</a></li>\n  </ul>\n  ",
@@ -221,7 +216,7 @@ webpackJsonp([2],{
 	        __metadata('design:paramtypes', [angular2_1.NgModel, angular2_1.Renderer, angular2_1.ElementRef])
 	    ], Pagination);
 	    return Pagination;
-	})(angular2_1.DefaultValueAccessor);
+	})();
 	exports.Pagination = Pagination;
 	var pagerConfig = {
 	    itemsPerPage: 10,
@@ -239,7 +234,7 @@ webpackJsonp([2],{
 	    Pager = __decorate([
 	        angular2_1.Component({
 	            selector: 'pager[ng-model], [pager][ng-model]',
-	            properties: [
+	            inputs: [
 	                'align',
 	                'totalItems', 'itemsPerPage',
 	                'previousText', 'nextText',
@@ -256,11 +251,11 @@ webpackJsonp([2],{
 	})(Pagination);
 	exports.Pager = Pager;
 	exports.pagination = [Pagination, Pager];
-	//# sourceMappingURL=pagination.js.map
+
 
 /***/ },
 
-/***/ 84:
+/***/ 35:
 /***/ function(module, exports, __webpack_require__) {
 
 	/// <reference path="../../tsd.d.ts" />
@@ -275,8 +270,10 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var angular2_1 = __webpack_require__(5);
-	var shared_1 = __webpack_require__(11);
+	var angular2_1 = __webpack_require__(8);
+	function setProperty(renderer, elementRef, propName, propValue) {
+	    renderer.setElementProperty(elementRef, propName, propValue);
+	}
 	var Ng2TableFilter = (function () {
 	    function Ng2TableFilter(element, renderer) {
 	        this.element = element;
@@ -286,7 +283,7 @@ webpackJsonp([2],{
 	            columnName: 'name'
 	        };
 	        this.tableChanged = new angular2_1.EventEmitter();
-	        shared_1.setProperty(this.renderer, this.element, 'value', this.config.filterString);
+	        setProperty(this.renderer, this.element, 'value', this.config.filterString);
 	    }
 	    Ng2TableFilter.prototype.onChangeFilter = function (event) {
 	        this.config.filterString = event;
@@ -295,8 +292,8 @@ webpackJsonp([2],{
 	    Ng2TableFilter = __decorate([
 	        angular2_1.Directive({
 	            selector: '[ng2-table-filter]',
-	            properties: ['config: ng2TableFilter'],
-	            events: ['tableChanged'],
+	            inputs: ['config: ng2TableFilter'],
+	            outputs: ['tableChanged'],
 	            host: {
 	                '(input)': 'onChangeFilter($event.target.value)'
 	            }
@@ -306,11 +303,11 @@ webpackJsonp([2],{
 	    return Ng2TableFilter;
 	})();
 	exports.Ng2TableFilter = Ng2TableFilter;
-	//# sourceMappingURL=filtering.js.map
+
 
 /***/ },
 
-/***/ 85:
+/***/ 36:
 /***/ function(module, exports, __webpack_require__) {
 
 	/// <reference path="../../tsd.d.ts" />
@@ -325,21 +322,22 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var angular2_1 = __webpack_require__(5);
+	var angular2_1 = __webpack_require__(8);
 	var Ng2TablePaging = (function () {
 	    function Ng2TablePaging() {
-	        this.config = {};
+	        this.config = true;
 	        this.tableChanged = new angular2_1.EventEmitter();
 	    }
 	    Ng2TablePaging.prototype.onChangePage = function (event) {
-	        Object.assign(this.config, event);
-	        this.tableChanged.next({ paging: this.config });
+	        if (this.config) {
+	            this.tableChanged.next({ paging: event });
+	        }
 	    };
 	    Ng2TablePaging = __decorate([
 	        angular2_1.Directive({
 	            selector: '[ng2-table-paging]',
-	            properties: ['config: ng2TablePaging'],
-	            events: ['tableChanged'],
+	            inputs: ['config: ng2TablePaging'],
+	            outputs: ['tableChanged'],
 	            host: {
 	                '(pagechanged)': 'onChangePage($event)'
 	            }
@@ -349,11 +347,11 @@ webpackJsonp([2],{
 	    return Ng2TablePaging;
 	})();
 	exports.Ng2TablePaging = Ng2TablePaging;
-	//# sourceMappingURL=paging.js.map
+
 
 /***/ },
 
-/***/ 86:
+/***/ 37:
 /***/ function(module, exports, __webpack_require__) {
 
 	/// <reference path="../../tsd.d.ts" />
@@ -368,97 +366,8 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var angular2_1 = __webpack_require__(5);
-	var Ng2ThSortable = (function () {
-	    function Ng2ThSortable() {
-	        this.sortChanged = new angular2_1.EventEmitter();
-	    }
-	    Ng2ThSortable.prototype.onToggleSort = function (event) {
-	        if (event) {
-	            event.preventDefault();
-	        }
-	        if (this.config && this.column && this.column.sort !== false) {
-	            switch (this.column.sort) {
-	                case 'asc':
-	                    this.column.sort = 'desc';
-	                    break;
-	                case 'desc':
-	                    this.column.sort = '';
-	                    break;
-	                default:
-	                    this.column.sort = 'asc';
-	                    break;
-	            }
-	            this.sortChanged.next(this.column);
-	        }
-	    };
-	    Ng2ThSortable = __decorate([
-	        angular2_1.Directive({
-	            selector: '[ng2-th-sortable]',
-	            properties: ['config: ng2ThSortable', 'column'],
-	            events: ['sortChanged'],
-	            host: {
-	                '(click)': 'onToggleSort($event, $target)'
-	            }
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], Ng2ThSortable);
-	    return Ng2ThSortable;
-	})();
-	exports.Ng2ThSortable = Ng2ThSortable;
-	//# sourceMappingURL=sorting.js.map
-
-/***/ },
-
-/***/ 87:
-/***/ function(module, exports) {
-
-	(function (Ng2TableTheme) {
-	    Ng2TableTheme[Ng2TableTheme["BS3"] = 1] = "BS3";
-	    Ng2TableTheme[Ng2TableTheme["BS4"] = 2] = "BS4";
-	})(exports.Ng2TableTheme || (exports.Ng2TableTheme = {}));
-	var Ng2TableTheme = exports.Ng2TableTheme;
-	var Ng2TableConfig = (function () {
-	    function Ng2TableConfig() {
-	    }
-	    Object.defineProperty(Ng2TableConfig, "theme", {
-	        get: function () {
-	            var w = window;
-	            if (w && w.__theme === 'bs4') {
-	                return Ng2TableTheme.BS4;
-	            }
-	            return (this._theme || Ng2TableTheme.BS3);
-	        },
-	        set: function (v) {
-	            this._theme = v;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return Ng2TableConfig;
-	})();
-	exports.Ng2TableConfig = Ng2TableConfig;
-	//# sourceMappingURL=table-config.js.map
-
-/***/ },
-
-/***/ 88:
-/***/ function(module, exports, __webpack_require__) {
-
-	/// <reference path="../../tsd.d.ts" />
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-	    switch (arguments.length) {
-	        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-	        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-	        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-	    }
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var angular2_1 = __webpack_require__(5);
-	var sorting_1 = __webpack_require__(86);
+	var angular2_1 = __webpack_require__(8);
+	var sorting_1 = __webpack_require__(94);
 	var Table = (function () {
 	    function Table() {
 	        this.rows = [];
@@ -505,8 +414,8 @@ webpackJsonp([2],{
 	    Table = __decorate([
 	        angular2_1.Component({
 	            selector: 'ng2-table, [ng2-table]',
-	            properties: ['rows', 'columns', 'config'],
-	            events: ['tableChanged']
+	            inputs: ['rows', 'columns', 'config'],
+	            outputs: ['tableChanged']
 	        }),
 	        angular2_1.View({
 	            template: "\n<table class=\"table table-striped table-bordered dataTable\"\n       role=\"grid\" style=\"width: 100%;\">\n  <thead>\n  <tr role=\"row\">\n    <th *ng-for=\"#column of columns\" [ng2-th-sortable]=\"config\" [column]=\"column\" (sort-changed)=\"onChangeTable($event)\">\n      {{column.title}}\n      <i *ng-if=\"config && column.sort\" class=\"pull-right glyphicon\"\n        [ng-class]=\"{'glyphicon-chevron-down': column.sort === 'desc', 'glyphicon-chevron-up': column.sort === 'asc'}\"></i>\n    </th>\n  </tr>\n  </thead>\n  <tbody>\n  <tr *ng-for=\"#row of rows\">\n    <td *ng-for=\"#column of columns\">{{row[column.name]}}</td>\n  </tr>\n  </tbody>\n</table>\n",
@@ -517,8 +426,117 @@ webpackJsonp([2],{
 	    return Table;
 	})();
 	exports.Table = Table;
-	exports.Ng2Table = [Table];
-	//# sourceMappingURL=table.js.map
+
+
+/***/ },
+
+/***/ 55:
+/***/ function(module, exports, __webpack_require__) {
+
+	///<reference path="../tsd.d.ts"/>
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	var pagination_1 = __webpack_require__(34);
+	var table_1 = __webpack_require__(37);
+	var filtering_1 = __webpack_require__(35);
+	var paging_1 = __webpack_require__(36);
+	__export(__webpack_require__(37));
+	__export(__webpack_require__(95));
+	__export(__webpack_require__(35));
+	__export(__webpack_require__(36));
+	__export(__webpack_require__(34));
+	exports.Ng2Table = [table_1.Table, filtering_1.Ng2TableFilter, paging_1.Ng2TablePaging, pagination_1.pagination];
+
+
+/***/ },
+
+/***/ 94:
+/***/ function(module, exports, __webpack_require__) {
+
+	/// <reference path="../../tsd.d.ts" />
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+	    switch (arguments.length) {
+	        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+	        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+	        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+	    }
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var angular2_1 = __webpack_require__(8);
+	var Ng2ThSortable = (function () {
+	    function Ng2ThSortable() {
+	        this.sortChanged = new angular2_1.EventEmitter();
+	    }
+	    Ng2ThSortable.prototype.onToggleSort = function (event) {
+	        if (event) {
+	            event.preventDefault();
+	        }
+	        if (this.config && this.column && this.column.sort !== false) {
+	            switch (this.column.sort) {
+	                case 'asc':
+	                    this.column.sort = 'desc';
+	                    break;
+	                case 'desc':
+	                    this.column.sort = '';
+	                    break;
+	                default:
+	                    this.column.sort = 'asc';
+	                    break;
+	            }
+	            this.sortChanged.next(this.column);
+	        }
+	    };
+	    Ng2ThSortable = __decorate([
+	        angular2_1.Directive({
+	            selector: '[ng2-th-sortable]',
+	            inputs: ['config: ng2ThSortable', 'column'],
+	            outputs: ['sortChanged'],
+	            host: {
+	                '(click)': 'onToggleSort($event, $target)'
+	            }
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], Ng2ThSortable);
+	    return Ng2ThSortable;
+	})();
+	exports.Ng2ThSortable = Ng2ThSortable;
+
+
+/***/ },
+
+/***/ 95:
+/***/ function(module, exports) {
+
+	(function (Ng2TableTheme) {
+	    Ng2TableTheme[Ng2TableTheme["BS3"] = 1] = "BS3";
+	    Ng2TableTheme[Ng2TableTheme["BS4"] = 2] = "BS4";
+	})(exports.Ng2TableTheme || (exports.Ng2TableTheme = {}));
+	var Ng2TableTheme = exports.Ng2TableTheme;
+	var Ng2TableConfig = (function () {
+	    function Ng2TableConfig() {
+	    }
+	    Object.defineProperty(Ng2TableConfig, "theme", {
+	        get: function () {
+	            var w = window;
+	            if (w && w.__theme === 'bs4') {
+	                return Ng2TableTheme.BS4;
+	            }
+	            return (this._theme || Ng2TableTheme.BS3);
+	        },
+	        set: function (v) {
+	            this._theme = v;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return Ng2TableConfig;
+	})();
+	exports.Ng2TableConfig = Ng2TableConfig;
+
 
 /***/ }
 
