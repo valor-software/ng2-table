@@ -17,9 +17,9 @@ import {
 export class Ng2ThSortable {
   public config:any;
   public column:any;
-  public sortChanged:EventEmitter = new EventEmitter();
+  public sortChanged:EventEmitter<any> = new EventEmitter();
 
-  onToggleSort(event) {
+  onToggleSort(event:any) {
     if (event) {
       event.preventDefault();
     }

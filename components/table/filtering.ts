@@ -7,7 +7,7 @@ import {
 } from 'angular2/angular2';
 
 // import {setProperty} from 'angular2/ts/src/core/forms/directives/shared';
-function setProperty(renderer: Renderer, elementRef: ElementRef, propName: string, propValue: any) {
+function setProperty(renderer:Renderer, elementRef:ElementRef, propName:string, propValue:any) {
   renderer.setElementProperty(elementRef, propName, propValue);
 }
 
@@ -24,14 +24,14 @@ export class Ng2TableFilter {
     filterString: '',
     columnName: 'name'
   };
-  public tableChanged:EventEmitter = new EventEmitter();
+  public tableChanged:EventEmitter<any> = new EventEmitter();
 
-  constructor (private element:ElementRef, private renderer:Renderer) {
+  constructor(private element:ElementRef, private renderer:Renderer) {
     // Set default value for filter
     setProperty(this.renderer, this.element, 'value', this.config.filterString);
   }
 
-  onChangeFilter(event) {
+  onChangeFilter(event:any) {
     this.config.filterString = event;
     this.tableChanged.next({'filtering': this.config});
   }

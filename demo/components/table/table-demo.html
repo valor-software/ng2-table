@@ -1,17 +1,15 @@
 <input *ng-if="config.filtering" placeholder="Filter"
        [ng2-table-filter]="config.filtering"
-       (table-changed)="onChangeTable($event)"/>
+       (table-changed)="onChangeTable(config)"/>
 
 <ng2-table [config]="config.sorting"
-           [rows]="rows" [columns]="columns"
-           (table-changed)="onChangeTable($event)">
+           (table-changed)="onChangeTable(config)"
+           [rows]="rows" [columns]="columns">
 </ng2-table>
 <pagination *ng-if="config.paging"
-
-            [ng2-table-paging]="config.paging"
-            (table-changed)="onChangeTable($event)"
-
             [total-items]="length"
+            [items-per-page]="itemsPerPage"
+            (page-changed)="onChangeTable(config, $event)"
             [(ng-model)]="page"
             [max-size]="maxSize"
             class="pagination-sm"

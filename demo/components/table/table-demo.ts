@@ -6,7 +6,9 @@ import {
   CORE_DIRECTIVES, NgClass, FORM_DIRECTIVES
 } from 'angular2/angular2';
 
-import {Ng2Table} from '../../../components/index';
+import {Table} from '../../../components/table/table';
+import {pagination} from 'ng2-bootstrap/ng2-bootstrap';
+import {Ng2TableFilter} from '../../../components/table/filtering';
 import {TableData} from './table-data';
 
 // webpack html imports
@@ -17,7 +19,7 @@ let template = require('./table-demo.html');
 })
 @View({
   template: template,
-  directives: [Ng2Table, NgClass, NgIf, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  directives: [Table, pagination, Ng2TableFilter, NgClass, NgIf, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class TableDemo implements OnInit {
   public rows:Array<any> = [];
@@ -48,26 +50,23 @@ export class TableDemo implements OnInit {
   }
 
   onInit() {
-    this.onChangeTable(this.config);
+    this.onChangeTable(this.config, null);
   }
 
-  changePage(data, config) {
-    if (!config.paging) {
-      return data;
-    }
-
-    let start = (this.page - 1) * this.itemsPerPage;
-    let end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
+  changePage(page:any, data:Array<any> = this.data):Array<any> {
+    console.log(page);
+    let start = (page.page - 1) * page.itemsPerPage;
+    let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
     return data.slice(start, end);
   }
 
-  changeSort(data, config) {
+  changeSort(data:any, config:any) {
     if (!config.sorting) {
       return data;
     }
 
     // simple sorting
-    return data.sort((previous, current) => {
+    return data.sort((previous:any, current:any) => {
       let columns = this.config.sorting.columns || [];
       for (let i = 0; i < columns.length; i++) {
         let columnName = columns[i].name;
@@ -83,32 +82,28 @@ export class TableDemo implements OnInit {
     });
   }
 
-  changeFilter(data, config) {
+  changeFilter(data:any, config:any):any {
     if (!config.filtering) {
       return data;
     }
 
-    let filteredData = data.filter(item =>
+    let filteredData:Array<any> = data.filter((item:any) =>
       item[config.filtering.columnName].match(this.config.filtering.filterString));
 
     return filteredData;
   }
 
-  onChangeTable(config) {
+  onChangeTable(config:any, page:any = config.paging) {
     if (config.filtering) {
       Object.assign(this.config.filtering, config.filtering);
     }
     if (config.sorting) {
       Object.assign(this.config.sorting, config.sorting);
     }
-    if (config.paging) {
-      this.page = config.paging.page;
-      this.itemsPerPage = config.paging.itemsPerPage;
-    }
 
     let filteredData = this.changeFilter(this.data, this.config);
     let sortedData = this.changeSort(filteredData, this.config);
-    this.rows = this.changePage(sortedData, this.config);
+    this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
     this.length = sortedData.length;
   }
 }
