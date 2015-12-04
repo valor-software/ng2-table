@@ -47,7 +47,7 @@ export class Table {
   public config:any = {};
 
   // Outputs (Events)
-  public tableChanged:EventEmitter = new EventEmitter();
+  public tableChanged:EventEmitter<any> = new EventEmitter();
 
   public set columns(values:Array<any>) {
     values.forEach((value) => {
@@ -66,7 +66,7 @@ export class Table {
   }
 
   public get configColumns() {
-    let sortColumns = [];
+    let sortColumns:Array<any> = [];
 
     this.columns.forEach((column) => {
       if (column.sort) {
@@ -77,7 +77,7 @@ export class Table {
     return {columns: sortColumns};
   }
 
-  onChangeTable(column) {
+  onChangeTable(column:any) {
     this.columns = [column];
     this.tableChanged.next({sorting: this.configColumns});
   }

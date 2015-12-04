@@ -53,7 +53,7 @@ var config = {
       'angular2/angular2',
       'angular2/core'
     ],
-    'angular2-table': ['components'],
+    'angular2-table': ['ng2-table'],
     'angular2-table-demo': 'demo'
   },
 
@@ -116,8 +116,7 @@ var config = {
           /\.spec\.ts$/,
           /\.e2e\.ts$/,
           /web_modules/,
-          /test/,
-          /node_modules/
+          /test/
         ]
       }
     ],

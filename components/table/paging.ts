@@ -16,9 +16,9 @@ import {
 })
 export class Ng2TablePaging {
   public config:boolean = true;
-  public tableChanged:EventEmitter = new EventEmitter();
+  public tableChanged:EventEmitter<any> = new EventEmitter();
 
-  onChangePage(event) {
+  onChangePage(event:any) {
     // Object.assign(this.config, event);
     if (this.config) {
       this.tableChanged.next({paging: event});

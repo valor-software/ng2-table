@@ -17,5 +17,9 @@ npm-debug.log
 /demo/**/*.js.map
 /components/**/*.js
 /components/**/*.js.map
+/components/**/*.d.ts
+ng2-table.js
+ng2-table.js.map
+ng2-table.d.ts
 
 /logs
