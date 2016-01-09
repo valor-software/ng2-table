@@ -1,25 +1,18 @@
-/// <reference path='../../../tsd.d.ts' />
+import {Component, EventEmitter, OnInit} from 'angular2/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgIf} from 'angular2/common';
+import {PAGINATION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-import {
-  Component, Directive, View, EventEmitter, Host,
-  OnInit, Self, NgIf,
-  CORE_DIRECTIVES, NgClass, FORM_DIRECTIVES
-} from 'angular2/angular2';
+import {NG_TABLE_DIRECTIVES} from '../../../ng2-table';
 
-import {Table} from '../../../components/table/table';
-import {pagination} from 'ng2-bootstrap/ng2-bootstrap';
-import {Ng2TableFilter} from '../../../components/table/filtering';
 import {TableData} from './table-data';
 
 // webpack html imports
 let template = require('./table-demo.html');
 
 @Component({
-  selector: 'table-demo'
-})
-@View({
+  selector: 'table-demo',
   template: template,
-  directives: [Table, pagination, Ng2TableFilter, NgClass, NgIf, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  directives: [NG_TABLE_DIRECTIVES, PAGINATION_DIRECTIVES, NgClass, NgIf, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class TableDemo implements OnInit {
   public rows:Array<any> = [];
@@ -49,7 +42,7 @@ export class TableDemo implements OnInit {
     this.length = this.data.length;
   }
 
-  onInit() {
+  ngOnInit() {
     this.onChangeTable(this.config, null);
   }
 

@@ -1,4 +1,7 @@
-export * from './components/table/table';
-export * from './components/table/table-config';
-export * from './components/table/filtering';
-export * from './components/table/paging';
+export * from './components/table/ng-table.component';
+
+export * from './components/table/ng-table-filtering.directive';
+export * from './components/table/ng-table-paging.directive';
+export * from './components/table/ng-table-sorting.directive';
+
+export * from './components/ng-table-directives';

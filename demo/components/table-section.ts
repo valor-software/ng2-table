@@ -1,8 +1,6 @@
-/// <reference path="../../tsd.d.ts" />
+import {Component, } from 'angular2/core';
+import {CORE_DIRECTIVES} from 'angular2/common';
 
-import {Component, View, CORE_DIRECTIVES} from 'angular2/angular2';
-
-// import {tabs} from 'ng2-bootstrap';
 import {TableDemo} from './table/table-demo';
 
 let name = 'Table';
@@ -14,9 +12,7 @@ let ts = require('!!prismjs?lang=typescript!./table/table-demo.ts');
 let html = require('!!prismjs?lang=markup!./table/table-demo.html');
 
 @Component({
-  selector: 'table-section'
-})
-@View({
+  selector: 'table-section',
   template: `
   <br>
   <section id="${name.toLowerCase()}">

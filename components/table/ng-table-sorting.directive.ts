@@ -1,20 +1,15 @@
-/// <reference path="../../tsd.d.ts" />
-
-import {
-  Directive, Injectable,
-  EventEmitter, ElementRef, ViewEncapsulation,
-  CORE_DIRECTIVES, NgClass, FORM_DIRECTIVES
-} from 'angular2/angular2';
+import {Directive, EventEmitter} from 'angular2/core';
+import {FORM_DIRECTIVES, CORE_DIRECTIVES, NgClass} from 'angular2/common';
 
 @Directive({
-  selector: '[ng2-th-sortable]',
-  inputs: ['config: ng2ThSortable', 'column'],
+  selector: '[ngTableSorting]',
+  inputs: ['config: ngTableSorting', 'column'],
   outputs: ['sortChanged'],
   host: {
     '(click)': 'onToggleSort($event, $target)'
   }
 })
-export class Ng2ThSortable {
+export class NgTableSorting {
   public config:any;
   public column:any;
   public sortChanged:EventEmitter<any> = new EventEmitter();
@@ -37,7 +32,7 @@ export class Ng2ThSortable {
           break;
       }
 
-      this.sortChanged.next(this.column);
+      this.sortChanged.emit(this.column);
     }
   }
 }

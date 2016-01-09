@@ -1,10 +1,10 @@
 ### Usage
 ```typescript
-import {Ng2Table} from 'ng2-table';
+import {NG_TABLE_DIRECTIVES} from 'ng2-table/ng2-table';
 ```
 or if you want to import specified plugins (Table component is required, the others are optional):
 ```typescript
-import {Table, Ng2TableFilter, Ng2TablePaging, pagination} from 'ng2-table';
+import {, NgTableFiltering, NgTablePaging, NgTableSorting} from 'ng2-table/ng2-table';
 ```
 in this case, don't forget to include all of the imported entities to the option `directives` in your component
 
@@ -36,7 +36,7 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
 
 ### Outputs (Events)
 
-- `table-changed`: onclick event handler
+- `tableChanged`: onclick event handler
 
 ### Filter
 
@@ -49,4 +49,4 @@ Data sorting could be in 3 modes: asc, desc and without sorting data (as it come
 
 ### Paging
 
-Pagination could be used from [ng2-bootstrap](https://github.com/valor-software/ng2-bootstrap) - [pagination component](http://valor-software.github.io/ng2-bootstrap/#pagination). When the page is changed, the pagination component will emit event `table-changed` with an object {page, itemsPerPage}. Then you can easily subscribe on it and request corresponding raw data.
+Pagination could be used from [ng2-bootstrap](https://github.com/valor-software/ng2-bootstrap) - [pagination component](http://valor-software.github.io/ng2-bootstrap/#pagination). When the page is changed, the pagination component will emit event `tableChanged` with an object {page, itemsPerPage}. Then you can easily subscribe on it and request corresponding raw data.

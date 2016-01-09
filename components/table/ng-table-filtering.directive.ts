@@ -1,10 +1,5 @@
-/// <reference path="../../tsd.d.ts" />
-
-import {
-  Directive,
-  EventEmitter, ElementRef, Renderer,
-  CORE_DIRECTIVES, NgClass, FORM_DIRECTIVES
-} from 'angular2/angular2';
+import {Directive, EventEmitter, ElementRef, Renderer} from 'angular2/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from 'angular2/common';
 
 // import {setProperty} from 'angular2/ts/src/core/forms/directives/shared';
 function setProperty(renderer:Renderer, elementRef:ElementRef, propName:string, propValue:any) {
@@ -12,14 +7,14 @@ function setProperty(renderer:Renderer, elementRef:ElementRef, propName:string, 
 }
 
 @Directive({
-  selector: '[ng2-table-filter]',
-  inputs: ['config: ng2TableFilter'],
+  selector: '[ngTableFiltering]',
+  inputs: ['config: ngTableFiltering'],
   outputs: ['tableChanged'],
   host: {
     '(input)': 'onChangeFilter($event.target.value)'
   }
 })
-export class Ng2TableFilter {
+export class NgTableFiltering {
   public config:any = {
     filterString: '',
     columnName: 'name'
@@ -33,6 +28,6 @@ export class Ng2TableFilter {
 
   onChangeFilter(event:any) {
     this.config.filterString = event;
-    this.tableChanged.next({'filtering': this.config});
+    this.tableChanged.emit({filtering: this.config});
   }
 }
