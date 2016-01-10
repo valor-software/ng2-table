@@ -1,7 +1,13 @@
-# ng2-table
+# ng2-table [![npm version](https://badge.fury.io/js/ng2-table.svg)](http://badge.fury.io/js/ng2-table)
 Simple table extension with sorting, filtering, paging... for Angular2 apps
-Directive for [ng2-table](https://github.com/valor-software/ng2-table) component.
 
+Follow me at [twitter](https://twitter.com/valorkin) to be notified about new releases.
+
+[![Code Climate](https://codeclimate.com/github/valor-software/ng2-table/badges/gpa.svg)](https://codeclimate.com/github/valor-software/ng2-table)
+[![Join the chat at https://gitter.im/valor-software/ng2-bootstrap](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valor-software/ng2-bootstrap?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Dependency Status](https://david-dm.org/valor-software/ng2-table.svg)](https://david-dm.org/valor-software/ng2-table)
+[![devDependency Status](https://david-dm.org/valor-software/ng2-table/dev-status.svg)](https://david-dm.org/valor-software/ng2-table#info=devDependencies)
+[![Throughput Graph](https://graphs.waffle.io/valor-software/ng2-table/throughput.svg)](https://waffle.io/valor-software/ng2-table/metrics)
 
 # Usage & Demo
 [http://valor-software.github.io/ng2-table/](http://valor-software.github.io/ng2-table/)
