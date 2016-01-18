@@ -1,33 +1,22 @@
-import {Directive, EventEmitter, ElementRef, Renderer} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from 'angular2/common';
-
-// import {setProperty} from 'angular2/ts/src/core/forms/directives/shared';
-function setProperty(renderer:Renderer, elementRef:ElementRef, propName:string, propValue:any) {
-  renderer.setElementProperty(elementRef, propName, propValue);
-}
+import {Directive, Input, Output, HostListener, HostBinding, EventEmitter} from 'angular2/core';
 
 @Directive({
   selector: '[ngTableFiltering]',
-  inputs: ['config: ngTableFiltering'],
-  outputs: ['tableChanged'],
-  host: {
-    '(input)': 'onChangeFilter($event.target.value)'
-  }
 })
 export class NgTableFiltering {
-  public config:any = {
-    filterString: '',
-    columnName: 'name'
-  };
-  public tableChanged:EventEmitter<any> = new EventEmitter();
+  @Input('ngTableFiltering')
+  private filtering:any = Object.freeze({filterString: ''});
 
-  constructor(private element:ElementRef, private renderer:Renderer) {
-    // Set default value for filter
-    setProperty(this.renderer, this.element, 'value', this.config.filterString);
+  @Output()
+  private tableChanged:EventEmitter<any> = new EventEmitter();
+
+  @HostBinding('value') get initialFilterValue() {
+    return this.filtering.filterString;
   }
 
-  onChangeFilter(event:any) {
-    this.config.filterString = event;
-    this.tableChanged.emit({filtering: this.config});
+  @HostListener('input', ['$event.target.value'])
+  private onChangeFilter($event:any) {
+    let changedFiltering = Object.assign({}, this.filtering, {filterString: $event});
+    this.tableChanged.emit(changedFiltering);
   }
 }

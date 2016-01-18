@@ -1,20 +1,19 @@
-<input *ngIf="config.filtering" placeholder="Filter"
+<input *ngIf="config.filtering" placeholder="Type to start filtering..." type="text" class="form-control"
        [ngTableFiltering]="config.filtering"
-       (tableChanged)="onChangeTable(config)"/>
+       (tableChanged)="tableEventBus.onFilterChanged($event)"/>
 
-<ngTable [config]="config.sorting"
-           (tableChanged)="onChangeTable(config)"
-           [rows]="rows" [columns]="columns">
+<ngTable [config]="config"
+         (tableChanged)="onTableChanged($event)"
+         [rows]="rows"
+         [columns]="columns">
 </ngTable>
-<pagination *ngIf="config.paging"
+
+<pagination *ngIf="config.pagination"
             class="pagination-sm"
-            [(ngModel)]="page"
-            [totalItems]="length"
-            [itemsPerPage]="itemsPerPage"
-            [maxSize]="maxSize"
+            [(ngModel)]="config.pagination.page"
+            [totalItems]="totalItems"
+            [itemsPerPage]="config.pagination.itemsPerPage"
             [boundaryLinks]="true"
             [rotate]="false"
-            (pageChanged)="onChangeTable(config, $event)"
-            (numPages)="numPages = $event">
+            (pageChanged)="tableEventBus.onPageChanged($event)">
 </pagination>
-<pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
