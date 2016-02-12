@@ -1,0 +1,30 @@
+div.wrapper {
+  width: 100%;
+  overflow:hidden;
+  white-space: nowrap;
+}
+
+div.ok_button {
+  display: inline-block;
+  content: url(assets/imgs/ic_done_black_24px.svg);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+div.edit_button {
+  display: inline-block;
+  content: url(assets/imgs/ic_create_24px.svg);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+div.cancel_button {
+  display: inline-block;
+  content: url(assets/imgs/ic_clear_24px.svg);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+}

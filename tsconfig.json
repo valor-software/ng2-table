@@ -17,6 +17,7 @@
     "node_modules"
   ],
   "files": [
-    "ng2-table.ts"
+    "ng2-table.ts",
+    "typings/browser.d.ts"
   ]
 }

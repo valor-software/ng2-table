@@ -30,16 +30,17 @@
   "homepage": "https://github.com/valor-software/ng2-table#readme",
   "dependencies": {},
   "devDependencies": {
-    "angular2": "2.0.0-beta.0",
+    "angular2": "2.0.0-beta.6",
     "bootstrap": "3.3.6",
     "clean-webpack-plugin": "0.1.8",
     "compression-webpack-plugin": "0.3.0",
+    "dcl-component": "1.0.0-beta.3",
     "es6-shim": "0.33.13",
     "eslint": "1.10.3",
-    "exports-loader": "0.6.2",
+    "exports-loader": "0.6.3",
     "file-loader": "0.8.5",
     "gulp": "3.9.1",
-    "gulp-clean": "0.3.1",
+    "gulp-rimraf": "0.2.0",
     "gulp-eslint": "1.1.1",
     "gulp-size": "2.0.0",
     "gulp-tsc": "1.1.4",
@@ -55,12 +56,13 @@
     "raw-loader": "0.5.1",
     "reflect-metadata": "0.1.2",
     "require-dir": "0.3.0",
-    "rxjs": "5.0.0-beta.0",
+    "rxjs": "5.0.0-beta.2",
     "ts-loader": "0.8.1",
     "tslint": "3.3.0",
+    "typings": "0.6.8",
     "typescript": "1.7.5",
     "webpack": "1.12.13",
-    "webpack-dev-server": "1.14.0",
-    "zone.js": "0.5.10"
+    "webpack-dev-server": "1.14.1",
+    "zone.js": "0.5.14"
   }
 }
