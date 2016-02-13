@@ -1,11 +1,12 @@
 import {Component, Directive, EventEmitter, ElementRef, Renderer} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgFor} from 'angular2/common';
+import {DCLComponent} from 'dcl-component/dcl-component';
 
 import {NgTableSorting} from './ng-table-sorting.directive';
 
 @Component({
   selector: 'ngTable, [ngTable]',
-  inputs: ['rows', 'columns', 'config'],
+  inputs: ['rows', 'columns', 'config', 'id'],
   outputs: ['tableChanged'],
   template: `
     <table class="table table-striped table-bordered dataTable"
@@ -21,18 +22,21 @@ import {NgTableSorting} from './ng-table-sorting.directive';
       </thead>
       <tbody>
       <tr *ngFor="#row of rows">
-        <td *ngFor="#column of columns">{{row[column.name]}}</td>
+        <td *ngFor="#column of columns">
+          <dcl-component [identifier]="{row: row[id], column: column.name}" [type]="column.component" [init]="column.init" [data]="row[column.name]"></dcl-component>
+        </td>
       </tr>
       </tbody>
     </table>
 `,
-  directives: [NgTableSorting, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  directives: [DCLComponent, NgTableSorting, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class NgTable {
   // Table values
   public rows:Array<any> = [];
   private _columns:Array<any> = [];
   public config:any = {};
+  public id:string = 'id';
 
   // Outputs (Events)
   public tableChanged:EventEmitter<any> = new EventEmitter();
@@ -42,8 +46,7 @@ export class NgTable {
       let column = this._columns.find((col) => col.name === value.name);
       if (column) {
         Object.assign(column, value);
-      }
-      if (!column) {
+      } else {
         this._columns.push(value);
       }
     });
@@ -66,7 +69,11 @@ export class NgTable {
   }
 
   onChangeTable(column:any) {
-    this.columns = [column];
+    this._columns.forEach((col) => {
+      if (col.name !== column.name) {
+        col.sort = '';
+      }
+    });
     this.tableChanged.emit({sorting: this.configColumns});
   }
 }

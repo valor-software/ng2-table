@@ -4,7 +4,7 @@
 
 <ngTable [config]="config.sorting"
            (tableChanged)="onChangeTable(config)"
-           [rows]="rows" [columns]="columns">
+           [rows]="rows" [columns]="columns" [id]="'id'">
 </ngTable>
 <pagination *ngIf="config.paging"
             class="pagination-sm"
@@ -14,7 +14,7 @@
             [maxSize]="maxSize"
             [boundaryLinks]="true"
             [rotate]="false"
-            (pageChanged)="onChangeTable(config, $event)"
+            (pageChanged)="_arr={ }; onChangeTable(config, $event);"
             (numPages)="numPages = $event">
 </pagination>
 <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
