@@ -21,7 +21,7 @@ import {NgTableSorting} from './ng-table-sorting.directive';
       </thead>
       <tbody>
       <tr *ngFor="#row of rows">
-        <td *ngFor="#column of columns">{{row[column.name]}}</td>
+        <td *ngFor="#column of columns">{{getData(row, column.name)}}</td>
       </tr>
       </tbody>
     </table>
@@ -68,5 +68,9 @@ export class NgTable {
   onChangeTable(column:any) {
     this.columns = [column];
     this.tableChanged.emit({sorting: this.configColumns});
+  }
+
+  getData(row:any, propertyName:string) {
+    return propertyName.split('.').reduce((prev, curr) => prev[curr], row);
   }
 }
