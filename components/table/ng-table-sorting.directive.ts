@@ -1,38 +1,39 @@
-import {Directive, EventEmitter} from 'angular2/core';
-import {FORM_DIRECTIVES, CORE_DIRECTIVES, NgClass} from 'angular2/common';
+import {Output, Input, HostListener, Directive, EventEmitter} from 'angular2/core';
 
 @Directive({
   selector: '[ngTableSorting]',
-  inputs: ['config: ngTableSorting', 'column'],
-  outputs: ['sortChanged'],
-  host: {
-    '(click)': 'onToggleSort($event, $target)'
-  }
 })
 export class NgTableSorting {
-  public config:any;
-  public column:any;
-  public sortChanged:EventEmitter<any> = new EventEmitter();
+  @Input('ngTableSorting')
+  private sorting:any = {
+    columns: []
+  };
 
-  onToggleSort(event:any) {
-    if (event) {
-      event.preventDefault();
+  @Input()
+  private column:any = {};
+
+  @Output()
+  private sortChanged:EventEmitter<any> = new EventEmitter();
+
+  private static SORTING_DIRECTIONS:any = Object.freeze({
+    asc: 'desc',
+    desc: ''
+  });
+
+  @HostListener('click', ['$event'])
+  onToggleSort($event:any) {
+    if ($event) {
+      $event.preventDefault();
     }
 
-    if (this.config && this.column && this.column.sort !== false) {
-      switch (this.column.sort) {
-        case 'asc':
-          this.column.sort = 'desc';
-          break;
-        case 'desc':
-          this.column.sort = '';
-          break;
-        default:
-          this.column.sort = 'asc';
-          break;
-      }
-
+    if (this.columnShouldBeSorted()) {
+      let direction = NgTableSorting.SORTING_DIRECTIONS[this.column.sort];
+      this.column.sort = direction === undefined ? 'asc' : direction;
       this.sortChanged.emit(this.column);
     }
+  }
+
+  private columnShouldBeSorted():boolean {
+    return this.sorting && this.column && this.column.sort !== false;
   }
 }

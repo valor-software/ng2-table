@@ -1,60 +1,67 @@
-import {Component, } from 'angular2/core';
+import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 
 import {TableDemo} from './table/table-demo';
 
-let name = 'Table';
-let src = 'https://github.com/valor-software/ng2-table/blob/master/components/table/table.ts';
 // webpack html imports
-let doc = require('../../components/table/readme.md');
-let titleDoc = require('../../components/table/title.md');
-let ts = require('!!prismjs?lang=typescript!./table/table-demo.ts');
-let html = require('!!prismjs?lang=markup!./table/table-demo.html');
+const doc = require('../../components/table/readme.md');
+const ts = require('!!prismjs?lang=typescript!./table/table-demo.ts');
+const html = require('!!prismjs?lang=markup!./table/table-demo.html');
 
 @Component({
   selector: 'table-section',
   template: `
-  <br>
   <section id="${name.toLowerCase()}">
-    <div class="row"><h1>${name}<small>(<a href="${src}">src</a>)</small></h1></div>
+    <section id="table-demo">
+      <h2>{{name}} in action</h2>
+      <table-demo></table-demo>
+    </section>
 
-    <hr>
+    <section id="table-demo-src">
+      <h2>How to set up such a table</h2>
+      <ul class="nav nav-tabs">
+        <li *ngFor="#tab of demoSrcTabs" role="presentation" [class.active]="selectedTabName === tab.name">
+          <a (click)="selectTab($event, tab.name)" href="#">{{tab.name}}</a>
+        </li>
+      </ul>
 
-    <div class="row"><div class="col-md-12">${titleDoc}</div></div>
-
-    <div class="row">
-      <h2>Example</h2>
-      <div class="card card-block panel panel-default panel-body">
-        <table-demo></table-demo>
+      <div *ngFor="#tab of demoSrcTabs" [class.hide]="selectedTabName !== tab.name">
+        <pre class="language-{{tab.type}}" [innerHtml]="tab.content"></pre>
       </div>
-    </div>
+    </section>
 
-    <br>
-
-    <div class="row">
-      <tabset>
-        <tab heading="Markup">
-          <div class="card card-block panel panel-default panel-body">
-            <pre class="language-html"><code class="language-html">${html}</code></pre>
-          </div>
-        </tab>
-        <tab heading="TypeScript">
-          <div class="card card-block panel panel-default panel-body">
-            <pre class="language-typescript"><code class="language-typescript">${ts}</code></pre>
-          </div>
-        </tab>
-      </tabset>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <h2>API</h2>
-      <div class="card card-block panel panel-default panel-body">${doc}</div>
-    </div>
-  </section>
-  `,
+    <section id="ng2-table-api">
+      <h2>Table's API</h2>
+      <div>${doc}</div>
+    </section>
+  </section>`,
   directives: [TableDemo, CORE_DIRECTIVES]
 })
 export class TableSection {
+  private name:string = 'Table';
+
+  private demoSrcTabs:Array<any> = [
+    {
+      name: 'Markup',
+      type: 'html',
+      content: html
+    },
+    {
+      name: 'Typescript',
+      type: 'typescript',
+      content: ts
+    }
+  ];
+
+  private selectedTabName:string;
+
+  constructor() {
+    const firstTab = this.demoSrcTabs[0];
+    this.selectedTabName = firstTab.name;
+  }
+
+  private selectTab($event:any, tabName:string):void {
+    $event.preventDefault();
+    this.selectedTabName = tabName;
+  }
 }
