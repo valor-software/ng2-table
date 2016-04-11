@@ -20,9 +20,9 @@ export class TableDemo implements OnInit {
     {title: 'Name', name: 'name'},
     {title: 'Position', name: 'position', sort: false},
     {title: 'Office', name: 'office', sort: 'asc'},
-    {title: 'Extn.', name: 'ext', sort: 'desc'},
+    {title: 'Extn.', name: 'ext', sort: ''},
     {title: 'Start date', name: 'startDate'},
-    {title: 'Salary', name: 'salary'}
+    {title: 'Salary ($)', name: 'salary'}
   ];
   public page:number = 1;
   public itemsPerPage:number = 10;
@@ -32,7 +32,7 @@ export class TableDemo implements OnInit {
 
   public config:any = {
     paging: true,
-    sorting: {columns: []},
+    sorting: {columns: this.columns},
     filtering: {filterString: '', columnName: 'position'}
   };
 
@@ -43,7 +43,7 @@ export class TableDemo implements OnInit {
   }
 
   ngOnInit() {
-    this.onChangeTable(this.config, null);
+    this.onChangeTable(this.config);
   }
 
   changePage(page:any, data:Array<any> = this.data):Array<any> {
@@ -58,18 +58,27 @@ export class TableDemo implements OnInit {
       return data;
     }
 
-    // simple sorting
-    return data.sort((previous:any, current:any) => {
-      let columns = this.config.sorting.columns || [];
-      for (let i = 0; i < columns.length; i++) {
-        let columnName = columns[i].name;
+    let columns = this.config.sorting.columns || [];
+    let columnName: string = null;
+    let sort: string = null;
 
-        if (previous[columnName] > current[columnName]) {
-          return columns[i].sort === 'desc' ? -1 : 1;
-        }
-        if (previous[columnName] < current[columnName]) {
-          return columns[i].sort === 'asc' ? -1 : 1;
-        }
+    for (let i = 0; i < columns.length; i++) {
+      if (columns[i].sort != '') {
+        columnName = columns[i].name;
+        sort = columns[i].sort;
+      }
+    }
+
+    if (!columnName) {
+      return data;
+    }
+
+    // simple sorting
+    return data.sort((previous: any, current: any) => {
+      if (previous[columnName] > current[columnName]) {
+        return sort === 'desc' ? -1 : 1;
+      } else if (previous[columnName] < current[columnName]) {
+        return sort === 'asc' ? -1 : 1;
       }
       return 0;
     });
@@ -86,7 +95,7 @@ export class TableDemo implements OnInit {
     return filteredData;
   }
 
-  onChangeTable(config:any, page:any = config.paging) {
+  onChangeTable(config: any, page: any = { page: this.page, itemsPerPage: this.itemsPerPage }) {
     if (config.filtering) {
       Object.assign(this.config.filtering, config.filtering);
     }
