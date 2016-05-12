@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgIf} from 'angular2/common';
+import {Component, EventEmitter, OnInit} from '@angular/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgIf} from '@angular/common';
 import {PAGINATION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {NG_TABLE_DIRECTIVES} from '../../../ng2-table';

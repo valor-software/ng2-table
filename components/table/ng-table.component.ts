@@ -1,5 +1,5 @@
-import {Component, Directive, EventEmitter, ElementRef, Renderer} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgFor} from 'angular2/common';
+import {Component, Directive, EventEmitter, ElementRef, Renderer} from '@angular/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgFor} from '@angular/common';
 
 import {NgTableSorting} from './ng-table-sorting.directive';
 
