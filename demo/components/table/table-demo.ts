@@ -32,8 +32,12 @@ export class TableDemo implements OnInit {
 
   public config:any = {
     paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: '', columnName: 'position'}
+    filtering: {filterString: '', columnName: 'position'},
+    table: {
+        columns: this.columns,
+        striped: true,
+        bordered: true
+    }
   };
 
   private data:Array<any> = TableData;
