@@ -58,11 +58,11 @@ export class TableDemo implements OnInit {
   }
 
   changeSort(data:any, config:any) {
-    if (!config.sorting) {
+    if (!config.table) {
       return data;
     }
 
-    let columns = this.config.sorting.columns || [];
+    let columns = this.config.table.columns || [];
     let columnName: string = null;
     let sort: string = null;
 
@@ -103,8 +103,8 @@ export class TableDemo implements OnInit {
     if (config.filtering) {
       Object.assign(this.config.filtering, config.filtering);
     }
-    if (config.sorting) {
-      Object.assign(this.config.sorting, config.sorting);
+    if (config.table) {
+      Object.assign(this.config.table, config.table);
     }
 
     let filteredData = this.changeFilter(this.data, this.config);
