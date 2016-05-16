@@ -12,9 +12,9 @@ import {NgTableSorting} from './ng-table-sorting.directive';
            role="grid" style="width: 100%;">
       <thead>
       <tr role="row">
-        <th *ngFor="#column of columns" [ngTableSorting]="config" [column]="column" (sortChanged)="onChangeTable($event)">
+        <th *ngFor="#column of columns" [ngTableSorting]="config.sorting" [column]="column" (sortChanged)="onChangeTable($event)">
           {{column.title}}
-          <i *ngIf="config && column.sort" class="pull-right fa"
+          <i *ngIf="config && config.sorting && column.sort" class="pull-right fa"
             [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
         </th>
       </tr>

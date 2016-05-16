@@ -34,9 +34,11 @@ export class TableDemo implements OnInit {
     paging: true,
     filtering: {filterString: '', columnName: 'position'},
     table: {
-        columns: this.columns,
+        sorting: {
+            columns: this.columns
+        },
         striped: true,
-        bordered: true
+        bordered: false
     }
   };
 
@@ -58,11 +60,11 @@ export class TableDemo implements OnInit {
   }
 
   changeSort(data:any, config:any) {
-    if (!config.table) {
+      if (!config.table || !config.table.sorting) {
       return data;
     }
 
-    let columns = this.config.table.columns || [];
+    let columns = this.config.table.sorting.columns || [];
     let columnName: string = null;
     let sort: string = null;
 
@@ -103,8 +105,8 @@ export class TableDemo implements OnInit {
     if (config.filtering) {
       Object.assign(this.config.filtering, config.filtering);
     }
-    if (config.table) {
-      Object.assign(this.config.table, config.table);
+    if (config.table && config.table.sorting) {
+      Object.assign(this.config.table.sorting, config.table.sorting);
     }
 
     let filteredData = this.changeFilter(this.data, this.config);

@@ -22,8 +22,11 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
 
 - `config` (`?any`) - config for setup all plugins (filtering, sorting, paging):
   - `paging` (`?boolean`) - - switch on the paging plugin
-  - `sorting` (`?any`) - switch on the sorting plugin
-    - `columns` (`Array<any>`) - only list of the columns for sorting
+  - `table` (`?any`) - config for the table
+    - `bordered` (`?boolean`) - determines if the 'table-bordered' class is added to the table. Defaults to true
+    - `striped` (`?boolean`) - determines if the 'table-striped' class is added to the table. Defaults to true
+    - `sorting` (`?any`) - switch on the sorting plugin
+        - `columns` (`Array<any>`) - only list of the columns for sorting
   - `filtering` (`?any`) - switch on the filtering plugin
     - `filterString` (`string`) - the default value for filter
     - `columnName` (`string`) - the property name in raw data
