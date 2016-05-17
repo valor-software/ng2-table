@@ -12,7 +12,7 @@ import {NgTableSorting} from './ng-table-sorting.directive';
            role="grid" style="width: 100%;">
       <thead>
       <tr role="row">
-        <th *ngFor="#column of columns" [ngTableSorting]="config.sorting" [column]="column" (sortChanged)="onChangeTable($event)">
+        <th *ngFor="let column of columns" [ngTableSorting]="config.sorting" [column]="column" (sortChanged)="onChangeTable($event)">
           {{column.title}}
           <i *ngIf="config && config.sorting && column.sort" class="pull-right fa"
             [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
@@ -20,8 +20,8 @@ import {NgTableSorting} from './ng-table-sorting.directive';
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="#row of rows">
-        <td *ngFor="#column of columns">{{getData(row, column.name)}}</td>
+      <tr *ngFor="let row of rows">
+        <td *ngFor="let column of columns">{{getData(row, column.name)}}</td>
       </tr>
       </tbody>
     </table>
