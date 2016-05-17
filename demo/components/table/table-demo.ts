@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgIf} from 'angular2/common';
+import {Component, EventEmitter, OnInit} from '@angular/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgIf} from '@angular/common';
 import {PAGINATION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {NG_TABLE_DIRECTIVES} from '../../../ng2-table';
@@ -32,8 +32,14 @@ export class TableDemo implements OnInit {
 
   public config:any = {
     paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: '', columnName: 'position'}
+    filtering: {filterString: '', columnName: 'position'},
+    table: {
+        sorting: {
+            columns: this.columns
+        },
+        striped: true,
+        bordered: false
+    }
   };
 
   private data:Array<any> = TableData;
@@ -54,11 +60,11 @@ export class TableDemo implements OnInit {
   }
 
   changeSort(data:any, config:any) {
-    if (!config.sorting) {
+      if (!config.table || !config.table.sorting) {
       return data;
     }
 
-    let columns = this.config.sorting.columns || [];
+    let columns = this.config.table.sorting.columns || [];
     let columnName: string = null;
     let sort: string = null;
 
@@ -99,8 +105,8 @@ export class TableDemo implements OnInit {
     if (config.filtering) {
       Object.assign(this.config.filtering, config.filtering);
     }
-    if (config.sorting) {
-      Object.assign(this.config.sorting, config.sorting);
+    if (config.table && config.table.sorting) {
+      Object.assign(this.config.table.sorting, config.table.sorting);
     }
 
     let filteredData = this.changeFilter(this.data, this.config);

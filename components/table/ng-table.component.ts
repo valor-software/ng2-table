@@ -1,5 +1,5 @@
-import {Component, Directive, EventEmitter, ElementRef, Renderer} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgFor} from 'angular2/common';
+import {Component, Directive, EventEmitter, ElementRef, Renderer, OnInit} from '@angular/core';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgFor} from '@angular/common';
 
 import {NgTableSorting} from './ng-table-sorting.directive';
 
@@ -8,31 +8,41 @@ import {NgTableSorting} from './ng-table-sorting.directive';
   inputs: ['rows', 'columns', 'config'],
   outputs: ['tableChanged'],
   template: `
-    <table class="table table-striped table-bordered dataTable"
+    <table class="table dataTable" [ngClass]="{'table-striped': config.striped, 'table-bordered': config.bordered}"
            role="grid" style="width: 100%;">
       <thead>
       <tr role="row">
-        <th *ngFor="#column of columns" [ngTableSorting]="config" [column]="column" (sortChanged)="onChangeTable($event)">
+        <th *ngFor="let column of columns" [ngTableSorting]="config.sorting" [column]="column" (sortChanged)="onChangeTable($event)">
           {{column.title}}
-          <i *ngIf="config && column.sort" class="pull-right glyphicon"
-            [ngClass]="{'glyphicon-chevron-down': column.sort === 'desc', 'glyphicon-chevron-up': column.sort === 'asc'}"></i>
+          <i *ngIf="config && config.sorting && column.sort" class="pull-right fa"
+            [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
         </th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="#row of rows">
-        <td *ngFor="#column of columns">{{getData(row, column.name)}}</td>
+      <tr *ngFor="let row of rows">
+        <td *ngFor="let column of columns">{{getData(row, column.name)}}</td>
       </tr>
       </tbody>
     </table>
 `,
   directives: [NgTableSorting, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
-export class NgTable {
+export class NgTable implements OnInit {
   // Table values
   public rows:Array<any> = [];
   private _columns:Array<any> = [];
   public config:any = {};
+
+  ngOnInit() {
+      if (this.config.striped === undefined) {
+          this.config.striped = true;
+      }
+
+      if (this.config.bordered === undefined) {
+          this.config.bordered = true;
+      }
+  }
 
   // Outputs (Events)
   public tableChanged:EventEmitter<any> = new EventEmitter();
