@@ -1,25 +1,27 @@
-import {Directive, EventEmitter} from '@angular/core';
-import {FORM_DIRECTIVES, CORE_DIRECTIVES, NgClass} from '@angular/common';
+import {Directive, EventEmitter, Input, Output, HostListener} from '@angular/core';
 
-@Directive({
-  selector: '[ngTableSorting]',
-  inputs: ['config: ngTableSorting', 'column'],
-  outputs: ['sortChanged'],
-  host: {
-    '(click)': 'onToggleSort($event, $target)'
+@Directive({selector: '[ngTableSorting]'})
+export class NgTableSortingDirective {
+  @Input() public ngTableSorting:any;
+  @Input() public column:any;
+  @Output() public sortChanged:EventEmitter<any> = new EventEmitter();
+
+  @Input()
+  public get config():any {
+    return this.ngTableSorting;
   }
-})
-export class NgTableSorting {
-  public config:any;
-  public column:any;
-  public sortChanged:EventEmitter<any> = new EventEmitter();
 
-  onToggleSort(event:any) {
+  public set config(value:any) {
+    this.ngTableSorting = value;
+  }
+
+  @HostListener('click', ['$event', '$target'])
+  public onToggleSort(event:any):void {
     if (event) {
       event.preventDefault();
     }
 
-    if (this.config && this.column && this.column.sort !== false) {
+    if (this.ngTableSorting && this.column && this.column.sort !== false) {
       switch (this.column.sort) {
         case 'asc':
           this.column.sort = 'desc';

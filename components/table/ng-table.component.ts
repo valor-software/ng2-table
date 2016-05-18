@@ -1,12 +1,9 @@
-import {Component, Directive, EventEmitter, ElementRef, Renderer} from '@angular/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgFor} from '@angular/common';
-
-import {NgTableSorting} from './ng-table-sorting.directive';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {CORE_DIRECTIVES, NgClass} from '@angular/common';
+import {NgTableSortingDirective} from './ng-table-sorting.directive';
 
 @Component({
-  selector: 'ngTable, [ngTable]',
-  inputs: ['rows', 'columns', 'config'],
-  outputs: ['tableChanged'],
+  selector: 'ng-table',
   template: `
     <table class="table table-striped table-bordered dataTable"
            role="grid" style="width: 100%;">
@@ -26,20 +23,20 @@ import {NgTableSorting} from './ng-table-sorting.directive';
       </tbody>
     </table>
 `,
-  directives: [NgTableSorting, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  directives: [NgTableSortingDirective, NgClass, CORE_DIRECTIVES]
 })
-export class NgTable {
+export class NgTableComponent {
   // Table values
-  public rows:Array<any> = [];
-  private _columns:Array<any> = [];
-  public config:any = {};
+  @Input() public rows:Array<any> = [];
+  @Input() public config:any = {};
 
   // Outputs (Events)
-  public tableChanged:EventEmitter<any> = new EventEmitter();
+  @Output() public tableChanged:EventEmitter<any> = new EventEmitter();
 
+  @Input()
   public set columns(values:Array<any>) {
-    values.forEach((value) => {
-      let column = this._columns.find((col) => col.name === value.name);
+    values.forEach((value:any) => {
+      let column = this._columns.find((col:any) => col.name === value.name);
       if (column) {
         Object.assign(column, value);
       }
@@ -49,14 +46,14 @@ export class NgTable {
     });
   }
 
-  public get columns() {
+  public get columns():Array<any> {
     return this._columns;
   }
 
-  public get configColumns() {
+  public get configColumns():any {
     let sortColumns:Array<any> = [];
 
-    this.columns.forEach((column) => {
+    this.columns.forEach((column:any) => {
       if (column.sort) {
         sortColumns.push(column);
       }
@@ -65,16 +62,18 @@ export class NgTable {
     return {columns: sortColumns};
   }
 
-  onChangeTable(column:any) {
-    this._columns.forEach((col) => {
-      if (col.name != column.name) {
+  private _columns:Array<any> = [];
+
+  public onChangeTable(column:any):void {
+    this._columns.forEach((col:any) => {
+      if (col.name !== column.name) {
         col.sort = '';
       }
     });
     this.tableChanged.emit({sorting: this.configColumns});
   }
 
-  getData(row:any, propertyName:string) {
-    return propertyName.split('.').reduce((prev, curr) => prev[curr], row);
+  public getData(row:any, propertyName:string):string {
+    return propertyName.split('.').reduce((prev:any, curr:string) => prev[curr], row);
   }
 }

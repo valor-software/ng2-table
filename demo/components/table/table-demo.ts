@@ -1,9 +1,7 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgIf} from '@angular/common';
 import {PAGINATION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
-
 import {NG_TABLE_DIRECTIVES} from '../../../ng2-table';
-
 import {TableData} from './table-data';
 
 // webpack html imports
@@ -14,7 +12,7 @@ let template = require('./table-demo.html');
   template: template,
   directives: [NG_TABLE_DIRECTIVES, PAGINATION_DIRECTIVES, NgClass, NgIf, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
-export class TableDemo implements OnInit {
+export class TableDemoComponent implements OnInit {
   public rows:Array<any> = [];
   public columns:Array<any> = [
     {title: 'Name', name: 'name'},
@@ -38,32 +36,32 @@ export class TableDemo implements OnInit {
 
   private data:Array<any> = TableData;
 
-  constructor() {
+  public constructor() {
     this.length = this.data.length;
   }
 
-  ngOnInit() {
+  public ngOnInit():void {
     this.onChangeTable(this.config);
   }
 
-  changePage(page:any, data:Array<any> = this.data):Array<any> {
+  public changePage(page:any, data:Array<any> = this.data):Array<any> {
     console.log(page);
     let start = (page.page - 1) * page.itemsPerPage;
     let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
     return data.slice(start, end);
   }
 
-  changeSort(data:any, config:any) {
+  public changeSort(data:any, config:any):any {
     if (!config.sorting) {
       return data;
     }
 
     let columns = this.config.sorting.columns || [];
-    let columnName: string = null;
-    let sort: string = null;
+    let columnName:string = void 0;
+    let sort:string = void 0;
 
     for (let i = 0; i < columns.length; i++) {
-      if (columns[i].sort != '') {
+      if (columns[i].sort !== '') {
         columnName = columns[i].name;
         sort = columns[i].sort;
       }
@@ -74,7 +72,7 @@ export class TableDemo implements OnInit {
     }
 
     // simple sorting
-    return data.sort((previous: any, current: any) => {
+    return data.sort((previous:any, current:any) => {
       if (previous[columnName] > current[columnName]) {
         return sort === 'desc' ? -1 : 1;
       } else if (previous[columnName] < current[columnName]) {
@@ -84,7 +82,7 @@ export class TableDemo implements OnInit {
     });
   }
 
-  changeFilter(data:any, config:any):any {
+  public changeFilter(data:any, config:any):any {
     if (!config.filtering) {
       return data;
     }
@@ -95,7 +93,7 @@ export class TableDemo implements OnInit {
     return filteredData;
   }
 
-  onChangeTable(config: any, page: any = { page: this.page, itemsPerPage: this.itemsPerPage }) {
+  public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}):any {
     if (config.filtering) {
       Object.assign(this.config.filtering, config.filtering);
     }

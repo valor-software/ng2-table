@@ -1,8 +1,10 @@
 # ng2-table [![npm version](https://badge.fury.io/js/ng2-table.svg)](http://badge.fury.io/js/ng2-table)
 Simple table extension with sorting, filtering, paging... for Angular2 apps
 
-Follow me at [twitter](https://twitter.com/valorkin) to be notified about new releases.
+Follow me [![twitter](https://img.shields.io/twitter/follow/valorkin.svg?style=social&label=%20valorkin)](https://twitter.com/valorkin) to be notified about new releases.
 
+[![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://github.com/mgechev/angular2-style-guide)
+[![Build Status](https://travis-ci.org/valor-software/ng2-table.svg?branch=master)](https://travis-ci.org/valor-software/ng2-table)
 [![Code Climate](https://codeclimate.com/github/valor-software/ng2-table/badges/gpa.svg)](https://codeclimate.com/github/valor-software/ng2-table)
 [![Join the chat at https://gitter.im/valor-software/ng2-bootstrap](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valor-software/ng2-bootstrap?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Dependency Status](https://david-dm.org/valor-software/ng2-table.svg)](https://david-dm.org/valor-software/ng2-table)
@@ -15,18 +17,20 @@ Follow me at [twitter](https://twitter.com/valorkin) to be notified about new re
 
 - - -
 
-## Quick start
+## Installation
 
 1. A recommended way to install ***ng2-table*** is through [npm](https://www.npmjs.com/search?q=ng2-table) package manager using the following command:
 
-  `npm i ng2-table --save`
+  ```bash
+  npm i ng2-table --save
+  ```
 
   Alternatively, you can [download it in a ZIP file](https://github.com/valor-software/ng2-table/archive/master.zip).
 
 2. More information regarding using of ***ng2-table*** is located in
   [demo](http://valor-software.github.io/ng2-table/) and [demo sources](https://github.com/valor-software/ng2-table/tree/master/demo).
 
-## API
+## Documentation
 
 ### Inputs (Properties)
 

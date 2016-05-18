@@ -1,7 +1,7 @@
-import {Component, } from '@angular/core';
+import {Component} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 
-import {TableDemo} from './table/table-demo';
+import {TableDemoComponent} from './table/table-demo';
 
 let name = 'Table';
 let src = 'https://github.com/valor-software/ng2-table/blob/master/components/table/table.ts';
@@ -54,7 +54,7 @@ let html = require('!!prismjs?lang=markup!./table/table-demo.html');
     </div>
   </section>
   `,
-  directives: [TableDemo, CORE_DIRECTIVES]
+  directives: [TableDemoComponent, CORE_DIRECTIVES]
 })
-export class TableSection {
+export class TableSectionComponent {
 }

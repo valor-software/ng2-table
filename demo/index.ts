@@ -1,9 +1,7 @@
 import {bootstrap} from '@angular/platform-browser-dynamic';
 import {Component} from '@angular/core';
 import {NgClass} from '@angular/common';
-
-
-import {TableSection} from './components/table-section';
+import {TableSectionComponent} from './components/table-section';
 
 let gettingStarted = require('./getting-started.md');
 
@@ -36,10 +34,10 @@ let gettingStarted = require('./getting-started.md');
   `,
   directives: [
     NgClass,
-    TableSection
+    TableSectionComponent
   ]
 })
-export class Demo {
+export class DemoComponent {
 }
 
-bootstrap(Demo);
+bootstrap(DemoComponent);

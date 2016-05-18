@@ -2,10 +2,10 @@
        [ngTableFiltering]="config.filtering"
        (tableChanged)="onChangeTable(config)"/>
 
-<ngTable [config]="config.sorting"
+<ng-table [config]="config.sorting"
            (tableChanged)="onChangeTable(config)"
            [rows]="rows" [columns]="columns">
-</ngTable>
+</ng-table>
 <pagination *ngIf="config.paging"
             class="pagination-sm"
             [(ngModel)]="page"

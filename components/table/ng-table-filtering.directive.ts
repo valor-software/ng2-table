@@ -1,33 +1,41 @@
-import {Directive, EventEmitter, ElementRef, Renderer} from '@angular/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
+import {Directive, EventEmitter, ElementRef, Renderer, HostListener, Input, Output} from '@angular/core';
 
 // import {setProperty} from 'angular2/ts/src/core/forms/directives/shared';
-function setProperty(renderer:Renderer, elementRef:ElementRef, propName:string, propValue:any) {
+function setProperty(renderer:Renderer, elementRef:ElementRef, propName:string, propValue:any):void {
   renderer.setElementProperty(elementRef, propName, propValue);
 }
 
-@Directive({
-  selector: '[ngTableFiltering]',
-  inputs: ['config: ngTableFiltering'],
-  outputs: ['tableChanged'],
-  host: {
-    '(input)': 'onChangeFilter($event.target.value)'
-  }
-})
-export class NgTableFiltering {
-  public config:any = {
+@Directive({selector: '[ngTableFiltering]'})
+export class NgTableFilteringDirective {
+  @Input() public ngTableFiltering:any = {
     filterString: '',
     columnName: 'name'
   };
-  public tableChanged:EventEmitter<any> = new EventEmitter();
 
-  constructor(private element:ElementRef, private renderer:Renderer) {
-    // Set default value for filter
-    setProperty(this.renderer, this.element, 'value', this.config.filterString);
+  @Output() public tableChanged:EventEmitter<any> = new EventEmitter();
+
+  @Input()
+  public get config():any {
+    return this.ngTableFiltering;
   }
 
-  onChangeFilter(event:any) {
-    this.config.filterString = event;
-    this.tableChanged.emit({filtering: this.config});
+  public set config(value:any) {
+    this.ngTableFiltering = value;
+  }
+
+  private element:ElementRef;
+  private renderer:Renderer;
+
+  @HostListener('input', ['$event.target.value'])
+  public onChangeFilter(event:any):void {
+    this.ngTableFiltering.filterString = event;
+    this.tableChanged.emit({filtering: this.ngTableFiltering});
+  }
+
+  public constructor(element:ElementRef, renderer:Renderer) {
+    this.element = element;
+    this.renderer = renderer;
+    // Set default value for filter
+    setProperty(this.renderer, this.element, 'value', this.ngTableFiltering.filterString);
   }
 }
