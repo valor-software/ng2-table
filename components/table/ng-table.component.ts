@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CORE_DIRECTIVES, NgClass} from '@angular/common';
 import {NgTableSortingDirective} from './ng-table-sorting.directive';
 
 @Component({
   selector: 'ng-table',
   template: `
-    <table class="table table-striped table-bordered dataTable"
+    <table [ngClass]="classMap"
            role="grid" style="width: 100%;">
       <thead>
       <tr role="row">
@@ -25,7 +25,7 @@ import {NgTableSortingDirective} from './ng-table-sorting.directive';
 `,
   directives: [NgTableSortingDirective, NgClass, CORE_DIRECTIVES]
 })
-export class NgTableComponent {
+export class NgTableComponent implements OnInit {
   // Table values
   @Input() public rows:Array<any> = [];
   @Input() public config:any = {};
@@ -48,6 +48,18 @@ export class NgTableComponent {
 
   public get columns():Array<any> {
     return this._columns;
+  }
+
+  public elementRef: ElementRef;
+
+  private classMap:string;
+
+  public constructor(elementRef: ElementRef) {
+    this.elementRef = elementRef;
+  }
+
+  public ngOnInit():void {
+    this.classMap = this.elementRef.nativeElement.getAttribute('class') || { 'table': true, 'table-striped': true, 'table-bordered': true, 'dataTable': true};
   }
 
   public get configColumns():any {
