@@ -2,7 +2,7 @@
        [ngTableFiltering]="config.filtering"
        (tableChanged)="onChangeTable(config)"/>
 
-<ng-table [config]="config.sorting"
+<ng-table class="table table-striped" [config]="config.sorting"
            (tableChanged)="onChangeTable(config)"
            [rows]="rows" [columns]="columns">
 </ng-table>

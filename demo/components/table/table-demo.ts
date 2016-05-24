@@ -15,7 +15,11 @@ let template = require('./table-demo.html');
 export class TableDemoComponent implements OnInit {
   public rows:Array<any> = [];
   public columns:Array<any> = [
-    {title: 'Name', name: 'name'},
+    {
+      title: 'Name', 
+      name: 'name',
+      template: `<div>{{row[column['name']]}} {{rowIndex}}</div>`
+    },
     {title: 'Position', name: 'position', sort: false},
     {title: 'Office', name: 'office', sort: 'asc'},
     {title: 'Extn.', name: 'ext', sort: ''},
@@ -29,7 +33,7 @@ export class TableDemoComponent implements OnInit {
   public length:number = 0;
 
   public config:any = {
-    paging: true,
+    paging: false,
     sorting: {columns: this.columns},
     filtering: {filterString: '', columnName: 'position'}
   };
