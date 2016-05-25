@@ -1,4 +1,4 @@
-import {ApplicationRef, Component, ComponentResolver, ElementRef, EventEmitter, Input, Injector, OnInit, Output} from '@angular/core';
+import {ApplicationRef, Component, ComponentResolver, DoCheck, ElementRef, EventEmitter, Input, Injector, IterableDiffers, OnInit, Output, SimpleChange} from '@angular/core';
 import {CORE_DIRECTIVES, NgClass} from '@angular/common';
 import {NgTableSortingDirective} from './ng-table-sorting.directive';
 
@@ -52,7 +52,7 @@ function compileToComponent(template:any, directives:Array<any>, row:any, column
 `,
   directives: [NgTableSortingDirective, NgClass, CORE_DIRECTIVES]
 })
-export class NgTableComponent implements OnInit {
+export class NgTableComponent implements DoCheck, OnInit {
   // Table values
   @Input() public rows:Array<any> = [];
   @Input() public config:any = {};
@@ -81,14 +81,16 @@ export class NgTableComponent implements OnInit {
   private compiler: ComponentResolver;
   private elementRef: ElementRef;
   private injector: Injector;
+  private differ: any;
 
   private classMap:string;
 
-  public constructor(appRef: ApplicationRef, compiler: ComponentResolver, elementRef: ElementRef, injector: Injector) {
+  public constructor(appRef: ApplicationRef, compiler: ComponentResolver, elementRef: ElementRef, injector: Injector, differs: IterableDiffers) {
     this.appRef = appRef;
     this.compiler = compiler;
     this.elementRef = elementRef;
     this.injector = injector;
+    this.differ = differs.find([]).create(null);
   }
 
   public ngOnInit():void {
@@ -97,6 +99,17 @@ export class NgTableComponent implements OnInit {
     this.classMap = nativeElement.getAttribute('class') || { 'table': true, 'table-striped': true, 'table-bordered': true, 'dataTable': true};
     nativeElement.removeAttribute('class');
 
+    this.renderColumnTemplates();
+  }
+
+  public ngDoCheck(): void {
+    var changes = this.differ.diff(this.rows);
+    if (changes) {
+      this.renderColumnTemplates();
+    }
+  }
+
+  private renderColumnTemplates(): void {
     for (let i = 0; i < this.rows.length; i++) {
         for (let j = 0; j < this.columns.length; j++) {
         if (this.columns[j].template) {
