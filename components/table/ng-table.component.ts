@@ -92,7 +92,10 @@ export class NgTableComponent implements OnInit {
   }
 
   public ngOnInit():void {
-    this.classMap = this.elementRef.nativeElement.getAttribute('class') || { 'table': true, 'table-striped': true, 'table-bordered': true, 'dataTable': true};
+    let nativeElement = this.elementRef.nativeElement;
+
+    this.classMap = nativeElement.getAttribute('class') || { 'table': true, 'table-striped': true, 'table-bordered': true, 'dataTable': true};
+    nativeElement.removeAttribute('class');
 
     for (let i = 0; i < this.rows.length; i++) {
         for (let j = 0; j < this.columns.length; j++) {

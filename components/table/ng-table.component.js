@@ -87,7 +87,9 @@ var NgTableComponent = (function () {
     });
     NgTableComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.classMap = this.elementRef.nativeElement.getAttribute('class') || { 'table': true, 'table-striped': true, 'table-bordered': true, 'dataTable': true };
+        var nativeElement = this.elementRef.nativeElement;
+        this.classMap = nativeElement.getAttribute('class') || { 'table': true, 'table-striped': true, 'table-bordered': true, 'dataTable': true };
+        nativeElement.removeAttribute('class');
         for (var i = 0; i < this.rows.length; i++) {
             for (var j = 0; j < this.columns.length; j++) {
                 if (this.columns[j].template) {
@@ -145,7 +147,7 @@ var NgTableComponent = (function () {
     NgTableComponent = __decorate([
         core_1.Component({
             selector: 'ng-table',
-            template: "\n    <table [ngClass]=\"classMap\"\n           role=\"grid\" style=\"width: 100%;\">\n      <thead>\n      <tr role=\"row\">\n        <th *ngFor=\"let column of columns\" [ngTableSorting]=\"config\" [column]=\"column\" (sortChanged)=\"onChangeTable($event)\">\n          {{column.title}}\n          <i *ngIf=\"config && column.sort\" class=\"pull-right fa\"\n            [ngClass]=\"{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}\"></i>\n        </th>\n      </tr>\n      </thead>\n      <tbody>\n      <div #container></div>\n      <tr *ngFor=\"let row of rows; let i = index\">\n        <td *ngFor=\"let column of columns; let j = index\">\n          <span *ngIf=\"column.template==null\">\n            {{getData(row, column.name)}}\n          </span>\n          <span *ngIf=\"column.template\" class=\"row-{{i}}-col-{{j}}\"></span>\n        </td>\n      </tr>\n      </tbody>\n    </table>\n",
+            template: "\n    <table [ngClass]=\"classMap\"\n           role=\"grid\" style=\"width: 100%;\">\n      <thead>\n      <tr role=\"row\">\n        <th *ngFor=\"let column of columns\" [ngTableSorting]=\"config\" [column]=\"column\" (sortChanged)=\"onChangeTable($event)\">\n          {{column.title}}\n          <i *ngIf=\"config && column.sort\" class=\"pull-right fa\"\n            [ngClass]=\"{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}\"></i>\n        </th>\n      </tr>\n      </thead>\n      <tbody>\n      <tr *ngFor=\"let row of rows; let i = index\">\n        <td *ngFor=\"let column of columns; let j = index\">\n          <span *ngIf=\"column.template==null\">\n            {{getData(row, column.name)}}\n          </span>\n          <span *ngIf=\"column.template\" class=\"row-{{i}}-col-{{j}}\"></span>\n        </td>\n      </tr>\n      </tbody>\n    </table>\n",
             directives: [ng_table_sorting_directive_1.NgTableSortingDirective, common_1.NgClass, common_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [core_1.ApplicationRef, core_1.ComponentResolver, core_1.ElementRef, core_1.Injector])
