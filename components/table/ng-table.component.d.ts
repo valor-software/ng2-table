@@ -3,6 +3,7 @@ export declare class NgTableComponent implements DoCheck, OnInit {
     rows: Array<any>;
     config: any;
     tableChanged: EventEmitter<any>;
+    cellClicked: EventEmitter<any>;
     columns: Array<any>;
     private appRef;
     private compiler;
@@ -17,5 +18,12 @@ export declare class NgTableComponent implements DoCheck, OnInit {
     configColumns: any;
     private _columns;
     onChangeTable(column: any): void;
+    onCellClick(row: any, column: any, rowIndex: number, columnIndex: number): void;
     getData(row: any, propertyName: string): string;
+}
+export interface NgCellClickData {
+    row: any;
+    column: any;
+    rowIndex: number;
+    columnIndex: number;
 }

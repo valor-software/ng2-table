@@ -40,7 +40,7 @@ function compileToComponent(template:any, directives:Array<any>, row:any, column
       </thead>
       <tbody>
       <tr *ngFor="let row of rows; let i = index">
-        <td *ngFor="let column of columns; let j = index">
+        <td *ngFor="let column of columns; let j = index" (click)="onCellClick(row, column, i, j)">
           <span *ngIf="column.template==null">
             {{getData(row, column.name)}}
           </span>
@@ -59,6 +59,7 @@ export class NgTableComponent implements DoCheck, OnInit {
 
   // Outputs (Events)
   @Output() public tableChanged:EventEmitter<any> = new EventEmitter();
+  @Output() public cellClicked: EventEmitter<any> = new EventEmitter();
 
   @Input()
   public set columns(values:Array<any>) {
@@ -150,7 +151,19 @@ export class NgTableComponent implements DoCheck, OnInit {
     this.tableChanged.emit({sorting: this.configColumns});
   }
 
+  public onCellClick(row:any, column:any, rowIndex:number, columnIndex:number):void {
+    let data: NgCellClickData = { row: row, column: column, rowIndex: rowIndex, columnIndex: columnIndex };
+    this.cellClicked.emit(data);
+  }
+
   public getData(row:any, propertyName:string):string {
     return propertyName.split('.').reduce((prev:any, curr:string) => prev[curr], row);
   }
+}
+
+export interface NgCellClickData {
+    row: any;
+    column: any;
+    rowIndex: number;
+    columnIndex: number;
 }

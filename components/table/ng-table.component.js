@@ -60,6 +60,7 @@ var NgTableComponent = (function () {
         this.rows = [];
         this.config = {};
         this.tableChanged = new core_1.EventEmitter();
+        this.cellClicked = new core_1.EventEmitter();
         this._columns = [];
         this.appRef = appRef;
         this.compiler = compiler;
@@ -134,6 +135,10 @@ var NgTableComponent = (function () {
         });
         this.tableChanged.emit({ sorting: this.configColumns });
     };
+    NgTableComponent.prototype.onCellClick = function (row, column, rowIndex, columnIndex) {
+        var data = { row: row, column: column, rowIndex: rowIndex, columnIndex: columnIndex };
+        this.cellClicked.emit(data);
+    };
     NgTableComponent.prototype.getData = function (row, propertyName) {
         return propertyName.split('.').reduce(function (prev, curr) { return prev[curr]; }, row);
     };
@@ -150,6 +155,10 @@ var NgTableComponent = (function () {
         __metadata('design:type', core_1.EventEmitter)
     ], NgTableComponent.prototype, "tableChanged", void 0);
     __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], NgTableComponent.prototype, "cellClicked", void 0);
+    __decorate([
         core_1.Input(), 
         __metadata('design:type', Array), 
         __metadata('design:paramtypes', [Array])
@@ -157,7 +166,7 @@ var NgTableComponent = (function () {
     NgTableComponent = __decorate([
         core_1.Component({
             selector: 'ng-table',
-            template: "\n    <table [ngClass]=\"classMap\"\n           role=\"grid\" style=\"width: 100%;\">\n      <thead>\n      <tr role=\"row\">\n        <th *ngFor=\"let column of columns\" [ngTableSorting]=\"config\" [column]=\"column\" (sortChanged)=\"onChangeTable($event)\">\n          {{column.title}}\n          <i *ngIf=\"config && column.sort\" class=\"pull-right fa\"\n            [ngClass]=\"{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}\"></i>\n        </th>\n      </tr>\n      </thead>\n      <tbody>\n      <tr *ngFor=\"let row of rows; let i = index\">\n        <td *ngFor=\"let column of columns; let j = index\">\n          <span *ngIf=\"column.template==null\">\n            {{getData(row, column.name)}}\n          </span>\n          <span *ngIf=\"column.template\" class=\"row-{{i}}-col-{{j}}\"></span>\n        </td>\n      </tr>\n      </tbody>\n    </table>\n",
+            template: "\n    <table [ngClass]=\"classMap\"\n           role=\"grid\" style=\"width: 100%;\">\n      <thead>\n      <tr role=\"row\">\n        <th *ngFor=\"let column of columns\" [ngTableSorting]=\"config\" [column]=\"column\" (sortChanged)=\"onChangeTable($event)\">\n          {{column.title}}\n          <i *ngIf=\"config && column.sort\" class=\"pull-right fa\"\n            [ngClass]=\"{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}\"></i>\n        </th>\n      </tr>\n      </thead>\n      <tbody>\n      <tr *ngFor=\"let row of rows; let i = index\">\n        <td *ngFor=\"let column of columns; let j = index\" (click)=\"onCellClick(row, column, i, j)\">\n          <span *ngIf=\"column.template==null\">\n            {{getData(row, column.name)}}\n          </span>\n          <span *ngIf=\"column.template\" class=\"row-{{i}}-col-{{j}}\"></span>\n        </td>\n      </tr>\n      </tbody>\n    </table>\n",
             directives: [ng_table_sorting_directive_1.NgTableSortingDirective, common_1.NgClass, common_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [core_1.ApplicationRef, core_1.ComponentResolver, core_1.ElementRef, core_1.Injector, core_1.IterableDiffers])
