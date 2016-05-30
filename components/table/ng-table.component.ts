@@ -66,7 +66,7 @@ export class NgTableComponent {
 
   public onChangeTable(column:any):void {
     this._columns.forEach((col:any) => {
-      if (col.name !== column.name) {
+      if (col.name !== column.name && col.sort !== false) {
         col.sort = '';
       }
     });
