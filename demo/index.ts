@@ -2,6 +2,7 @@ import {bootstrap} from '@angular/platform-browser-dynamic';
 import {Component} from '@angular/core';
 import {NgClass} from '@angular/common';
 import {TableSectionComponent} from './components/table-section';
+import {disableDeprecatedForms, provideForms} from '@angular/forms';
 
 let gettingStarted = require('./getting-started.md');
 
@@ -40,4 +41,7 @@ let gettingStarted = require('./getting-started.md');
 export class DemoComponent {
 }
 
-bootstrap(DemoComponent);
+bootstrap(DemoComponent, [
+  disableDeprecatedForms(),
+  provideForms()
+]);
