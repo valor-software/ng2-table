@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CORE_DIRECTIVES, NgClass} from '@angular/common';
 import {NgTableSortingDirective} from './ng-table-sorting.directive';
+import {NgTableFilteringDirective} from './ng-table-filtering.directive';
 
 @Component({
   selector: 'ng-table',
@@ -8,22 +9,31 @@ import {NgTableSortingDirective} from './ng-table-sorting.directive';
     <table class="table table-striped table-bordered dataTable"
            role="grid" style="width: 100%;">
       <thead>
-      <tr role="row">
-        <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" (sortChanged)="onChangeTable($event)">
-          {{column.title}}
-          <i *ngIf="config && column.sort" class="pull-right fa"
-            [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
-        </th>
-      </tr>
+        <tr role="row">
+          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" (sortChanged)="onChangeTable($event)">
+            {{column.title}}
+            <i *ngIf="config && column.sort" class="pull-right fa"
+              [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
+          </th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of rows">
-        <td *ngFor="let column of columns">{{getData(row, column.name)}}</td>
+      <tr *ngIf="showFilterRow">
+        <td *ngFor="let column of columns">
+          <input *ngIf="column.filtering" placeholder="{{column.filtering.placeholder}}"
+                 [ngTableFiltering]="column.filtering"
+                 class="form-control"
+                 style="width: auto;"
+                 (tableChanged)="onChangeTable(config)"/>
+        </td>
       </tr>
+        <tr *ngFor="let row of rows">
+          <td *ngFor="let column of columns">{{getData(row, column.name)}}</td>
+        </tr>
       </tbody>
     </table>
 `,
-  directives: [NgTableSortingDirective, NgClass, CORE_DIRECTIVES]
+  directives: [NgTableSortingDirective, NgClass, CORE_DIRECTIVES, NgTableFilteringDirective]
 })
 export class NgTableComponent {
   // Table values
@@ -36,6 +46,9 @@ export class NgTableComponent {
   @Input()
   public set columns(values:Array<any>) {
     values.forEach((value:any) => {
+      if (value.filtering) {
+        this.showFilterRow = true;
+      }
       let column = this._columns.find((col:any) => col.name === value.name);
       if (column) {
         Object.assign(column, value);
@@ -45,6 +58,8 @@ export class NgTableComponent {
       }
     });
   }
+
+  public showFilterRow:Boolean = false;
 
   public get columns():Array<any> {
     return this._columns;
