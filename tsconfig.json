@@ -17,6 +17,6 @@
   ],
   "files": [
     "ng2-table.ts",
-    "typings/browser.d.ts"
+    "typings/index.d.ts"
   ]
 }
