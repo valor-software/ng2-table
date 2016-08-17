@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CORE_DIRECTIVES, NgClass} from '@angular/common';
 import {NgTableSortingDirective} from './ng-table-sorting.directive';
@@ -17,7 +18,7 @@ import {NgTableSortingDirective} from './ng-table-sorting.directive';
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of rows">
+      <tr (click)="handleRowClicked(row)" *ngFor="let row of rows">
         <td *ngFor="let column of columns">{{getData(row, column.name)}}</td>
       </tr>
       </tbody>
@@ -25,14 +26,14 @@ import {NgTableSortingDirective} from './ng-table-sorting.directive';
 `,
   directives: [NgTableSortingDirective, NgClass, CORE_DIRECTIVES]
 })
+
 export class NgTableComponent {
   // Table values
   @Input() public rows:Array<any> = [];
   @Input() public config:any = {};
-
   // Outputs (Events)
   @Output() public tableChanged:EventEmitter<any> = new EventEmitter();
-
+  @Output() public rowClicked:EventEmitter<any> = new EventEmitter();
   @Input()
   public set columns(values:Array<any>) {
     values.forEach((value:any) => {
@@ -75,5 +76,9 @@ export class NgTableComponent {
 
   public getData(row:any, propertyName:string):string {
     return propertyName.split('.').reduce((prev:any, curr:string) => prev[curr], row);
+  }
+
+  public handleRowClicked(row: any): void {
+    this.rowClicked.emit(row);
   }
 }

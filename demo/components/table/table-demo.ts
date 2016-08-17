@@ -107,4 +107,8 @@ export class TableDemoComponent implements OnInit {
     this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
     this.length = sortedData.length;
   }
+
+  public handleRowClicked(row: any): any {
+    console.log(row);
+  }
 }
