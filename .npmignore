@@ -7,7 +7,7 @@ typings
 
 # testing
 karma.conf.js
-test.bundle.js
+spec-bundle.js
 coverage
 
 # demo build

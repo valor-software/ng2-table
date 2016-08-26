@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {CORE_DIRECTIVES} from '@angular/common';
+import { Component } from '@angular/core';
+import { CORE_DIRECTIVES } from '@angular/common';
 
-import {TableDemoComponent} from './table/table-demo';
+import { TableDemoComponent } from './table/table-demo';
 
 let name = 'Table';
 let src = 'https://github.com/valor-software/ng2-table/blob/master/components/table/table.ts';

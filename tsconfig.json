@@ -16,7 +16,8 @@
     "node_modules"
   ],
   "files": [
-    "ng2-table.ts",
-    "typings/index.d.ts"
+    "./ng2-table.ts",
+    "./demo/custom-typings.d.ts",
+    "./typings/index.d.ts"
   ]
 }
