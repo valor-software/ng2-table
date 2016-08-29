@@ -20,3 +20,5 @@ export default {
     NgTablePagingDirective
   ]
 };
+
+export { Ng2TableModule } from './components/ng-table-module';

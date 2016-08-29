@@ -1,10 +1,10 @@
 ### Usage
 ```typescript
-import {NG_TABLE_DIRECTIVES} from 'ng2-table/ng2-table';
+import { Ng2TableModule } from 'ng2-table/ng2-table';
 ```
 or if you want to import specified plugins (Table component is required, the others are optional):
 ```typescript
-import {NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective} from 'ng2-table/ng2-table';
+import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 ```
 in this case, don't forget to include all of the imported entities to the option `directives` in your component
 

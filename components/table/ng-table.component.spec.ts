@@ -1,12 +1,38 @@
-import { it, expect, describe, inject, addProviders } from '@angular/core/testing';
-import { ComponentFixture } from '@angular/compiler/testing';
-import { NgTableComponent } from './ng-table.component';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('Directive: FileSelectDirective', () => {
+import { Ng2TableModule } from '../ng-table-module';
+
+const html = ``;
+
+describe('Component: ng2-table', () => {
+  let fixture:ComponentFixture<any>;
+  let context:TestTableComponent;
+  let element:any;
+  let clean:any;
+
   beforeEach(() => {
-    addProviders([NgTableComponent]);
+    TestBed.configureTestingModule({
+      declarations: [TestTableComponent],
+      imports: [Ng2TableModule]
+    });
+    TestBed.overrideComponent(TestTableComponent, {set: {template: html}});
+    fixture = TestBed.createComponent(TestTableComponent);
+    context = fixture.componentInstance;
+    element = fixture.nativeElement.querySelector('#c1');
+    clean = fixture.nativeElement.querySelector('#c2');
+    fixture.detectChanges();
   });
-  it('should be fine', inject([NgTableComponent], (fixture:ComponentFixture<NgTableComponent>) => {
-    expect(fixture).not.toBeNull();
-  }));
+
+  it('should be true', () => {
+    expect(true).toBe(true);
+  });
 });
+
+@Component({
+  selector: 'table-test',
+  template: ''
+})
+
+class TestTableComponent {
+}
