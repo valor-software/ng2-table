@@ -4,19 +4,33 @@
  */
 'use strict';
 
-// Look in ./config folder for webpack.dev.js
-const conf = getWebpackConfig(process.env.NODE_ENV, require('./.ng2-config'));
-
-// marked renderer hack
+const reqPrism = require('prismjs');
 const marked = require('marked');
 
 marked.Renderer.prototype.code = function renderCode(code, lang) {
-  const escCode = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const out = this.options.highlight(code, lang);
+  const classMap = this.options.langPrefix + lang;
 
   if (!lang) {
-    return `<pre class="prettyprint" ngNonBindable>${escCode}</pre>`;
+    return `<pre><code>${out}\n</code></pre>`;
   }
-  return `<pre class="prettyprint lang-${lang}" ngNonBindable>${escCode}</pre>`;
+  return `<pre class="${classMap}"><code class="${classMap}">${out}\n</code></pre>\n`;
+};
+
+// Look in ./config folder for webpack.dev.js
+const conf = getWebpackConfig(process.env.NODE_ENV, require('./.ng2-config'));
+
+conf.markdownLoader = {
+  langPrefix: 'language-',
+  highlight(code, lang) {
+    const language = !lang || lang === 'html' ? 'markup' : lang;
+    const Prism = global.Prism || reqPrism;
+
+    if (!Prism.languages[language]) {
+      require(`prismjs/components/prism-${language}.js`);
+    }
+    return Prism.highlight(code, Prism.languages[language]);
+  }
 };
 
 module.exports = conf;
