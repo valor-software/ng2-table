@@ -1,10 +1,4 @@
-import {Component} from '@angular/core';
-import {CORE_DIRECTIVES} from '@angular/common';
-
-import {TableDemoComponent} from './table/table-demo';
-
-let name = 'Table';
-let src = 'https://github.com/valor-software/ng2-table/blob/master/components/table/table.ts';
+import { Component } from '@angular/core';
 // webpack html imports
 let doc = require('../../components/table/readme.md');
 let titleDoc = require('../../components/table/title.md');
@@ -13,48 +7,13 @@ let html = require('!!prismjs?lang=markup!./table/table-demo.html');
 
 @Component({
   selector: 'table-section',
-  template: `
-  <br>
-  <section id="${name.toLowerCase()}">
-    <div class="row"><h1>${name}<small>(<a href="${src}">src</a>)</small></h1></div>
-
-    <hr>
-
-    <div class="row"><div class="col-md-12">${titleDoc}</div></div>
-
-    <div class="row">
-      <h2>Example</h2>
-      <div class="card card-block panel panel-default panel-body">
-        <table-demo></table-demo>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <tabset>
-        <tab heading="Markup">
-          <div class="card card-block panel panel-default panel-body">
-            <pre class="language-html"><code class="language-html">${html}</code></pre>
-          </div>
-        </tab>
-        <tab heading="TypeScript">
-          <div class="card card-block panel panel-default panel-body">
-            <pre class="language-typescript"><code class="language-typescript">${ts}</code></pre>
-          </div>
-        </tab>
-      </tabset>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <h2>API</h2>
-      <div class="card card-block panel panel-default panel-body">${doc}</div>
-    </div>
-  </section>
-  `,
-  directives: [TableDemoComponent, CORE_DIRECTIVES]
+  templateUrl: './demo/components/table-section.html'
 })
 export class TableSectionComponent {
+  public name:string = 'Table';
+  public src:string = 'https://github.com/valor-software/ng2-table/tree/master/components/table';
+  public ts:string = ts;
+  public doc:string = doc;
+  public titleDoc:string = titleDoc;
+  public html:string = html;
 }

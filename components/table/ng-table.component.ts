@@ -1,6 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CORE_DIRECTIVES, NgClass} from '@angular/common';
-import {NgTableSortingDirective} from './ng-table-sorting.directive';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'ng-table',
@@ -22,8 +20,7 @@ import {NgTableSortingDirective} from './ng-table-sorting.directive';
       </tr>
       </tbody>
     </table>
-`,
-  directives: [NgTableSortingDirective, NgClass, CORE_DIRECTIVES]
+  `
 })
 export class NgTableComponent {
   // Table values

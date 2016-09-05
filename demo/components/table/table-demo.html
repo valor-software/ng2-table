@@ -3,8 +3,8 @@
        (tableChanged)="onChangeTable(config)"/>
 
 <ng-table [config]="config.sorting"
-           (tableChanged)="onChangeTable(config)"
-           [rows]="rows" [columns]="columns">
+          (tableChanged)="onChangeTable(config)"
+          [rows]="rows" [columns]="columns">
 </ng-table>
 <pagination *ngIf="config.paging"
             class="pagination-sm"
