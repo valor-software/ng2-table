@@ -27,7 +27,14 @@ export class TableDemoComponent implements OnInit {
   public config:any = {
     paging: true,
     sorting: {columns: this.columns},
-    filtering: {filterString: '', columnName: 'position'}
+
+    // single column filtering
+    //filtering: {filterString: '', columnName: 'position'}
+    
+    // multi columns filtering support
+    filtering: {
+      filterString: '', columnName: Array<any>()
+    }
   };
 
   private data:Array<any> = TableData;
@@ -83,9 +90,29 @@ export class TableDemoComponent implements OnInit {
       return data;
     }
 
-    let filteredData:Array<any> = data.filter((item:any) =>
-      item[config.filtering.columnName].match(this.config.filtering.filterString));
+    // single column filtering
+    // let filteredData:Array<any> = data.filter((item:any) =>
+    //   item[config.filtering.columnName].match(this.config.filtering.filterString));
 
+    let filteredData = new Array<any>();
+    let columnName = config.filtering.columnName;
+
+    for (let i in columnName) {
+      let column = columnName[i];
+      let tempArr:Array<any> = data.filter(
+        (item:any) =>
+          item[column]
+            .toLowerCase()
+            .match(
+              this.config.filtering.filterString.toLowerCase()
+            )
+          );
+      // merge new arr into filterData arr
+      let a = filteredData.concat(tempArr);
+      filteredData = a.filter(function (item, pos) {
+        return a.indexOf(item) === pos;
+      });
+    }
     return filteredData;
   }
 
