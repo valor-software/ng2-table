@@ -32,7 +32,6 @@ export class TableDemoComponent implements OnInit {
   public config:any = {
     paging: true,
     sorting: {columns: this.columns},
-    // filtering: {filterString: '', columnName: 'office'},
     filtering: {filterString: ''}
   };
 
@@ -101,7 +100,7 @@ export class TableDemoComponent implements OnInit {
       return filteredData.filter((item:any) =>
         item[config.filtering.columnName].match(this.config.filtering.filterString));
     }
-    // todo: needs refactoring
+
     let tempArray:Array<any> = [];
     filteredData.forEach((item:any) => {
       let flag = false;
