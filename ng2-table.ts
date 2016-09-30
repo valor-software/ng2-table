@@ -1,8 +1,8 @@
-import {NgTableComponent} from './components/table/ng-table.component';
+import { NgTableComponent } from './components/table/ng-table.component';
 
-import {NgTableFilteringDirective} from './components/table/ng-table-filtering.directive';
-import {NgTablePagingDirective} from './components/table/ng-table-paging.directive';
-import {NgTableSortingDirective} from './components/table/ng-table-sorting.directive';
+import { NgTableFilteringDirective } from './components/table/ng-table-filtering.directive';
+import { NgTablePagingDirective } from './components/table/ng-table-paging.directive';
+import { NgTableSortingDirective } from './components/table/ng-table-sorting.directive';
 
 export * from './components/table/ng-table.component';
 
@@ -20,3 +20,5 @@ export default {
     NgTablePagingDirective
   ]
 };
+
+export { Ng2TableModule } from './components/ng-table-module';

@@ -1,4 +1,4 @@
-export const TableData: Array<any> = [
+export const TableData:Array<any> = [
   {
     'name': 'Victoria Cantrell',
     'position': 'Integer Corporation',

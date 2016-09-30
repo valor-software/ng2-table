@@ -1,4 +1,4 @@
-import {Directive, EventEmitter, Input, Output, HostListener} from '@angular/core';
+import { Directive, EventEmitter, Input, Output, HostListener } from '@angular/core';
 
 @Directive({selector: '[ngTableSorting]'})
 export class NgTableSortingDirective {

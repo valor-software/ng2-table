@@ -1,3 +1,19 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/valor-software/ng2-table/compare/v1.0.2...v1.1.0) (2016-09-05)
+
+
+### Bug Fixes
+
+* **sorting:** bug was allowing to sort columns even when they're set to 'false' ([#155](https://github.com/valor-software/ng2-table/issues/155)) ([9621f91](https://github.com/valor-software/ng2-table/commit/9621f91))
+
+
+### Features
+
+* **package:** update dependency version, use [@angular](https://github.com/angular)/forms, fix gulp task ([#232](https://github.com/valor-software/ng2-table/issues/232)) ([026ef38](https://github.com/valor-software/ng2-table/commit/026ef38))
+* **package:** update to rc.5 and use ng2-webpack-config ([#268](https://github.com/valor-software/ng2-table/issues/268)) ([edf3cba](https://github.com/valor-software/ng2-table/commit/edf3cba))
+
+
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2016-05-18)
 

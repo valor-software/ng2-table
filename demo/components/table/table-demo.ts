@@ -1,17 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {CORE_DIRECTIVES, NgClass, NgIf} from '@angular/common';
-import {FORM_DIRECTIVES} from '@angular/forms';
-import {PAGINATION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
-import {NG_TABLE_DIRECTIVES} from '../../../ng2-table';
-import {TableData} from './table-data';
+import { Component, OnInit } from '@angular/core';
+import { TableData } from './table-data';
 
 // webpack html imports
 let template = require('./table-demo.html');
 
 @Component({
   selector: 'table-demo',
-  template: template,
-  directives: [NG_TABLE_DIRECTIVES, PAGINATION_DIRECTIVES, NgClass, NgIf, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  template
 })
 export class TableDemoComponent implements OnInit {
   public rows:Array<any> = [];
