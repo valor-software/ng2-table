@@ -18,9 +18,9 @@ export class TableDemoComponent implements OnInit {
       sort: false,
       filtering: {filterString: '', placeholder: 'Filter by position'}
     },
-    {title: 'Office', class:'office-column', name: 'office', sort: 'asc'},
+    {title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc'},
     {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
-    {title: 'Start date', name: 'startDate'},
+    {title: 'Start date', className: 'text-warning', name: 'startDate'},
     {title: 'Salary ($)', name: 'salary'}
   ];
   public page:number = 1;
@@ -32,7 +32,8 @@ export class TableDemoComponent implements OnInit {
   public config:any = {
     paging: true,
     sorting: {columns: this.columns},
-    filtering: {filterString: ''}
+    filtering: {filterString: ''},
+    className: ['table-striped', 'table-bordered']
   };
 
   private data:Array<any> = TableData;

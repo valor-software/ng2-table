@@ -27,13 +27,14 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
   - `filtering` (`?any`) - switch on the filtering plugin
     - `filterString` (`string`) - the default value for filter
     - `columnName` (`string`) - the property name in raw data
+  - `className` (`string|Array<string>`) - additional CSS classes that should be added to a <table>
 
 - `rows` (`?Array<any>`) - only list of the rows which should be displayed
 - `columns` (`?Array<any>`) - config for columns (+ sorting settings if it's needed)
     - `title` (`string`) - the title of column header
     - `name` (`string`) - the property name in data
     - `sort` (`?string|boolean`) - config for columns (+ sorting settings if it's needed), sorting is switched on by default for each column
-    - `class` (`string`) - custom class of column header
+    - `className` (`string|Array<string>`) - additional CSS classes that should be added to a column header
     - `filtering` (`?any`) - switch on the filtering plugin
       - `filterString` (`string`) - the default value for filter
       - `columnName` (`string`) - the property name in raw data
