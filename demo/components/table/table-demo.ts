@@ -18,7 +18,7 @@ export class TableDemoComponent implements OnInit {
       sort: false,
       filtering: {filterString: '', placeholder: 'Filter by position'}
     },
-    {title: 'Office', name: 'office', sort: 'asc'},
+    {title: 'Office', class:'office-column', name: 'office', sort: 'asc'},
     {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
     {title: 'Start date', name: 'startDate'},
     {title: 'Salary ($)', name: 'salary'}
@@ -131,5 +131,9 @@ export class TableDemoComponent implements OnInit {
     let sortedData = this.changeSort(filteredData, this.config);
     this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
     this.length = sortedData.length;
+  }
+
+  public onCellClick(data: any): any {
+    console.log(data);
   }
 }

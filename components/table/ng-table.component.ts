@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'ng-table',
@@ -7,7 +8,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
            role="grid" style="width: 100%;">
       <thead>
         <tr role="row">
-          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" (sortChanged)="onChangeTable($event)">
+          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" 
+              (sortChanged)="onChangeTable($event)" class="{{column.class || ''}}">
             {{column.title}}
             <i *ngIf="config && column.sort" class="pull-right fa"
               [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
@@ -25,7 +27,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         </td>
       </tr>
         <tr *ngFor="let row of rows">
-          <td *ngFor="let column of columns">{{getData(row, column.name)}}</td>
+          <td (click)="cellClick(row, column.name)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))"></td>
         </tr>
       </tbody>
     </table>
@@ -38,6 +40,9 @@ export class NgTableComponent {
 
   // Outputs (Events)
   @Output() public tableChanged:EventEmitter<any> = new EventEmitter();
+  @Output() public cellClicked:EventEmitter<any> = new EventEmitter();
+
+  public showFilterRow:Boolean = false;
 
   @Input()
   public set columns(values:Array<any>) {
@@ -55,7 +60,14 @@ export class NgTableComponent {
     });
   }
 
-  public showFilterRow:Boolean = false;
+  private _columns:Array<any> = [];
+
+  public constructor(private sanitizer:DomSanitizer) {
+  }
+
+  public sanitize(html:string):SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
 
   public get columns():Array<any> {
     return this._columns;
@@ -73,8 +85,6 @@ export class NgTableComponent {
     return {columns: sortColumns};
   }
 
-  private _columns:Array<any> = [];
-
   public onChangeTable(column:any):void {
     this._columns.forEach((col:any) => {
       if (col.name !== column.name && col.sort !== false) {
@@ -86,5 +96,9 @@ export class NgTableComponent {
 
   public getData(row:any, propertyName:string):string {
     return propertyName.split('.').reduce((prev:any, curr:string) => prev[curr], row);
+  }
+
+  public cellClick(row:any, column:any):void {
+    this.cellClicked.emit({row, column});
   }
 }

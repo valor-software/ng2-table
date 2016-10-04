@@ -9,6 +9,7 @@
 <br>
 <ng-table [config]="config"
           (tableChanged)="onChangeTable(config)"
+          (cellClicked)="onCellClick($event)"
           [rows]="rows" [columns]="columns">
 </ng-table>
 <pagination *ngIf="config.paging"
