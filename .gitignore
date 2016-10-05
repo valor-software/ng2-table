@@ -28,3 +28,8 @@ ng2-table.js.map
 ng2-table.d.ts
 
 /logs
+
+factories
+
+/**/*.metadata.json
+/**/*.ngfactory.ts
