@@ -6,7 +6,7 @@ or if you want to import specified plugins (Table component is required, the oth
 ```typescript
 import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 ```
-in this case, don't forget to include all of the imported entities to the option `directives` in your component
+in this case, don't forget to include all of the imported entities to your module
 
 ### Utilisation
 
@@ -27,21 +27,29 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
   - `filtering` (`?any`) - switch on the filtering plugin
     - `filterString` (`string`) - the default value for filter
     - `columnName` (`string`) - the property name in raw data
+  - `className` (`string|Array<string>`) - additional CSS classes that should be added to a <table>
 
 - `rows` (`?Array<any>`) - only list of the rows which should be displayed
 - `columns` (`?Array<any>`) - config for columns (+ sorting settings if it's needed)
     - `title` (`string`) - the title of column header
     - `name` (`string`) - the property name in data
     - `sort` (`?string|boolean`) - config for columns (+ sorting settings if it's needed), sorting is switched on by default for each column
+    - `className` (`string|Array<string>`) - additional CSS classes that should be added to a column header
+    - `filtering` (`?any`) - switch on the filtering plugin
+      - `filterString` (`string`) - the default value for filter
+      - `columnName` (`string`) - the property name in raw data
 
 ### Outputs (Events)
 
-- `tableChanged`: onclick event handler
+- `tableChanged`: data change event handler
+- `cellClicked`: onclick event handler
 
 ### Filter
 
 The responsibility of the filtering issue falls on user. You should choose on which columns the filter would be applied. You could add any number of different filters.
 Filter string - it's a string for matching values in raw data. Column name refers to the property name in raw data. The rest logic you could organize by yourself (the order of filters, data formats, etc). Even you could use filter for list of data columns.
+
+You can also set up `filtering` param for columns, in this case filter box will appear in first row of the table.
 
 ### Sorting
 

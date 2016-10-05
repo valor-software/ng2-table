@@ -3,14 +3,14 @@ export const TableData:Array<any> = [
     'name': 'Victoria Cantrell',
     'position': 'Integer Corporation',
     'office': 'Croatia',
-    'ext': '0839',
+    'ext': `<strong>0839</strong>`,
     'startDate': '2015/08/19',
     'salary': 208.178
   }, {
     'name': 'Pearl Crosby',
     'position': 'In PC',
     'office': 'Cambodia',
-    'ext': '8262',
+    'ext': `<strong>8262</strong>`,
     'startDate': '2014/10/08',
     'salary': 114.367
   }, {
