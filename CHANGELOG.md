@@ -1,3 +1,8 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/valor-software/ng2-table/compare/v1.1.0...v1.3.0) (2016-10-05)
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/valor-software/ng2-table/compare/v1.0.2...v1.1.0) (2016-09-05)
 
