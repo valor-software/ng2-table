@@ -15,7 +15,7 @@ export class NgTableSortingDirective {
     this.ngTableSorting = value;
   }
 
-  @HostListener('click', ['$event', '$target'])
+  @HostListener('click', ['$event'])
   public onToggleSort(event:any):void {
     if (event) {
       event.preventDefault();
