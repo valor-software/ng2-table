@@ -1,3 +1,18 @@
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/valor-software/ng2-table/compare/v1.3.0...v1.3.1) (2016-10-07)
+
+
+### Bug Fixes
+
+* **demo:** demo page link to html fixed ([17764d4](https://github.com/valor-software/ng2-table/commit/17764d4))
+
+
+### Features
+
+* **compiler-cli:** use ngc to generate *.metadata.json ([#308](https://github.com/valor-software/ng2-table/issues/308)) ([0f2b707](https://github.com/valor-software/ng2-table/commit/0f2b707))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/valor-software/ng2-table/compare/v1.1.0...v1.3.0) (2016-10-05)
 
