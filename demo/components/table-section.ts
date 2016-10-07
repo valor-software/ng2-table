@@ -7,7 +7,7 @@ let html = require('!!prismjs?lang=markup!./table/table-demo.html');
 
 @Component({
   selector: 'table-section',
-  templateUrl: './demo/components/table-section.html'
+  template: require('./table-section.html')
 })
 export class TableSectionComponent {
   public name:string = 'Table';
