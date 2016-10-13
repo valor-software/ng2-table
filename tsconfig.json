@@ -10,7 +10,7 @@
     "noImplicitAny": true,
     "declaration": false,
     "skipLibCheck": true,
-    "stripInternal": true,
+   
     "lib": ["dom", "es6"],
     "types": [
       "jasmine",
