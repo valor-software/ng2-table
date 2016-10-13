@@ -8,7 +8,7 @@ const gitignore = require('gitignore-to-glob')();
 
 gulp.task('tslint', () =>
   gulp
-    .src(gitignore)
+    /*.src(gitignore)*/
     .pipe(tslint({
       formatter: 'verbose',
       emitError: true,
