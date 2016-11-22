@@ -65,7 +65,7 @@
     "@types/jasmine": "2.2.34",
     "@types/node": "6.0.42",
     "@types/webpack": "1.12.34",
-    "async": "2.0.1",
+    "async": "2.1.4",
     "codecov": "1.0.1",
     "conventional-changelog-cli": "1.2.0",
     "conventional-github-releaser": "1.1.3",
