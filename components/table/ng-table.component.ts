@@ -22,7 +22,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
           <input *ngIf="column.filtering" placeholder="{{column.filtering.placeholder}}"
                  [ngTableFiltering]="column.filtering"
                  class="form-control"
-                 style="width: auto;"
+             
                  (tableChanged)="onChangeTable(config)"/>
         </td>
       </tr>
