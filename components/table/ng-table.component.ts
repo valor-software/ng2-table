@@ -8,7 +8,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
            role="grid" style="width: 100%;">
       <thead>
         <tr role="row">
-          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" 
+          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column"
               (sortChanged)="onChangeTable($event)" ngClass="{{column.className || ''}}">
             {{column.title}}
             <i *ngIf="config && column.sort" class="pull-right fa"
@@ -113,7 +113,7 @@ export class NgTableComponent {
   }
 
   public getData(row:any, propertyName:string):string {
-    return propertyName.split('.').reduce((prev:any, curr:string) => prev[curr], row);
+    return propertyName.split('.').reduce((prev:any, curr:string) => prev ? prev[curr] : undefined, row);
   }
 
   public cellClick(row:any, column:any):void {
