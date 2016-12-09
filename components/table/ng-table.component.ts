@@ -8,7 +8,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
            role="grid" style="width: 100%;">
       <thead>
         <tr role="row">
-          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" 
+          <th *ngFor="let column of columns | visible" [ngTableSorting]="config" [column]="column"
               (sortChanged)="onChangeTable($event)" ngClass="{{column.className || ''}}">
             {{column.title}}
             <i *ngIf="config && column.sort" class="pull-right fa"
@@ -18,7 +18,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
       </thead>
       <tbody>
       <tr *ngIf="showFilterRow">
-        <td *ngFor="let column of columns">
+        <td *ngFor="let column of columns | visible">
           <input *ngIf="column.filtering" placeholder="{{column.filtering.placeholder}}"
                  [ngTableFiltering]="column.filtering"
                  class="form-control"
@@ -27,7 +27,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
         </td>
       </tr>
         <tr *ngFor="let row of rows">
-          <td (click)="cellClick(row, column.name)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))"></td>
+          <td (click)="cellClick(row, column.name)" *ngFor="let column of columns | visible" [innerHtml]="sanitize(getData(row, column.name))"></td>
         </tr>
       </tbody>
     </table>
