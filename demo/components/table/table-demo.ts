@@ -18,9 +18,6 @@ export class TableDemoComponent implements OnInit {
       sort: false,
       filtering: {filterString: '', placeholder: 'Filter by position'}
     },
-    {title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc'},
-    {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
-    {title: 'Start date', className: 'text-warning', name: 'startDate'},
     {title: 'Salary ($)', name: 'salary'}
   ];
   public page:number = 1;
@@ -28,12 +25,27 @@ export class TableDemoComponent implements OnInit {
   public maxSize:number = 5;
   public numPages:number = 1;
   public length:number = 0;
+  public rowsToRender:number = 35;
+  public showExpandedRow : boolean = false;
+  public expandedRowIndex : number;
+  public rowExpandContent: string = `
+      <h1>content</h1>
+      <ul class="list-group">
+        <li class="list-group-item">First item</li>
+        <li class="list-group-item">Second item</li>
+        <li class="list-group-item">Third item</li>
+      </ul>
+    `
+
 
   public config:any = {
-    paging: true,
+    paging: false,
     sorting: {columns: this.columns},
     filtering: {filterString: ''},
-    className: ['table-striped', 'table-bordered']
+    className: ['table-striped', 'table-bordered'],
+    height: '50vh',
+    renderMoreAt : 0.85,
+    infiniteScroll : true
   };
 
   private data:Array<any> = TableData;
@@ -130,8 +142,23 @@ export class TableDemoComponent implements OnInit {
 
     let filteredData = this.changeFilter(this.data, this.config);
     let sortedData = this.changeSort(filteredData, this.config);
-    this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
-    this.length = sortedData.length;
+
+    if(sortedData.length > this.rowsToRender && config.infiniteScroll){
+      this.rows = sortedData.slice(0, this.rowsToRender);
+      this.length = this.rows.length;
+    }else{
+      this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
+      this.length = sortedData.length;
+    }
+  }
+
+  public onScrollDown(){
+    this.rowsToRender += 25;
+    this.onChangeTable(this.config);
+  }
+
+  public expanderClicked(row: any){
+      console.log(row);
   }
 
   public onCellClick(data: any): any {

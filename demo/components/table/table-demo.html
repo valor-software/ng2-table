@@ -10,17 +10,10 @@
 <ng-table [config]="config"
           (tableChanged)="onChangeTable(config)"
           (cellClicked)="onCellClick($event)"
+          (scrolledDown)="onScrollDown()"
+          (expanderClicked)="expanderClicked($event)"
+          [rowExpandContent]="rowExpandContent"
+          [showExpandedRow]="showExpandedRow"
+          [expandedRowIndex]="expandedRowIndex"
           [rows]="rows" [columns]="columns">
 </ng-table>
-<pagination *ngIf="config.paging"
-            class="pagination-sm"
-            [(ngModel)]="page"
-            [totalItems]="length"
-            [itemsPerPage]="itemsPerPage"
-            [maxSize]="maxSize"
-            [boundaryLinks]="true"
-            [rotate]="false"
-            (pageChanged)="onChangeTable(config, $event)"
-            (numPages)="numPages = $event">
-</pagination>
-<pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>

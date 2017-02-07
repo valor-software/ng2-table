@@ -1,34 +1,21 @@
-# ng2-table [![npm version](https://badge.fury.io/js/ng2-table.svg)](http://badge.fury.io/js/ng2-table)
-Simple table extension with sorting, filtering, paging... for Angular2 apps
-
-Follow me [![twitter](https://img.shields.io/twitter/follow/valorkin.svg?style=social&label=%20valorkin)](https://twitter.com/valorkin) to be notified about new releases.
-
-[![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://github.com/mgechev/angular2-style-guide)
-[![Build Status](https://travis-ci.org/valor-software/ng2-table.svg?branch=master)](https://travis-ci.org/valor-software/ng2-table)
-[![Code Climate](https://codeclimate.com/github/valor-software/ng2-table/badges/gpa.svg)](https://codeclimate.com/github/valor-software/ng2-table)
-[![Join the chat at https://gitter.im/valor-software/ng2-bootstrap](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valor-software/ng2-bootstrap?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Dependency Status](https://david-dm.org/valor-software/ng2-table.svg)](https://david-dm.org/valor-software/ng2-table)
-[![devDependency Status](https://david-dm.org/valor-software/ng2-table/dev-status.svg)](https://david-dm.org/valor-software/ng2-table#info=devDependencies)
-[![Throughput Graph](https://graphs.waffle.io/valor-software/ng2-table/throughput.svg)](https://waffle.io/valor-software/ng2-table/metrics)
+# ng2-expanding-table
+Simple table extension with sorting, filtering, paging, expandable rows, and infinite scroll for Angular2 apps
 
 # Usage & Demo
-[http://valor-software.github.io/ng2-table/](http://valor-software.github.io/ng2-table/)
+[http://reseract.github.io/ng2-expanding-table/](http://valor-software.github.io/ng2-expanding-table/)
 
 
 - - -
 
 ## Installation
 
-1. A recommended way to install ***ng2-table*** is through [npm](https://www.npmjs.com/search?q=ng2-table) package manager using the following command:
+1. A recommended way to install ***ng2-expanding-table*** is through [npm](https://www.npmjs.com/search?q=ng2-expanding-table) package manager using the following command:
 
   ```bash
-  npm i ng2-table --save
+  npm i ng2-expanding-table --save
   ```
-
-  Alternatively, you can [download it in a ZIP file](https://github.com/valor-software/ng2-table/archive/master.zip).
-
-2. More information regarding using of ***ng2-table*** is located in
-  [demo](http://valor-software.github.io/ng2-table/) and [demo sources](https://github.com/valor-software/ng2-table/tree/master/demo).
+2. More information regarding using of ***ng2-expanding-table*** is located in
+  [demo](http://reseract.github.io/ng2-expanding-table/) and [demo sources](https://github.com/reseract/ng2-expanding-table/tree/master/demo).
 
 ## Documentation
 
@@ -39,6 +26,8 @@ Follow me [![twitter](https://img.shields.io/twitter/follow/valorkin.svg?style=s
 - `maxSize` (`number`) - number of the displaying pages before `...`
 - `numPages` (`number`) - total number of the pages
 - `length` (`number`) - total number of the items after filtering (of it's chosen)
+- `expandable` (`boolean`) - allows expand columns and allows rows to expand after clicked
+- `rowExpandContent` (`string`) - html to render into the expanding row
 
 - `config` (`?any`) - config for setup all plugins (filtering, sorting, paging):
   - `paging` (`?boolean`) - - switch on the paging plugin
@@ -48,6 +37,9 @@ Follow me [![twitter](https://img.shields.io/twitter/follow/valorkin.svg?style=s
     - `filterString` (`string`) - the default value for filter
     - `columnName` (`string`) - the property name in raw data
   - `className` (`string|Array<string>`) - additional CSS classes that should be added to a <table>
+  - `height` (`string`) - height of the table component
+  - `infiniteScroll` (`boolean`) - allows for infinite scroll to work
+  - `renderMoreAt` (`number`) - a number between 0.01 and 0.99 representing percentage of scroll to render more data
 
 - `rows` (`?Array<any>`) - only list of the rows which should be displayed
 - `columns` (`?Array<any>`) - config for columns (+ sorting settings if it's needed)
@@ -63,6 +55,8 @@ Follow me [![twitter](https://img.shields.io/twitter/follow/valorkin.svg?style=s
 
 - `tableChanged`: data change event handler
 - `cellClicked`: onclick event handler
+- `expanderClicked`: onclick for expander event handler
+- `scrolledDown`: scrolled down to renderMore at percentage event handler
 
 ### Filter
 
@@ -84,11 +78,11 @@ Pagination could be used from [ng2-bootstrap](https://github.com/valor-software/
 
 Please follow this guidelines when reporting bugs and feature requests:
 
-1. Use [GitHub Issues](https://github.com/valor-software/ng2-table/issues) board to report bugs and feature requests (not our email address)
+1. Use [GitHub Issues](https://github.com/valor-software/ng2-expanding-table/issues) board to report bugs and feature requests (not our email address)
 2. Please **always** write steps to reproduce the error. That way we can focus on fixing the bug, not scratching our heads trying to reproduce it.
 
 Thanks for understanding!
 
 ### License
 
-The MIT License (see the [LICENSE](https://github.com/valor-software/ng2-table/blob/master/LICENSE) file for the full text)
+The MIT License (see the [LICENSE](https://github.com/valor-software/ng2-expanding-table/blob/master/LICENSE) file for the full text)
