@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableData } from './table-data';
+import { RowContentComponent } from './row-content/row-content.component';
 
 // webpack html imports
 let template = require('./table-demo.html');
@@ -26,16 +27,8 @@ export class TableDemoComponent implements OnInit {
   public numPages:number = 1;
   public length:number = 0;
   public rowsToRender:number = 35;
-  public showExpandedRow : boolean = false;
-  public expandedRowIndex : number;
-  public rowExpandContent: string = `
-      <h1>content</h1>
-      <ul class="list-group">
-        <li class="list-group-item">First item</li>
-        <li class="list-group-item">Second item</li>
-        <li class="list-group-item">Third item</li>
-      </ul>
-    `
+
+  public rowComponent = RowContentComponent;
 
 
   public config:any = {

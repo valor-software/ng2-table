@@ -27,7 +27,7 @@ Simple table extension with sorting, filtering, paging, expandable rows, and inf
 - `numPages` (`number`) - total number of the pages
 - `length` (`number`) - total number of the items after filtering (of it's chosen)
 - `expandable` (`boolean`) - allows expand columns and allows rows to expand after clicked
-- `rowExpandContent` (`string`) - html to render into the expanding row
+- `expandedComponent` (`string`) - component to insert into expanding row;
 
 - `config` (`?any`) - config for setup all plugins (filtering, sorting, paging):
   - `paging` (`?boolean`) - - switch on the paging plugin

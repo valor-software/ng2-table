@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, ViewContainerRef, ViewChild, ComponentRef, ComponentFactory, ComponentFactoryResolver} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -38,7 +38,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
           </tr>
           <tr *ngIf="showExpandedRow && (i == expandedRowIndex) && expandable" class="table-info" >
               <td [attr.colspan]="columns.length + 1">
-                <div [innerHtml]="sanitize(rowExpandContent)"></div>
+                <ng-table-row [rowComponent]="expandedComponent"></ng-table-row>
               </td>
           </tr>
           </template>
@@ -50,11 +50,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class NgTableComponent {
   // Table values
+  @Input() expandedComponent:any;
   @Input() public rows:Array<any> = [];
-  @Input() public rowExpandContent:string;
   @Input() public expandable:boolean = true;
-  @Input() public showExpandedRow:boolean;
-  @Input() public expandedRowIndex:number;
   @Input()
   public set config(conf:any) {
     if (!conf.className) {
@@ -65,7 +63,7 @@ export class NgTableComponent {
     }
     this._config = conf;
   }
-  
+
 
   // Outputs (Events)
   @Output() public tableChanged:EventEmitter<any> = new EventEmitter();
@@ -74,6 +72,8 @@ export class NgTableComponent {
   @Output() public scrolledDown:EventEmitter<any> = new EventEmitter();
 
   public showFilterRow:Boolean = false;
+  public showExpandedRow:Boolean = false;
+  public expandedRowIndex:number = null;
 
   @Input()
   public set columns(values:Array<any>) {
@@ -98,7 +98,7 @@ export class NgTableComponent {
   private _config:any = {};
   public scrollPercentage:number = 0;
 
-  public constructor(private sanitizer:DomSanitizer, public ref: ChangeDetectorRef) {
+  public constructor(private sanitizer:DomSanitizer, public ref: ChangeDetectorRef, private componentFactoryResolver: ComponentFactoryResolver, private compiler: Compiler) {
   }
 
   public sanitize(html:string):SafeHtml {
