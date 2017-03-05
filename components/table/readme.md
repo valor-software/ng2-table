@@ -27,7 +27,8 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
   - `filtering` (`?any`) - switch on the filtering plugin
     - `filterString` (`string`) - the default value for filter
     - `columnName` (`string`) - the property name in raw data
-  - `className` (`string|Array<string>`) - additional CSS classes that should be added to a <table>
+  - `className` (`string|Array<string>`) - additional CSS classes that should be added to a `<table>`
+      - `selectedRowClass` (`string`) - CSS class that should be added to the selected row. Clicking on an already selected row removes the class.
 
 - `rows` (`?Array<any>`) - only list of the rows which should be displayed
 - `columns` (`?Array<any>`) - config for columns (+ sorting settings if it's needed)

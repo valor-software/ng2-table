@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'ng-table',
@@ -26,7 +27,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
                  (tableChanged)="onChangeTable(config)"/>
         </td>
       </tr>
-        <tr *ngFor="let row of rows">
+        <tr *ngFor="let row of rows" [ngClass]="setSelectedRow(row)">
           <td (click)="cellClick(row, column.name)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))"></td>
         </tr>
       </tbody>
@@ -44,6 +45,9 @@ export class NgTableComponent {
     }
     if (conf.className instanceof Array) {
       conf.className = conf.className.join(' ');
+    }
+    if(!conf.selectedRowClass){
+      conf.selectedRowClass = '';
     }
     this._config = conf;
   }
@@ -75,7 +79,7 @@ export class NgTableComponent {
 
   private _columns:Array<any> = [];
   private _config:any = {};
-
+  private _currentSelectedRow: any = null;
   public constructor(private sanitizer:DomSanitizer) {
   }
 
@@ -118,5 +122,17 @@ export class NgTableComponent {
 
   public cellClick(row:any, column:any):void {
     this.cellClicked.emit({row, column});
+    if(this._currentSelectedRow === row){
+      this._currentSelectedRow = null
+    } else {
+      this._currentSelectedRow = row;
+    }
+
+  }
+
+  public setSelectedRow(row:any):any {
+    let classObj:any = {};
+    classObj[this._config.selectedRowClass] = this._currentSelectedRow === row;
+   return classObj;
   }
 }
