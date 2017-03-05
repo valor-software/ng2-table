@@ -33,7 +33,8 @@ export class TableDemoComponent implements OnInit {
     paging: true,
     sorting: {columns: this.columns},
     filtering: {filterString: ''},
-    className: ['table-striped', 'table-bordered']
+    className: ['table-striped', 'table-bordered'],
+    selectedRowClass : 'selectedRow'
   };
 
   private data:Array<any> = TableData;
