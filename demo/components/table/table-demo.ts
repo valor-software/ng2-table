@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableData } from './table-data';
+import { RowContentComponent } from './row-content/row-content.component';
 
 // webpack html imports
 let template = require('./table-demo.html');
@@ -12,28 +13,33 @@ export class TableDemoComponent implements OnInit {
   public rows:Array<any> = [];
   public columns:Array<any> = [
     {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
+    {title: 'Office', name: 'office', editable:true, options:["France", "Venezuela", "Macao"]},
+    {title: 'Salary ($)', name: 'salary', editable: true, editWith: 'position'},
     {
       title: 'Position',
       name: 'position',
-      sort: false,
-      filtering: {filterString: '', placeholder: 'Filter by position'}
-    },
-    {title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc'},
-    {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
-    {title: 'Start date', className: 'text-warning', name: 'startDate'},
-    {title: 'Salary ($)', name: 'salary'}
+      editable: true,
+      options: ["Entry", "Junior", "Senior"]
+    }
   ];
   public page:number = 1;
   public itemsPerPage:number = 10;
   public maxSize:number = 5;
   public numPages:number = 1;
   public length:number = 0;
+  public rowsToRender:number = 35;
+
+  public rowComponent = RowContentComponent;
+
 
   public config:any = {
-    paging: true,
+    paging: false,
     sorting: {columns: this.columns},
     filtering: {filterString: ''},
-    className: ['table-striped', 'table-bordered']
+    className: ['table-striped', 'table-bordered'],
+    height: '50vh',
+    renderMoreAt : 0.85,
+    infiniteScroll : true
   };
 
   private data:Array<any> = TableData;
@@ -130,8 +136,33 @@ export class TableDemoComponent implements OnInit {
 
     let filteredData = this.changeFilter(this.data, this.config);
     let sortedData = this.changeSort(filteredData, this.config);
-    this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
-    this.length = sortedData.length;
+
+    if(sortedData.length > this.rowsToRender && config.infiniteScroll){
+      this.rows = sortedData.slice(0, this.rowsToRender);
+      this.length = this.rows.length;
+    }else{
+      this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
+      this.length = sortedData.length;
+    }
+  }
+
+  public onScrollDown(){
+    this.rowsToRender += 25;
+    this.onChangeTable(this.config);
+  }
+
+  public expanderClicked(row: any){
+      console.log(row);
+  }
+
+  editRow(changeData:any){
+    console.log(changeData);
+    // here you would maybe make some http request or do validation
+    for(let change of changeData){
+      if(change.newValue !== ""){
+        this.rows[change.rowIndex][change.columnChanged] = change.newValue;
+      }
+    }
   }
 
   public onCellClick(data: any): any {

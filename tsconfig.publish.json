@@ -23,7 +23,7 @@
   ],
   "files": [
     "./demo/custom-typings.d.ts",
-    "./ng2-table.ts"
+    "./ng2-expanding-table.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "factories"

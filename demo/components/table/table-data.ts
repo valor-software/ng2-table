@@ -351,7 +351,7 @@ export const TableData:Array<any> = [
     'salary': 106.335
   }, {
     'name': 'Mira Baird',
-    'position': 'Felis Orci PC',
+    'position': 'Junior',
     'office': 'Niue',
     'ext': '4189',
     'startDate': '2015/08/25',

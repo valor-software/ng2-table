@@ -10,6 +10,7 @@ import { Ng2TableModule } from '../components/ng-table-module';
 
 import { TableDemoComponent } from './components/table/table-demo';
 import { TableSectionComponent } from './components/table-section';
+import { RowContentComponent } from './components/table/row-content/row-content.component';
 
 import { DemoComponent } from './demo.component';
 
@@ -17,7 +18,8 @@ import { DemoComponent } from './demo.component';
   declarations: [
     DemoComponent,
     TableDemoComponent,
-    TableSectionComponent
+    TableSectionComponent,
+    RowContentComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +29,7 @@ import { DemoComponent } from './demo.component';
     TabsModule,
     CommonModule
   ],
+  entryComponents: [RowContentComponent],
   providers: [],
   bootstrap: [DemoComponent]
 })
