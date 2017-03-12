@@ -2,7 +2,7 @@
 Simple table extension with sorting, filtering, paging, expandable rows, and infinite scroll for Angular2 apps
 
 # Usage & Demo
-[http://reseract.github.io/ng2-expanding-table/](http://valor-software.github.io/ng2-expanding-table/)
+[http://reseract.github.io/ng2-expanding-table/](http://reseract.github.io/ng2-expanding-table)
 
 
 - - -
@@ -42,6 +42,7 @@ Simple table extension with sorting, filtering, paging, expandable rows, and inf
   - `editable` (`boolean`) - allows values under this column to be changed (note this just facilitates the change, you must use the valueEdit output event to make changes permanent)
   - `options` (`?Array<string>`) - if an array is provided, the editing will be a select dropdown rather than an input
   - `isEditing` (`boolean`) - autoset by the table, however this can be used to customize editing multiple cells in a row
+  - `editWith` (`string`) - put a column's name in this variable to make both edit at the same time.
 
   ---
 - `config` (`?any`) - config for setup all plugins (filtering, sorting, paging):
@@ -63,6 +64,14 @@ Simple table extension with sorting, filtering, paging, expandable rows, and inf
 - `expanderClicked`: onclick for expander event handler
 - `scrolledDown`: scrolled down to renderMore at percentage event handler
 - `valueEdit` : returns the row, column, row index, column index, original value, and new value in one object after an editable table cell has been submitted 
+  - `returns Array<change>`
+  - `change : object` 
+    - `rowChanged`
+    - `rowIndex`
+    - `columnChanged`
+    - `columnIndex`
+    - `oldValue`
+    - `newValue`
 
 ### Filter
 
@@ -84,11 +93,11 @@ Pagination could be used from [ng2-bootstrap](https://github.com/valor-software/
 
 Please follow this guidelines when reporting bugs and feature requests:
 
-1. Use [GitHub Issues](https://github.com/valor-software/ng2-expanding-table/issues) board to report bugs and feature requests (not our email address)
+1. Use [GitHub Issues](https://github.com/reseract/ng2-expanding-table/issues) board to report bugs and feature requests (not our email address)
 2. Please **always** write steps to reproduce the error. That way we can focus on fixing the bug, not scratching our heads trying to reproduce it.
 
 Thanks for understanding!
 
 ### License
 
-The MIT License (see the [LICENSE](https://github.com/valor-software/ng2-expanding-table/blob/master/LICENSE) file for the full text)
+The MIT License (see the [LICENSE](https://github.com/reseract/ng2-expanding-table/blob/master/LICENSE) file for the full text)

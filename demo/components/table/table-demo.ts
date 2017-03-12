@@ -13,13 +13,14 @@ export class TableDemoComponent implements OnInit {
   public rows:Array<any> = [];
   public columns:Array<any> = [
     {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
+    {title: 'Office', name: 'office', editable:true, options:["France", "Venezuela", "Macao"]},
+    {title: 'Salary ($)', name: 'salary', editable: true, editWith: 'position'},
     {
       title: 'Position',
       name: 'position',
       editable: true,
       options: ["Entry", "Junior", "Senior"]
-    },
-    {title: 'Salary ($)', name: 'salary', editable: true}
+    }
   ];
   public page:number = 1;
   public itemsPerPage:number = 10;
@@ -157,8 +158,10 @@ export class TableDemoComponent implements OnInit {
   editRow(changeData:any){
     console.log(changeData);
     // here you would maybe make some http request or do validation
-    if(changeData.newValue !== ""){
-      this.rows[changeData.rowIndex][changeData.columnChanged] = changeData.newValue;
+    for(let change of changeData){
+      if(change.newValue !== ""){
+        this.rows[change.rowIndex][change.columnChanged] = change.newValue;
+      }
     }
   }
 

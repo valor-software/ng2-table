@@ -38,18 +38,18 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
                 <td (click)="cellClick(row, column.name, i)" *ngIf="!column.isEditing || editingRow != i">
                   <div style="display:inline-block" [innerHtml]="sanitize(getData(row, column.name))"> </div> 
-                  <span class="pull-right" *ngIf="column.editable"><i class="fa fa-pencil-square-o" aria-hidden="true" (click)="setRowToEdit(i, j)"></i></span>
+                  <span class="pull-right" *ngIf="column.editable && !column.editWith"><i class="fa fa-pencil" aria-hidden="true" (click)="setRowToEdit(i, j)"></i></span>
                 </td>
 
                 <td *ngIf="column.isEditing && editingRow == i && !column.options">
-                  <input class="form-control" style="width:70%;display:inline-block" [value]="getData(row, column.name)" #newValue (keyup.enter)="submitChange(row, i, column.name, j, newValue)">
-                  <span class="pull-right" *ngIf="column.editable"><i class="fa fa-check-square-o" aria-hidden="true" (click)="submitChange(row, i, column.name, j, newValue)"></i></span>
+                  <input class="form-control" style="width:70%;display:inline-block; height:70%;" [value]="getData(row, column.name)" [id]="column.name" #val (keyup)="updateChanges(column.name, val)">
+                  <span class="pull-right" *ngIf="column.editable && !column.editWith"><i class="fa fa-check-square-o success" aria-hidden="true" (click)="submitChange(row, i, column.name, j, val)"></i></span>
                 </td>
                 <td *ngIf="column.isEditing && editingRow == i && column.options">
-                  <select class="form-control" style="width:70%;display:inline-block" [value]="getData(row, column.name)" #newValue (keyup.enter)="submitChange(row, i, column.name, j, newValue)">
+                  <select class="form-control" style="width:70%;display:inline-block;height:70%;" [value]="getData(row, column.name)" [id]="column.name" #val (keyup)="updateChanges(column.name, val)" (mouseup)="updateChanges(column.name, val)">
                     <option *ngFor="let option of column.options" [value]="option"> {{option}}</option>
                   </select>
-                  <span class="pull-right" *ngIf="column.editable"><i class="fa fa-check-square-o" aria-hidden="true" (click)="submitChange(row, i, column.name, j, newValue)"></i></span>
+                  <span class="pull-right" *ngIf="column.editable && !column.editWith"><i class="fa fa-check-square-o success" aria-hidden="true" (click)="submitChange(row, i, column.name, j, val)"></i></span>
                 </td>
               </template>
           </tr>
@@ -69,7 +69,9 @@ export class NgTableComponent {
   // Table values
   @Input() expandedComponent:any;
   @Input() public rows:Array<any> = [];
-  @Input() public expandable:boolean = true;
+  @Input() public expandable:boolean;
+  @Input() public editingRow:number;
+  @Input() public editingColumn:number;
   @Input()
   public set config(conf:any) {
     if (conf.className instanceof Array) {
@@ -89,7 +91,7 @@ export class NgTableComponent {
   public showFilterRow:Boolean = false;
   public showExpandedRow:Boolean = false;
   public expandedRowIndex:number = null;
-  public editingRow:number = null
+  public currentChanges: any = {};
 
   @Input()
   public set columns(values:Array<any>) {
@@ -185,20 +187,56 @@ export class NgTableComponent {
   public setRowToEdit(rowIndex:any, column:any){
     this.editingRow = rowIndex;
     for(let col of this.columns){
-      col.isEditing = false;
+      if(col.editWith != this.columns[column].name){
+        col.isEditing = false;
+      }else if(col.editWith === this.columns[column].name){
+        col.isEditing = true;
+      }  
     }
     this.columns[column].isEditing = true;
   }
 
+  public updateChanges(colName:any, val:any){
+    this.currentChanges[colName] = val.value;
+  }
+
   public submitChange(row:any, rIndex:number, columnName:string, cIndex:number, newVal:any ){
-    this.valueEdit.emit({
+    let valueChange = {
                         rowChanged: row,
                         rowIndex: rIndex,
                         columnChanged: columnName,
                         columnIndex: cIndex,
                         oldValue: row[columnName],
                         newValue: newVal.value
-                        })
+                      }
+
+    let allChanges = [valueChange];
+    
+    this.columns.forEach((col, index) => {
+      if(col.editWith === this.columns[cIndex].name && this.currentChanges[col.name] != undefined){      
+        let newValueChange = {
+                              rowChanged: row,
+                              rowIndex: rIndex,
+                              columnChanged: col.name,
+                              columnIndex: index,
+                              oldValue: row[col.name],
+                              newValue: this.currentChanges[col.name]
+                             }
+        allChanges.push(newValueChange);
+      }
+    })
+    // Check for changes
+    let noChanges = true;
+    for(let change of allChanges){
+      if(change.newValue != change.oldValue){
+        noChanges = false;
+      }
+    }
+    if(noChanges){
+      this.editingRow = null;
+      return;
+    }
+    this.valueEdit.emit(allChanges);
     this.editingRow = null;
   }
 }
