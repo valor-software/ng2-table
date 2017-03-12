@@ -34,7 +34,24 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
             <td (click)="toggleRowExpansion(row, i)" *ngIf="expandable" (click)="cellClick(row, 'expand', i)" style="text-align:center; padding:0px; padding-top:7px;"><a style="width:100%; text-align:center;">
               <i [ngClass]="{'fa': true, 'fa-plus-circle': i != expandedRowIndex, 'fa-minus-circle' : i == expandedRowIndex}" style="font-size:1.5em; cursor:pointer"></i></a>
             </td>
-            <td (click)="cellClick(row, column.name, i)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))" ></td>
+              <template ngFor let-column [ngForOf]="columns" let-j= "index" >
+
+                <td (click)="cellClick(row, column.name, i)" *ngIf="!column.isEditing || editingRow != i">
+                  <div style="display:inline-block" [innerHtml]="sanitize(getData(row, column.name))"> </div> 
+                  <span class="pull-right" *ngIf="column.editable"><i class="fa fa-pencil-square-o" aria-hidden="true" (click)="setRowToEdit(i, j)"></i></span>
+                </td>
+
+                <td *ngIf="column.isEditing && editingRow == i && !column.options">
+                  <input class="form-control" style="width:70%;display:inline-block" [value]="getData(row, column.name)" #newValue (keyup.enter)="submitChange(row, i, column.name, j, newValue)">
+                  <span class="pull-right" *ngIf="column.editable"><i class="fa fa-check-square-o" aria-hidden="true" (click)="submitChange(row, i, column.name, j, newValue)"></i></span>
+                </td>
+                <td *ngIf="column.isEditing && editingRow == i && column.options">
+                  <select class="form-control" style="width:70%;display:inline-block" [value]="getData(row, column.name)" #newValue (keyup.enter)="submitChange(row, i, column.name, j, newValue)">
+                    <option *ngFor="let option of column.options" [value]="option"> {{option}}</option>
+                  </select>
+                  <span class="pull-right" *ngIf="column.editable"><i class="fa fa-check-square-o" aria-hidden="true" (click)="submitChange(row, i, column.name, j, newValue)"></i></span>
+                </td>
+              </template>
           </tr>
           <tr *ngIf="showExpandedRow && (i == expandedRowIndex) && expandable" class="table-info" >
               <td [attr.colspan]="columns.length + 1">
@@ -55,9 +72,6 @@ export class NgTableComponent {
   @Input() public expandable:boolean = true;
   @Input()
   public set config(conf:any) {
-    if (!conf.className) {
-      conf.className = 'table-striped table-bordered';
-    }
     if (conf.className instanceof Array) {
       conf.className = conf.className.join(' ');
     }
@@ -70,10 +84,12 @@ export class NgTableComponent {
   @Output() public cellClicked:EventEmitter<any> = new EventEmitter();
   @Output() public expanderClicked:EventEmitter<any> = new EventEmitter();
   @Output() public scrolledDown:EventEmitter<any> = new EventEmitter();
+  @Output() public valueEdit:EventEmitter<any> = new EventEmitter();
 
   public showFilterRow:Boolean = false;
   public showExpandedRow:Boolean = false;
   public expandedRowIndex:number = null;
+  public editingRow:number = null
 
   @Input()
   public set columns(values:Array<any>) {
@@ -164,5 +180,25 @@ export class NgTableComponent {
 
   public cellClick(row:any, column:any):void {
     this.cellClicked.emit({row, column});
+  }
+
+  public setRowToEdit(rowIndex:any, column:any){
+    this.editingRow = rowIndex;
+    for(let col of this.columns){
+      col.isEditing = false;
+    }
+    this.columns[column].isEditing = true;
+  }
+
+  public submitChange(row:any, rIndex:number, columnName:string, cIndex:number, newVal:any ){
+    this.valueEdit.emit({
+                        rowChanged: row,
+                        rowIndex: rIndex,
+                        columnChanged: columnName,
+                        columnIndex: cIndex,
+                        oldValue: row[columnName],
+                        newValue: newVal.value
+                        })
+    this.editingRow = null;
   }
 }

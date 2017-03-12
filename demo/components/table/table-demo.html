@@ -12,6 +12,8 @@
           (cellClicked)="onCellClick($event)"
           (scrolledDown)="onScrollDown()"
           (expanderClicked)="expanderClicked($event)"
+          (valueEdit)="editRow($event)"
           [rows]="rows" [columns]="columns"
+          [expandable]="true"
           [expandedComponent]="rowComponent">
 </ng-table>

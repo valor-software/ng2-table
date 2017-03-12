@@ -28,7 +28,20 @@ Simple table extension with sorting, filtering, paging, expandable rows, and inf
 - `length` (`number`) - total number of the items after filtering (of it's chosen)
 - `expandable` (`boolean`) - allows expand columns and allows rows to expand after clicked
 - `expandedComponent` (`string`) - component to insert into expanding row;
-
+- `rows` (`?Array<any>`) - only list of the rows which should be displayed
+---
+- `columns` (`?Array<any>`) - config for columns (+ sorting settings if it's needed)
+  - `title` (`string`) - the title of column header
+  - `name` (`string`) - the property name in data
+  - `sort` (`?string|boolean`) - config for columns (+ sorting settings if it's needed), sorting is switched on by default for each column
+  - `className` (`string|Array<string>`) - additional CSS classes that should be added to a column header
+  - `filtering` (`?any`) - switch on the filtering plugin
+    - `filterString` (`string`) - the default value for filter
+    - `columnName` (`string`) - the property name in raw data
+  - `editable` (`boolean`) - allows values under this column to be changed (note this just facilitates the change, you must use the valueEdit output event to make changes permanent)
+  - `options` (`?Array<string>`) - if an array is provided, the editing will be a select dropdown rather than an input
+  - `isEditing` (`boolean`) - autoset by the table, however this can be used to customize editing multiple cells in a row
+  ---
 - `config` (`?any`) - config for setup all plugins (filtering, sorting, paging):
   - `paging` (`?boolean`) - - switch on the paging plugin
   - `sorting` (`?any`) - switch on the sorting plugin
@@ -39,17 +52,7 @@ Simple table extension with sorting, filtering, paging, expandable rows, and inf
   - `className` (`string|Array<string>`) - additional CSS classes that should be added to a <table>
   - `height` (`string`) - height of the table component
   - `infiniteScroll` (`boolean`) - allows for infinite scroll to work
-  - `renderMoreAt` (`number`) - a number between 0.01 and 0.99 representing percentage of scroll to render more data
-
-- `rows` (`?Array<any>`) - only list of the rows which should be displayed
-- `columns` (`?Array<any>`) - config for columns (+ sorting settings if it's needed)
-    - `title` (`string`) - the title of column header
-    - `name` (`string`) - the property name in data
-    - `sort` (`?string|boolean`) - config for columns (+ sorting settings if it's needed), sorting is switched on by default for each column
-    - `className` (`string|Array<string>`) - additional CSS classes that should be added to a column header
-    - `filtering` (`?any`) - switch on the filtering plugin
-      - `filterString` (`string`) - the default value for filter
-      - `columnName` (`string`) - the property name in raw data
+  - `renderMoreAt` (`number`) - a number between 0.01 and 0.99 representing percentage of scroll to render more data (note this will activate the scrolledDown event, letting you know to render more rows)
 
 ### Outputs (Events)
 
@@ -57,6 +60,7 @@ Simple table extension with sorting, filtering, paging, expandable rows, and inf
 - `cellClicked`: onclick event handler
 - `expanderClicked`: onclick for expander event handler
 - `scrolledDown`: scrolled down to renderMore at percentage event handler
+- `valueEdit` : returns the row, column, row index, column index, original value, and new value in one object after an editable table cell has been submitted 
 
 ### Filter
 

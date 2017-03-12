@@ -16,10 +16,10 @@ export class TableDemoComponent implements OnInit {
     {
       title: 'Position',
       name: 'position',
-      sort: false,
-      filtering: {filterString: '', placeholder: 'Filter by position'}
+      editable: true,
+      options: ["Entry", "Junior", "Senior"]
     },
-    {title: 'Salary ($)', name: 'salary'}
+    {title: 'Salary ($)', name: 'salary', editable: true}
   ];
   public page:number = 1;
   public itemsPerPage:number = 10;
@@ -152,6 +152,14 @@ export class TableDemoComponent implements OnInit {
 
   public expanderClicked(row: any){
       console.log(row);
+  }
+
+  editRow(changeData:any){
+    console.log(changeData);
+    // here you would maybe make some http request or do validation
+    if(changeData.newValue !== ""){
+      this.rows[changeData.rowIndex][changeData.columnChanged] = changeData.newValue;
+    }
   }
 
   public onCellClick(data: any): any {
