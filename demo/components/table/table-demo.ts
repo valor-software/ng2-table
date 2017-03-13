@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TableData, TableActions} from './table-data';
+import { TableData, TableActions } from './table-data';
 
 // webpack html imports
 let template = require('./table-demo.html');
@@ -111,7 +111,7 @@ export class TableDemoComponent implements OnInit {
     filteredData.forEach((item:any) => {
       let flag = false;
       this.columns.forEach((column:any) => {
-        if (column.name != 'action' && item[column.name].toString().match(this.config.filtering.filterString)) {
+        if (column.name !== 'action' && item[column.name].toString().match(this.config.filtering.filterString)) {
           flag = true;
         }
       });

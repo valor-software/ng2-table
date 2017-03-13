@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'ng-table',
@@ -91,10 +91,6 @@ export class NgTableComponent {
   public constructor(private sanitizer: DomSanitizer) {
   }
 
-  private enableColumnAction(addColumnAction: boolean, actions: any): boolean {
-    return addColumnAction && actions;
-  }
-
   public sanitize(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
@@ -138,5 +134,9 @@ export class NgTableComponent {
 
   public clickActions(row: any, action: any): void {
     this.actionsclicked.emit({row, action});
+  }
+
+  public enableColumnAction(addColumnAction: boolean, actions: any): boolean {
+    return addColumnAction && actions;
   }
 }
