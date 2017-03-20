@@ -58,6 +58,7 @@ Follow me [![twitter](https://img.shields.io/twitter/follow/valorkin.svg?style=s
     - `filtering` (`?any`) - switch on the filtering plugin
       - `filterString` (`string`) - the default value for filter
       - `columnName` (`string`) - the property name in raw data
+    - `headerAttrs` (`Array<any>`) - Array of Attributes name/value for the column th.    
 
 ### Outputs (Events)
 
