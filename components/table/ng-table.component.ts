@@ -90,9 +90,9 @@ export class NgTableComponent {
   public get config():any {
     return this._config;
   }
-  
-  public clearColumns () : void {
-    this._columns = [];    
+
+  public clearColumns():void {
+    this._columns = [];
   }
 
   public get configColumns():any {
