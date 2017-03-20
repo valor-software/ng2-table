@@ -91,6 +91,10 @@ export class NgTableComponent {
     return this._config;
   }
 
+  public clearColumns():void {
+    this._columns = [];
+  }
+
   public get configColumns():any {
     let sortColumns:Array<any> = [];
 
