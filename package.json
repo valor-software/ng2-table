@@ -46,7 +46,12 @@
     "url": "https://github.com/valor-software/ng2-table/issues"
   },
   "homepage": "https://github.com/valor-software/ng2-table#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@angular/common": "^2.0.0",
+    "@angular/compiler": "^2.0.0",
+    "@angular/core": "^2.0.0",
+    "@angular/forms": "^2.0.0"
+  },
   "peerDependencies": {
     "@angular/common": "^2.0.0",
     "@angular/compiler": "^2.0.0",
