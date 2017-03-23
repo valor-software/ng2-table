@@ -1,20 +1,21 @@
-import { Directive,ElementRef, Renderer, Input, AfterViewChecked} from '@angular/core';
+import { Directive, ElementRef, Input, AfterViewChecked } from '@angular/core';
 
-@Directive({selector: '[headerAttrs]'})
+@Directive({ selector: '[headerAttrs]' })
 
 export class NgTableHeaderAttrsDirective implements AfterViewChecked {
-    @Input() headerAttrs:any;
+  @Input() private headerAttrs: any;
 
-    public constructor(private element:ElementRef, private renderer:Renderer) {}
+  public constructor(private element: ElementRef) { }
 
-    ngAfterViewChecked() {
+  public ngAfterViewChecked(): void {
 
-        if(this.headerAttrs){
-            this.headerAttrs.forEach( (value: any, index: number) => {
-                const attrKey = Object.keys(value)[0];
-                const attrValue = value[attrKey];
-                this.element.nativeElement.setAttribute(attrKey, attrValue);       
-            })
-        }
+    if (this.headerAttrs) {
+      this.headerAttrs.forEach((value: any) => {
+        const attrKey = Object.keys(value)[0];
+        const attrValue = value[attrKey];
+        this.element.nativeElement.setAttribute(attrKey, attrValue);
+      });
     }
+
+  }
 }

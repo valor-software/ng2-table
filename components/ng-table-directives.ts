@@ -5,8 +5,8 @@ import { NgTableSortingDirective } from './table/ng-table-sorting.directive';
 import { NgTableHeaderAttrsDirective } from './table/ng-table-header-attrs.directive';
 
 export const NG_TABLE_DIRECTIVES = [
-    NgTableComponent,
-    NgTableFilteringDirective,
-    NgTablePagingDirective,
-    NgTableSortingDirective,
-    NgTableHeaderAttrsDirective];
+  NgTableComponent,
+  NgTableFilteringDirective,
+  NgTablePagingDirective,
+  NgTableSortingDirective,
+  NgTableHeaderAttrsDirective];
