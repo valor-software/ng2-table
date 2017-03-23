@@ -8,7 +8,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
            role="grid" style="width: 100%;">
       <thead>
         <tr role="row">
-          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" 
+          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column"
+              [headerAttrs]="column.attrs || []" 
               (sortChanged)="onChangeTable($event)" ngClass="{{column.className || ''}}">
             {{column.title}}
             <i *ngIf="config && column.sort" class="pull-right fa"
