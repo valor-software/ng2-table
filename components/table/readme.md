@@ -28,6 +28,7 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
     - `filterString` (`string`) - the default value for filter
     - `columnName` (`string`) - the property name in raw data
   - `className` (`string|Array<string>`) - additional CSS classes that should be added to a <table>
+  - `api` (`Object`) - callback that should be added for use on actions inside a <table>
 
 - `rows` (`?Array<any>`) - only list of the rows which should be displayed
 - `columns` (`?Array<any>`) - config for columns (+ sorting settings if it's needed)
@@ -38,6 +39,16 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
     - `filtering` (`?any`) - switch on the filtering plugin
       - `filterString` (`string`) - the default value for filter
       - `columnName` (`string`) - the property name in raw data
+    - `actions` (`?any`) - actions configuration for additional cols with customs buttons in each row
+      - `type` (`string= (simple | group | dropdown)`) - type of buttons 
+      - `dropdownTitle` (`string`) - dropdown title when type drodown is configured
+      - `dropdownStyleClass` (`string`) - style class for dropdown button
+      - `buttons` (`Array<any>`) - array of buttons with actions
+        - `name` (`string`) - button name
+        - `title` (`string`) - button title
+        - `styleClass` (`string`) - style class for button
+        - `styleIcon` (`string`) - style class to add icon
+        - `action`( `string`) - function call on config.api when click in the button
 
 ### Outputs (Events)
 

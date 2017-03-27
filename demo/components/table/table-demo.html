@@ -7,11 +7,13 @@
   </div>
 </div>
 <br>
-<ng-table [config]="config"
-          (tableChanged)="onChangeTable(config)"
-          (cellClicked)="onCellClick($event)"
-          [rows]="rows" [columns]="columns">
-</ng-table>
+<div class="scroll">
+  <ng-table [config]="config"
+            (tableChanged)="onChangeTable(config)"
+            (cellClicked)="onCellClick($event)"
+            [rows]="rows" [columns]="columns">
+  </ng-table>
+</div>
 <pagination *ngIf="config.paging"
             class="pagination-sm"
             [(ngModel)]="page"

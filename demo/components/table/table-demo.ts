@@ -21,7 +21,67 @@ export class TableDemoComponent implements OnInit {
     {title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc'},
     {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
     {title: 'Start date', className: 'text-warning', name: 'startDate'},
-    {title: 'Salary ($)', name: 'salary'}
+    {title: 'Salary ($)', name: 'salary'},
+    {
+      title: 'Simple',
+      name: 'actionSimple',
+      actions: {
+        type: 'simple',
+        buttons: [
+          {
+            name: 'edit',
+            title: 'Edit',
+            styleClass: 'btn btn-primary',
+            styleIcon: 'fa fa-pencil',
+            action: 'onEdit'
+          }
+        ]
+      }
+    },
+    {
+      title: 'Group',
+      name: 'actionGroup',
+      actions: {
+        type: 'group',
+        buttons: [
+          {
+            name: 'edit',
+            title: 'Edit',
+            styleClass: 'btn btn-primary',
+            action: 'onEdit'
+          },
+          {
+            name: 'delete',
+            title: 'Delete',
+            styleClass: 'btn btn-danger',
+            action: 'onDelete'
+          }
+        ]
+      }
+    },
+    {
+      title: 'Dropdown',
+      name: 'actionDropdown',
+      actions: {
+        type: 'dropdown',
+        dropdownTitle: 'Actions',
+        dropdownStyleClass: 'btn btn-danger',
+        buttons: [
+          {
+            name: 'edit',
+            title: 'Edit',
+            styleClass: 'btn btn-primary',
+            action: 'onEdit'
+          },
+          {
+            name: 'delete',
+            title: 'Delete',
+            styleClass: 'btn btn-danger',
+            action: 'onDelete'
+          }
+       ]
+      }
+    }
   ];
   public page:number = 1;
   public itemsPerPage:number = 10;
@@ -33,7 +93,11 @@ export class TableDemoComponent implements OnInit {
     paging: true,
     sorting: {columns: this.columns},
     filtering: {filterString: ''},
-    className: ['table-striped', 'table-bordered']
+    className: ['table-striped', 'table-bordered'],
+    api: {
+        onEdit: this.onEdit.bind(this),
+        onDelete: this.onDelete.bind(this)
+      }
   };
 
   private data:Array<any> = TableData;
@@ -44,6 +108,14 @@ export class TableDemoComponent implements OnInit {
 
   public ngOnInit():void {
     this.onChangeTable(this.config);
+  }
+
+  public onEdit(data: any):void {
+    console.log('edited', data);
+  }
+
+  public onDelete(data: any):void {
+    console.log('deleted', data);
   }
 
   public changePage(page:any, data:Array<any> = this.data):Array<any> {
@@ -106,7 +178,8 @@ export class TableDemoComponent implements OnInit {
     filteredData.forEach((item:any) => {
       let flag = false;
       this.columns.forEach((column:any) => {
-        if (item[column.name].toString().match(this.config.filtering.filterString)) {
+        if ( item[column.name] &&
+             item[column.name].toString().match(this.config.filtering.filterString)) {
           flag = true;
         }
       });
