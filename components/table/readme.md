@@ -41,7 +41,7 @@ There are only simple table with 3 plugins/directives: `filtering`, `paging`, `s
       - `columnName` (`string`) - the property name in raw data
     - `actions` (`?any`) - actions configuration for additional cols with customs buttons in each row
       - `type` (`string= (simple | group | dropdown)`) - type of buttons 
-      - `dropdownTitle` (`string`) - dropdown title when type drodown is configured
+      - `dropdownTitle` (`string`) - dropdown title when type dropdown is configured
       - `dropdownStyleClass` (`string`) - style class for dropdown button
       - `buttons` (`Array<any>`) - array of buttons with actions
         - `name` (`string`) - button name
