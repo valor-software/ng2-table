@@ -34,6 +34,7 @@ export class TableDemoComponent implements OnInit {
   public length:number = 0;
 
   public config:any = {
+    addIconSort: true,
     paging: true,
     columnActions: {title: 'Actions'},
     sorting: {columns: this.columns},
