@@ -7,11 +7,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     <table class="table dataTable" ngClass="{{config.className || ''}}" role="grid" style="width: 100%;">
       <thead>
         <tr role="row">
-          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" 
+          <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column"
               (sortChanged)="onChangeTable($event)" ngClass="{{column.className || ''}}">
             {{column.title}}
             <i *ngIf="config && config.addIconSort && column.sort" class="pull-right fa"
-              [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
+               [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
           </th>
           <th *ngIf="enableColumnAction(config.columnActions, actions)">
             {{config.columnActions.title}}
@@ -30,11 +30,12 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
         <td *ngIf="enableColumnAction(config.columnActions, actions)"></td>
       </tr>
         <tr *ngFor="let row of rows">
-          <td (click)="cellClick(row, column.name)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))"></td>
+          <td (click)="cellClick(row, column.name)" *ngFor="let column of columns"
+              [innerHtml]="sanitize(getData(row, column.name))"></td>
           <td *ngIf="enableColumnAction(config.columnActions, actions)">
-            <a *ngFor="let action of actions" 
-                class="" ngClass="{{action.classBtn || ''}}"
-                (click)="clickActions(row, action)">
+            <a *ngFor="let action of actions"
+               class="" ngClass="{{action.classBtn || ''}}"
+               (click)="clickActions(row, action)">
                 <i class="" ngClass="{{action.classIcon || ''}}"></i> {{action.title}}
              </a>
           </td>
@@ -68,6 +69,7 @@ export class NgTableComponent {
 
   @Input()
   public set columns(values: Array<any>) {
+    let newColumns: Array<any> = [];
     values.forEach((value: any) => {
       if (value.filtering) {
         this.showFilterRow = true;
@@ -79,10 +81,9 @@ export class NgTableComponent {
       if (column) {
         Object.assign(column, value);
       }
-      if (!column) {
-        this._columns.push(value);
-      }
+      newColumns.push(value);
     });
+    this._columns = newColumns;
   }
 
   private _columns: Array<any> = [];
