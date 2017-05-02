@@ -1,4 +1,6 @@
 # ng2-table [![npm version](https://badge.fury.io/js/ng2-table.svg)](http://badge.fury.io/js/ng2-table)
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/valor-software/ng2-table.svg)](https://greenkeeper.io/)
 Simple table extension with sorting, filtering, paging... for Angular2 apps
 
 Follow me [![twitter](https://img.shields.io/twitter/follow/valorkin.svg?style=social&label=%20valorkin)](https://twitter.com/valorkin) to be notified about new releases.
