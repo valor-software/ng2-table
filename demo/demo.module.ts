@@ -3,8 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import { PaginationModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { TabsModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { PaginationModule } from 'ng2-bootstrap';
+import { TooltipModule } from 'ng2-bootstrap';
+import { TabsModule } from 'ng2-bootstrap';
 
 import { Ng2TableModule } from '../components/ng-table-module';
 
@@ -24,6 +25,7 @@ import { DemoComponent } from './demo.component';
     FormsModule,
     Ng2TableModule,
     PaginationModule,
+    TooltipModule,
     TabsModule,
     CommonModule
   ],

@@ -33,7 +33,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
           <td (click)="cellClick(row, column.name)" *ngFor="let column of columns"
               [innerHtml]="sanitize(getData(row, column.name))"></td>
           <td *ngIf="enableColumnAction(config.columnActions, actions)">
-            <a *ngFor="let action of actions"
+            <a *ngFor="let action of actions" tooltip="{{action.tooltip || ''}}" placement="top"
                class="" ngClass="{{action.classBtn || ''}}"
                (click)="clickActions(row, action)">
                 <i class="" ngClass="{{action.classIcon || ''}}"></i> {{action.title}}
