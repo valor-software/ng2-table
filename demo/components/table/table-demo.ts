@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { TableData } from './table-data';
 
 // webpack html imports
@@ -9,32 +9,16 @@ let template = require('./table-demo.html');
   template
 })
 export class TableDemoComponent implements OnInit {
+  @ViewChild('ButtonTemplate') buttonTemplate : TemplateRef<ElementRef>;
   public rows:Array<any> = [];
-  public columns:Array<any> = [
-    {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {
-      title: 'Position',
-      name: 'position',
-      sort: false,
-      filtering: {filterString: '', placeholder: 'Filter by position'}
-    },
-    {title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc'},
-    {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
-    {title: 'Start date', className: 'text-warning', name: 'startDate'},
-    {title: 'Salary ($)', name: 'salary'}
-  ];
+  public columns:Array<any>;
   public page:number = 1;
   public itemsPerPage:number = 10;
   public maxSize:number = 5;
   public numPages:number = 1;
   public length:number = 0;
 
-  public config:any = {
-    paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: ''},
-    className: ['table-striped', 'table-bordered']
-  };
+  public config:any;
 
   private data:Array<any> = TableData;
 
@@ -43,6 +27,26 @@ export class TableDemoComponent implements OnInit {
   }
 
   public ngOnInit():void {
+    this.columns = [
+      {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
+      {
+        title: 'Position',
+        name: 'position',
+        sort: false,
+        filtering: {filterString: '', placeholder: 'Filter by position'}
+      },
+      {title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc'},
+      {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
+      {title: 'Start date', className: 'text-warning', name: 'startDate'},
+      {title: 'Salary ($)', name: 'salary'},
+      {title: 'Button', name: 'button', template: this.buttonTemplate}
+    ];
+    this.config = {
+      paging: true,
+      sorting: {columns: this.columns},
+      filtering: {filterString: ''},
+      className: ['table-striped', 'table-bordered']
+    };
     this.onChangeTable(this.config);
   }
 

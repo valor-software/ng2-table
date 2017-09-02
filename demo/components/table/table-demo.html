@@ -11,6 +11,10 @@
           (tableChanged)="onChangeTable(config)"
           (cellClicked)="onCellClick($event)"
           [rows]="rows" [columns]="columns">
+ 
+          <template #ButtonTemplate let-data="data">
+            <button [innerHtml]="data.html"></button>
+          </template>         
 </ng-table>
 <pagination *ngIf="config.paging"
             class="pagination-sm"
@@ -22,5 +26,5 @@
             [rotate]="false"
             (pageChanged)="onChangeTable(config, $event)"
             (numPages)="numPages = $event">
-</pagination>
+</pagination>  
 <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
