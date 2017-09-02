@@ -27,7 +27,18 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
         </td>
       </tr>
         <tr *ngFor="let row of rows">
-          <td (click)="cellClick(row, column.name)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))"></td>
+          <td (click)="cellClick(row, column.name)" *ngFor="let column of columns">
+
+            <template
+              [ngTemplateOutlet]="column.template || defaultCellTemplate"
+              [ngOutletContext]="{data: {row: row, html: sanitize(getData(row, column.name))}}">
+            </template> 
+
+            <template #defaultCellTemplate let-data="data">
+              <span [innerHtml]="data.html"></span>
+            </template>           
+
+          </td>
         </tr>
       </tbody>
     </table>
@@ -46,6 +57,7 @@ export class NgTableComponent {
       conf.className = conf.className.join(' ');
     }
     this._config = conf;
+    
   }
 
   // Outputs (Events)
