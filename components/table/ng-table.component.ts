@@ -21,7 +21,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
         <td *ngFor="let column of columns">
           <input *ngIf="column.filtering" placeholder="{{column.filtering.placeholder}}"
                  [ngTableFiltering]="column.filtering"
-                 class="form-control"
+                 class="form-control form-control-sm"
                  style="width: auto;"
                  (tableChanged)="onChangeTable(config)"/>
         </td>
@@ -89,6 +89,10 @@ export class NgTableComponent {
 
   public get config():any {
     return this._config;
+  }
+  
+  public clearColumns () : void {
+    this._columns = [];    
   }
 
   public get configColumns():any {
