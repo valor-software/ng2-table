@@ -56,6 +56,7 @@ export class NgTableComponent {
 
   @Input()
   public set columns(values:Array<any>) {
+    const names = values.map(v => v.name);
     values.forEach((value:any) => {
       if (value.filtering) {
         this.showFilterRow = true;
@@ -63,6 +64,12 @@ export class NgTableComponent {
       if (value.className && value.className instanceof Array) {
         value.className = value.className.join(' ');
       }
+      if (this._columns.length) {
+                    var difference = this._columns.filter(x => names.indexOf(x.name) === -1);
+                    difference.forEach(function (d) {
+                        this._columns.splice(this._columns.indexOf(d), 1);
+                    });
+                }
       let column = this._columns.find((col:any) => col.name === value.name);
       if (column) {
         Object.assign(column, value);
