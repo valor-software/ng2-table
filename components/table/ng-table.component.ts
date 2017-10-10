@@ -65,11 +65,11 @@ export class NgTableComponent {
         value.className = value.className.join(' ');
       }
       if (this._columns.length) {
-                    var difference = this._columns.filter(x => names.indexOf(x.name) === -1);
-                    difference.forEach(function (d) {
-                        this._columns.splice(this._columns.indexOf(d), 1);
-                    });
-                }
+        const difference = this._columns.filter(x => names.indexOf(x.name) === -1);
+        difference.forEach(function (d) {
+          this._columns.splice(this._columns.indexOf(d), 1);
+          });
+      }
       let column = this._columns.find((col:any) => col.name === value.name);
       if (column) {
         Object.assign(column, value);
