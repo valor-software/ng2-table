@@ -126,7 +126,7 @@ export class NgTableComponent {
   }
 
   public getData(row: any, propertyName: string): string {
-    return propertyName.split('.').reduce((prev: any, curr: string) => prev[curr], row);
+    return row[propertyName];
   }
 
   public cellClick(row: any, column: any): void {
