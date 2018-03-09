@@ -3,6 +3,7 @@ import { NgTableComponent } from './components/table/ng-table.component';
 import { NgTableFilteringDirective } from './components/table/ng-table-filtering.directive';
 import { NgTablePagingDirective } from './components/table/ng-table-paging.directive';
 import { NgTableSortingDirective } from './components/table/ng-table-sorting.directive';
+import { TooltipDirective } from 'ng2-bootstrap';
 
 export * from './components/table/ng-table.component';
 
@@ -17,7 +18,8 @@ export default {
     NgTableComponent,
     NgTableFilteringDirective,
     NgTableSortingDirective,
-    NgTablePagingDirective
+    NgTablePagingDirective,
+    TooltipDirective
   ]
 };
 

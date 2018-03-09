@@ -10,7 +10,8 @@
 <ng-table [config]="config"
           (tableChanged)="onChangeTable(config)"
           (cellClicked)="onCellClick($event)"
-          [rows]="rows" [columns]="columns">
+          (actionsclicked)="onActionClick($event)"
+          [rows]="rows" [columns]="columns" [actions]="actions">
 </ng-table>
 <pagination *ngIf="config.paging"
             class="pagination-sm"

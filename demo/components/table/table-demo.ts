@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TableData } from './table-data';
+import { TableData, TableActions } from './table-data';
 
 // webpack html imports
 let template = require('./table-demo.html');
@@ -9,7 +9,10 @@ let template = require('./table-demo.html');
   template
 })
 export class TableDemoComponent implements OnInit {
+
   public rows:Array<any> = [];
+  public actions:Array<any> = TableActions;
+
   public columns:Array<any> = [
     {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {
@@ -23,6 +26,7 @@ export class TableDemoComponent implements OnInit {
     {title: 'Start date', className: 'text-warning', name: 'startDate'},
     {title: 'Salary ($)', name: 'salary'}
   ];
+
   public page:number = 1;
   public itemsPerPage:number = 10;
   public maxSize:number = 5;
@@ -30,7 +34,9 @@ export class TableDemoComponent implements OnInit {
   public length:number = 0;
 
   public config:any = {
+    addIconSort: true,
     paging: true,
+    columnActions: {title: 'Actions'},
     sorting: {columns: this.columns},
     filtering: {filterString: ''},
     className: ['table-striped', 'table-bordered']
@@ -106,7 +112,7 @@ export class TableDemoComponent implements OnInit {
     filteredData.forEach((item:any) => {
       let flag = false;
       this.columns.forEach((column:any) => {
-        if (item[column.name].toString().match(this.config.filtering.filterString)) {
+        if (column.name !== 'action' && item[column.name].toString().match(this.config.filtering.filterString)) {
           flag = true;
         }
       });
@@ -135,6 +141,10 @@ export class TableDemoComponent implements OnInit {
   }
 
   public onCellClick(data: any): any {
+    console.log(data);
+  }
+
+  public onActionClick(data: any): any {
     console.log(data);
   }
 }
