@@ -19,7 +19,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
       <tbody>
       <tr *ngIf="showFilterRow">
         <td *ngFor="let column of columns">
-          <input *ngIf="column.filtering" placeholder="{{column.filtering.placeholder}}"
+          <input *ngIf="column.filtering" value="{{column.filtering.filterString}}" placeholder="{{column.filtering.placeholder}}"
                  [ngTableFiltering]="column.filtering"
                  class="form-control"
                  style="width: auto;"
