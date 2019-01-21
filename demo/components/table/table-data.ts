@@ -7,7 +7,7 @@ export const TableData: Array<any> = [
     'startDate': '2015/08/19',
     'salary': 208.178
   }, {
-    'name': 'Pearl Crosby',
+    'name': 'Victoria Crosby',
     'position': 'In PC',
     'office': 'Cambodia',
     'ext': '8262',
