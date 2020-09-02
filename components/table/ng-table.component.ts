@@ -26,7 +26,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
                  (tableChanged)="onChangeTable(config)"/>
         </td>
       </tr>
-        <tr *ngFor="let row of rows" [ngClass]="{ 'selected': config.isCompleted(row) }">
+        <tr *ngFor="let row of rows" [ngClass]="{ 'selected': config.rowSelectionCallback(row) }">
           <td (click)="cellClick(row, column.name)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))"></td>
         </tr>
       </tbody>
