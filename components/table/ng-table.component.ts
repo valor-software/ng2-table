@@ -104,13 +104,11 @@ export class NgTableComponent {
   }
 
   public onChangeTable(column:any):void {
-    if (column.name !== undefined) {
-      this._columns.forEach((col:any) => {
-        if (col.name !== column.name && col.sort !== false) {
-          col.sort = '';
-        }
-      });
-    }
+    this._columns.forEach((col:any) => {
+      if (col.name !== column.name && col.sort !== false) {
+        col.sort = '';
+      }
+    });
     this.tableChanged.emit({sorting: this.configColumns});
   }
 
