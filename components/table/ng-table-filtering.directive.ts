@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, ElementRef, Renderer2, HostListener, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, ElementRef, Renderer, HostListener, Input, Output } from '@angular/core';
 
 // import {setProperty} from 'angular2/ts/src/core/forms/directives/shared';
 function setProperty(renderer:Renderer, elementRef:ElementRef, propName:string, propValue:any):void {
@@ -32,7 +32,7 @@ export class NgTableFilteringDirective {
     this.tableChanged.emit({filtering: this.ngTableFiltering});
   }
 
-  public constructor(element:ElementRef, renderer:Renderer2) {
+  public constructor(element:ElementRef, renderer:Renderer) {
     this.element = element;
     this.renderer = renderer;
     // Set default value for filter
